@@ -1,0 +1,287 @@
+{
+    "layanan": [
+        {
+            "id": "s6a17497357",
+            "aktif": true,
+            "sesi": 0,
+            "dibuat": "2026-11-10T17:29:28+00:00",
+            "nama": "Self Foto",
+            "jenis_harga": "tunggal",
+            "harga_tunggal": 70000,
+            "harga_pilihan": [],
+            "keterangan_harga": "layanan",
+            "durasi": {
+                "nilai": 30,
+                "satuan": "Menit"
+            },
+            "estimasi_hasil": {
+                "nilai": 1,
+                "satuan": "Hari"
+            },
+            "maks_orang": 7,
+            "deskripsi": "Lorem Ipsum",
+            "output": [
+                {
+                    "nama": "10 Soft File Hasil Foto + Editing",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                },
+                {
+                    "nama": "1 Hard File (cetak) Ukuran 4R",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                },
+                {
+                    "nama": "1 Warna Background Bebas Pilih Warna",
+                    "tipe": "pilihan",
+                    "sub_pilihan": [
+                        "Merah",
+                        "Biru",
+                        "Krem",
+                        "Abu - abu"
+                    ]
+                }
+            ],
+            "kebutuhan_jadwal": true,
+            "tampil_publik": true
+        },
+        {
+            "id": "s0711e95455",
+            "aktif": true,
+            "sesi": 0,
+            "dibuat": "2026-11-11T02:07:07+00:00",
+            "nama": "Cetak Kilat",
+            "jenis_harga": "pilihan",
+            "harga_tunggal": null,
+            "harga_pilihan": [
+                {
+                    "nama": "Hard File (Cetak)",
+                    "pilihan": [
+                        {
+                            "nama": "4 x 6",
+                            "harga": 2000
+                        },
+                        {
+                            "nama": "3 x 4 / 4 x 3 / 2 x3",
+                            "harga": 2500
+                        },
+                        {
+                            "nama": "3R",
+                            "harga": 4000
+                        },
+                        {
+                            "nama": "4R",
+                            "harga": 5000
+                        },
+                        {
+                            "nama": "15R/Rs",
+                            "harga": 20000
+                        },
+                        {
+                            "nama": "16Rs",
+                            "harga": 30000
+                        }
+                    ]
+                }
+            ],
+            "keterangan_harga": "layanan",
+            "durasi": {
+                "nilai": 1,
+                "satuan": "Menit"
+            },
+            "estimasi_hasil": null,
+            "maks_orang": null,
+            "deskripsi": "abcdefghijkl",
+            "output": [
+                {
+                    "nama": "10 Soft File Hasil Foto + Editing",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                },
+                {
+                    "nama": "1 Warna Background Bebas Pilih Warna",
+                    "tipe": "pilihan",
+                    "sub_pilihan": [
+                        "Merah",
+                        "Biru"
+                    ]
+                }
+            ],
+            "kebutuhan_jadwal": false,
+            "tampil_publik": true
+        },
+        {
+            "id": "s4f49e35ffb",
+            "aktif": true,
+            "sesi": 0,
+            "dibuat": "2026-11-11T02:08:36+00:00",
+            "nama": "Family Studio",
+            "jenis_harga": "tunggal",
+            "harga_tunggal": 130000,
+            "harga_pilihan": [],
+            "keterangan_harga": "layanan",
+            "durasi": {
+                "nilai": 30,
+                "satuan": "Menit"
+            },
+            "estimasi_hasil": {
+                "nilai": 1,
+                "satuan": "Hari"
+            },
+            "maks_orang": null,
+            "deskripsi": "abdefjklmn",
+            "output": [
+                {
+                    "nama": "10 Soft File Hasil Foto + Editing",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                },
+                {
+                    "nama": "1 Warna Background Bebas Pilih Warna",
+                    "tipe": "pilihan",
+                    "sub_pilihan": [
+                        "Merah",
+                        "Biru"
+                    ]
+                }
+            ],
+            "kebutuhan_jadwal": true,
+            "tampil_publik": true
+        }
+    ],
+    "addon": [
+        {
+            "id": "adc1db64f6c",
+            "layanan_id": "s6a17497357",
+            "aktif": true,
+            "urutan": 1,
+            "nama": "Hard File (Cetak)",
+            "jenis_harga": "pilihan",
+            "harga_tunggal": null,
+            "keterangan_harga": null,
+            "pilihan_harga": [
+                {
+                    "nama": "3 × 4",
+                    "harga": 2000,
+                    "keterangan": "pcs"
+                },
+                {
+                    "nama": "3R",
+                    "harga": 2000,
+                    "keterangan": "pcs"
+                },
+                {
+                    "nama": "editing",
+                    "harga": 5000,
+                    "keterangan": "pcs"
+                }
+            ],
+            "deskripsi": null,
+            "durasi": {
+                "nilai": 10,
+                "satuan": "Menit"
+            }
+        },
+        {
+            "id": "ac16c20af59",
+            "layanan_id": "s6a17497357",
+            "aktif": true,
+            "urutan": 0,
+            "nama": "abc",
+            "jenis_harga": "pilihan",
+            "harga_tunggal": null,
+            "keterangan_harga": null,
+            "pilihan_harga": [
+                {
+                    "nama": "3 × 4",
+                    "harga": 2000,
+                    "keterangan": "non"
+                },
+                {
+                    "nama": "3R",
+                    "harga": 2000,
+                    "keterangan": "pcs"
+                }
+            ],
+            "deskripsi": null,
+            "durasi": null
+        },
+        {
+            "id": "a1137203142",
+            "layanan_id": "s0711e95455",
+            "aktif": true,
+            "urutan": 1,
+            "nama": "Hard File (Cetak)",
+            "jenis_harga": "pilihan",
+            "harga_tunggal": null,
+            "keterangan_harga": null,
+            "pilihan_harga": [
+                {
+                    "nama": "3 × 4",
+                    "harga": 2000,
+                    "keterangan": "pcs"
+                },
+                {
+                    "nama": "3R",
+                    "harga": 2000,
+                    "keterangan": "pcs"
+                }
+            ],
+            "deskripsi": null,
+            "durasi": null
+        },
+        {
+            "id": "ad648072c51",
+            "layanan_id": "s0711e95455",
+            "aktif": true,
+            "urutan": 0,
+            "nama": "abc",
+            "jenis_harga": "pilihan",
+            "harga_tunggal": null,
+            "keterangan_harga": null,
+            "pilihan_harga": [
+                {
+                    "nama": "aaa",
+                    "harga": 1000,
+                    "keterangan": "pcs"
+                }
+            ],
+            "deskripsi": null,
+            "durasi": null
+        }
+    ],
+    "gallery": [
+        {
+            "id": "g9589a354df",
+            "layanan_id": "s4f49e35ffb",
+            "url": "/uploads/img_75a70c42df.jpg",
+            "caption": "",
+            "cover": true,
+            "urutan": 0
+        },
+        {
+            "id": "g1a28c655b4",
+            "layanan_id": "s0711e95455",
+            "url": "/uploads/img_cb6c7b336a.jpg",
+            "caption": "",
+            "cover": true,
+            "urutan": 1
+        },
+        {
+            "id": "g2bffab1498",
+            "layanan_id": "s6a17497357",
+            "url": "/uploads/img_aac35cf54f.jpg",
+            "caption": "",
+            "cover": true,
+            "urutan": 0
+        },
+        {
+            "id": "ge1bd204855",
+            "layanan_id": "s0711e95455",
+            "url": "/uploads/img_609ce843fe.jpg",
+            "caption": "",
+            "cover": false,
+            "urutan": 0
+        }
+    ]
+}

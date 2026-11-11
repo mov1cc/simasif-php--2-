@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMASIF - Layanan</title>
+<link rel="icon" href="data:image/png;base64,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">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',system-ui,sans-serif}
+  #sidebar{background:linear-gradient(165deg,#0038D8 0%,#4A86FF 100%);transition:transform .25s}
+  #main{transition:margin .25s}
+  .sb-hidden #sidebar{transform:translateX(-100%)}
+  /* navbar atas: hanya muncul saat sidebar ditutup */
+  #topbar{display:none;background:linear-gradient(90deg,#0038D8 0%,#4A86FF 100%)}
+  .sb-hidden #topbar{display:flex}
+  .sb-hidden #main{padding-top:5.5rem}
+  /* ikon panel sidebar: kotak putih + panel kiri berwarna (--pn) */
+  .ico-panel{width:1.375rem;height:1.375rem;display:block}
+  .ico-panel .box{fill:#fff}
+  .ico-panel .pn{fill:var(--pn)}
+  @media(min-width:1024px){#main{margin-left:18rem}.sb-hidden #main{margin-left:0}}
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 w-72 z-40 flex flex-col text-white shadow-xl">
+  <div class="flex items-center justify-between px-5 pt-4">
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-9 h-9 rounded-md object-cover">
+      <span class="text-2xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+    <button type="button" onclick="toggleSb()" title="Sembunyikan menu" aria-label="Sembunyikan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A44E0">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center mt-8">
+    <div class="w-28 h-28 rounded-full bg-white flex items-center justify-center"><i class="fa-solid fa-user text-5xl text-[#2563EB]"></i></div>
+    <div class="mt-3 text-xl font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+  <nav class="mt-10 px-1 space-y-2 text-sm">
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Dashboard</a>
+    <a href="Layanan.html" class="block rounded-md bg-white/40 px-8 py-2.5 font-medium">Layanan</a>
+    <a href="Pelanggan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pelanggan</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pemesanan</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Jadwal</a>
+  </nav>
+  <a href="#" class="mt-auto mb-10 flex items-center justify-center gap-3 text-lg hover:opacity-80"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Logout</a>
+</aside>
+
+<!-- NAVBAR (muncul saat sidebar ditutup) -->
+<header id="topbar" class="fixed top-0 inset-x-0 h-14 z-30 items-center justify-between px-4 sm:px-5 text-white shadow-md">
+  <div class="flex items-center gap-3">
+    <button type="button" onclick="toggleSb()" title="Tampilkan menu" aria-label="Tampilkan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A3FDC">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-8 h-8 rounded-md object-cover">
+      <span class="text-xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+  </div>
+  <div class="text-right leading-tight">
+    <div class="text-sm font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+</header>
+
+<!-- KONTEN -->
+<main id="main" class="min-h-screen p-5 sm:p-8">
+  <h1 class="text-2xl sm:text-3xl font-bold">Manajemen Katalog Layanan Foto Studio</h1>
+  <p class="text-sm sm:text-base text-gray-800 mt-1 max-w-xl">Kelola daftar layanan pemotretan, penyesuaian harga, deskripsi layanan, serta sinkronisasi katalog publik pelanggan.</p>
+
+  <section id="stats" class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6"></section>
+
+  <section class="mt-5 bg-white rounded-xl shadow-md border border-gray-200 p-3 flex flex-col md:flex-row md:items-center gap-3">
+    <label class="flex-1 flex items-center gap-2 bg-[#EDEDED] border border-gray-300 rounded-md px-3 py-2">
+      <i class="fa-solid fa-magnifying-glass text-gray-700"></i>
+      <input id="search" type="text" placeholder="Cari nama layanan...." oninput="q=this.value; renderCards()" class="bg-transparent w-full text-xs focus:outline-none">
+    </label>
+    <div id="pills" class="flex flex-wrap items-center gap-2"></div>
+    <div class="flex rounded-md overflow-hidden self-start md:self-auto">
+      <button id="v-grid" type="button" onclick="setView('grid')" title="Tampilan kartu" class="w-9 h-9 flex items-center justify-center"><i class="fa-solid fa-table-cells-large"></i></button>
+      <button id="v-list" type="button" onclick="setView('list')" title="Tampilan daftar" class="w-9 h-9 flex items-center justify-center"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </section>
+
+  <section class="mt-6 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+    <div>
+      <h2 class="text-xl sm:text-2xl font-bold">Daftar Layanan Studio</h2>
+      <p class="text-sm text-gray-800 mt-1">Atur harga, durasi sesi, dan poin hasil layanan yang ditawarkan ke pelanggan.</p>
+    </div>
+    <div class="flex flex-col gap-2 sm:w-56 flex-shrink-0">
+      <button type="button" onclick="go('publik')" class="bg-black text-white text-[11px] font-bold py-1.5 rounded-full shadow flex items-center justify-center gap-2"><i class="fa-regular fa-eye"></i> Preview Halaman Publik</button>
+      <button type="button" onclick="go('tambah')" class="bg-[#FFE600] hover:bg-yellow-400 text-black text-[11px] font-bold py-1.5 rounded-full shadow flex items-center justify-center gap-2"><i class="fa-solid fa-plus"></i> Tambah Layanan</button>
+    </div>
+  </section>
+
+  <section id="cards" class="mt-6"></section>
+</main>
+
+<div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white text-sm font-medium px-4 py-2 rounded-full shadow-lg z-50"></div>
+
+<script>
+/* ====== KONFIGURASI ====== */
+// Isi rute sesuai proyekmu. Kosong = tampil pesan "belum tersambung".
+const ROUTES = { tambah: 'FormTambahLayanan.html', edit: 'FormTambahLayanan.html', addOn: 'FormAddon.html', gallery: 'Galeri.html', publik: '' };
+
+/* ====== DATA (GET /api/layanan) ====== */
+let services = [];
+const toView = l => ({
+  ...l, publik: l.tampil_publik, estimasi: l.estimasi_hasil, maks: l.maks_orang,
+  output: l.output.map(o => o.nama), sesi: l.sesi || 0
+});
+async function api(url, opt = {}) {
+  const res = await fetch(url, { headers: { 'Content-Type': 'application/json' }, ...opt });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || Object.values(data.errors || {}).join(' | ') || 'HTTP ' + res.status);
+  return data;
+}
+async function loadServices() {
+  try { services = (await api('/api/layanan')).data.map(toView); }
+  catch (e) { toast('Gagal memuat layanan: ' + e.message); }
+  refresh();
+}
+let filter = 'semua', q = '', view = 'grid';
+
+/* ====== HELPER ====== */
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const money = n => 'Rp' + Number(n).toLocaleString('id-ID');
+const priceOf = s => s.jenis_harga === 'tunggal' ? s.harga_tunggal : Math.min(...s.harga_pilihan.flatMap(g => g.pilihan.map(p => p.harga)));
+const priceText = s => s.jenis_harga === 'tunggal' ? money(s.harga_tunggal) + (s.keterangan_harga === 'foto' ? '/foto' : '') : 'Mulai ' + money(priceOf(s));
+const omzet = s => s.sesi * priceOf(s);
+const unit = d => d ? `${d.nilai} ${d.satuan.toLowerCase()}` : '-';
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.remove('hidden');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add('hidden'), 2200);
+}
+function go(key, id) {
+  const url = ROUTES[key];
+  if (!url) return toast('Halaman ini belum tersambung.');
+  location.href = url + (id ? '?id=' + encodeURIComponent(id) : '');
+}
+
+/* ====== STATISTIK ====== */
+function renderStats() {
+  const sc = (icon, color, title, sub, l, r) => `
+    <div class="bg-white rounded-xl border-2 border-[#FFE600] shadow-md overflow-hidden flex flex-col">
+      <div class="relative p-4 pt-9 flex-1"><i class="${icon} ${color} absolute top-3 right-4 text-xl"></i>
+        <div class="text-xl font-bold leading-tight">${title}</div><div class="text-[11px]">${sub}</div></div>
+      <div class="bg-[#FFE600] px-4 py-2 flex justify-between gap-2 text-[11px] font-medium"><span>${l}</span><span class="text-right">${r}</span></div>
+    </div>`;
+  const aktif = services.filter(s => s.aktif).length;
+  const sorted = [...services].sort((a, b) => b.sesi - a.sesi);
+  const top = sorted[0], low = sorted[sorted.length - 1];
+  const tot = services.reduce((a, s) => a + omzet(s), 0);
+  const pct = s => (tot ? Math.round(omzet(s) / tot * 100) : 0) + '% Total Studio';
+  document.getElementById('stats').innerHTML =
+    sc('fa-solid fa-tower-broadcast', 'text-black', `${aktif} Layanan`, 'Total Layanan Aktif', 'Keseluruhan<br>Layanan', `${services.length} Layanan<br>Aktif/Non Aktif`) +
+    sc('fa-solid fa-arrow-trend-up', 'text-green-500', top ? esc(top.nama) : '-', top ? `${top.sesi} Sesi Dipesan` : 'Belum ada layanan', 'Kontribusi Omzet', top ? pct(top) : '-') +
+    sc('fa-solid fa-arrow-trend-down', 'text-red-600', low ? esc(low.nama) : '-', low ? `${low.sesi} Sesi Dipesan` : 'Belum ada layanan', 'Kontribusi Omzet', low ? pct(low) : '-');
+}
+
+/* ====== FILTER, TAMPILAN ====== */
+function renderPills() {
+  const n = { semua: services.length, aktif: services.filter(s => s.aktif).length };
+  n.non = n.semua - n.aktif;
+  document.getElementById('pills').innerHTML = [['semua', 'Semua'], ['aktif', 'Aktif'], ['non', 'Non']].map(([k, l]) =>
+    `<button type="button" onclick="setFilter('${k}')" class="bg-black text-white text-xs font-semibold px-4 py-1.5 rounded-full ${filter === k ? 'ring-2 ring-offset-1 ring-[#FFE600]' : 'opacity-75'}">${l} ${n[k]}</button>`).join('');
+}
+const setFilter = k => { filter = k; renderPills(); renderCards(); };
+function setView(v) {
+  view = v;
+  document.getElementById('v-grid').className = 'w-9 h-9 flex items-center justify-center ' + (v === 'grid' ? 'bg-black text-white' : 'bg-gray-300 text-white');
+  document.getElementById('v-list').className = 'w-9 h-9 flex items-center justify-center ' + (v === 'list' ? 'bg-black text-white' : 'bg-gray-300 text-white');
+  renderCards();
+}
+
+/* ====== KARTU LAYANAN ====== */
+function card(s, list) {
+  const btn = 'bg-black text-white text-[10px] font-bold px-2.5 py-1.5 rounded-md flex items-center gap-1.5 hover:bg-gray-800';
+  return `<article class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden flex ${list ? 'flex-col sm:flex-row' : 'flex-col'} ${s.aktif ? '' : 'opacity-70'}">
+    <div class="relative bg-[#7F7F7F] flex-shrink-0 ${list ? 'h-40 sm:h-auto sm:w-48' : 'h-44'}">
+      ${s.cover ? `<img src="${esc(s.cover)}" alt="" class="absolute inset-0 w-full h-full object-cover">` : ''}
+      ${s.aktif ? '' : '<span class="absolute top-2 left-2 bg-black text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">Non Aktif</span>'}</div>
+    <div class="p-3 flex-1 min-w-0 flex flex-col gap-2">
+      <div class="flex items-baseline justify-between gap-2">
+        <h3 class="text-xl font-bold truncate">${esc(s.nama)}</h3><span class="text-sm font-bold flex-shrink-0">${priceText(s)}</span></div>
+      <div class="flex flex-wrap justify-between gap-x-3 gap-y-1 text-[10px] text-gray-800">
+        <span><i class="fa-regular fa-clock"></i> ${unit(s.durasi)}</span>
+        <span><i class="fa-solid fa-hourglass-half"></i> Hasil ${unit(s.estimasi)}</span>
+        <span><i class="fa-solid fa-people-group"></i> Maks. ${s.maks || '-'} orang</span></div>
+      <ul class="text-[10px] leading-4 flex flex-col gap-1 flex-1 content-start">${s.output.map(o => `<li class="bg-gray-100 rounded px-2 py-1">${esc(o)}</li>`).join('')}</ul>
+      <button type="button" role="switch" aria-checked="${s.publik}" onclick="togglePublik('${s.id}')" title="Tampilkan / sembunyikan di halaman publik" class="w-full bg-[#0A4DFF] hover:bg-[#0841d6] text-white text-[11px] font-bold px-3 py-2 rounded-md shadow flex items-center justify-between gap-3 text-left">
+        <span>Tampilkan Pada Layanan Publik</span>
+        <span class="relative w-12 h-6 bg-white rounded-full flex-shrink-0"><span class="absolute top-1 w-4 h-4 bg-black rounded-full transition-all ${s.publik ? 'left-7' : 'left-1'}"></span></span>
+      </button>
+      <div class="flex items-center gap-1.5 flex-wrap">
+        <button type="button" onclick="go('addOn','${s.id}')" class="${btn}"><i class="fa-regular fa-square-plus"></i> Add On</button>
+        <button type="button" onclick="go('gallery','${s.id}')" class="${btn}"><i class="fa-regular fa-image"></i> Gallery</button>
+        <button type="button" onclick="delService('${s.id}')" title="Hapus" class="${btn}"><i class="fa-regular fa-trash-can"></i></button>
+        <button type="button" onclick="go('edit','${s.id}')" class="flex-1 min-w-[8rem] bg-[#FFE600] hover:bg-yellow-400 text-black text-[10px] font-bold px-2.5 py-1.5 rounded-md">Edit Detail &amp; Harga</button>
+      </div>
+    </div></article>`;
+}
+
+function renderCards() {
+  const term = q.trim().toLowerCase();
+  const rows = services.filter(s => (filter === 'semua' || (filter === 'aktif') === s.aktif) && s.nama.toLowerCase().includes(term));
+  const el = document.getElementById('cards');
+  el.className = 'mt-6 ' + (view === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5' : 'flex flex-col gap-4');
+  el.innerHTML = rows.length ? rows.map(s => card(s, view === 'list')).join('')
+    : '<p class="text-sm text-gray-500 col-span-full">Tidak ada layanan yang cocok.</p>';
+}
+
+async function togglePublik(id) {
+  const s = services.find(x => x.id === id);
+  const next = !s.publik;   // OFF = non aktif, ON = aktif
+  try {
+    await api('/api/layanan/' + encodeURIComponent(id), { method: 'PATCH', body: JSON.stringify({ tampil_publik: next, aktif: next }) });
+  } catch (e) { return toast('Gagal mengubah status: ' + e.message); }
+  s.publik = s.aktif = s.tampil_publik = next;
+  refresh();
+  toast(next ? `"${s.nama}" ditampilkan di halaman publik dan diaktifkan.` : `"${s.nama}" disembunyikan dari publik dan dinonaktifkan.`);
+}
+
+async function delService(id) {
+  const s = services.find(x => x.id === id);
+  if (!confirm(`Hapus layanan "${s.nama}"? Add on dan galerinya ikut terhapus.`)) return;
+  try { await api('/api/layanan/' + encodeURIComponent(id), { method: 'DELETE' }); }
+  catch (e) { return toast('Gagal menghapus: ' + e.message); }
+  services = services.filter(x => x.id !== id);
+  refresh();
+}
+function refresh() { renderStats(); renderPills(); renderCards(); }
+
+/* ====== SIDEBAR ====== */
+const toggleSb = () => document.body.classList.toggle('sb-hidden');
+if (window.innerWidth < 1024) document.body.classList.add('sb-hidden');
+
+setView('grid');
+loadServices();
+</script>
+</body>
+</html>

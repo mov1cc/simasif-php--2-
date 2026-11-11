@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMASIF - Galeri Layanan</title>
+<link rel="icon" href="data:image/png;base64,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">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',system-ui,sans-serif}
+  #sidebar{background:linear-gradient(165deg,#0038D8 0%,#4A86FF 100%);transition:transform .25s}
+  #main{transition:margin .25s}
+  .sb-hidden #sidebar{transform:translateX(-100%)}
+  /* navbar atas: hanya muncul saat sidebar ditutup */
+  #topbar{display:none;background:linear-gradient(90deg,#0038D8 0%,#4A86FF 100%)}
+  .sb-hidden #topbar{display:flex}
+  .sb-hidden #main{padding-top:5.5rem}
+  /* ikon panel sidebar: kotak putih + panel kiri berwarna (--pn) */
+  .ico-panel{width:1.375rem;height:1.375rem;display:block}
+  .ico-panel .box{fill:#fff}
+  .ico-panel .pn{fill:var(--pn)}
+  @media(min-width:1024px){#main{margin-left:18rem}.sb-hidden #main{margin-left:0}}
+</style>
+<style>
+  .crop-rect{position:absolute;border:2px solid #fff;cursor:move;touch-action:none;box-shadow:0 0 0 9999px rgba(0,0,0,.55);
+    background-image:linear-gradient(to right,transparent calc(33.33% - .5px),rgba(255,255,255,.4) calc(33.33% - .5px),rgba(255,255,255,.4) calc(33.33% + .5px),transparent calc(33.33% + .5px),transparent calc(66.66% - .5px),rgba(255,255,255,.4) calc(66.66% - .5px),rgba(255,255,255,.4) calc(66.66% + .5px),transparent calc(66.66% + .5px)),
+    linear-gradient(to bottom,transparent calc(33.33% - .5px),rgba(255,255,255,.4) calc(33.33% - .5px),rgba(255,255,255,.4) calc(33.33% + .5px),transparent calc(33.33% + .5px),transparent calc(66.66% - .5px),rgba(255,255,255,.4) calc(66.66% - .5px),rgba(255,255,255,.4) calc(66.66% + .5px),transparent calc(66.66% + .5px))}
+  .ch{position:absolute;width:14px;height:14px;background:#fff;border:1px solid #000;border-radius:3px}
+  .ch-nw{left:-9px;top:-9px;cursor:nwse-resize}.ch-ne{right:-9px;top:-9px;cursor:nesw-resize}
+  .ch-sw{left:-9px;bottom:-9px;cursor:nesw-resize}.ch-se{right:-9px;bottom:-9px;cursor:nwse-resize}
+  .ch-n{left:50%;margin-left:-7px;top:-9px;cursor:ns-resize}.ch-s{left:50%;margin-left:-7px;bottom:-9px;cursor:ns-resize}
+  .ch-w{top:50%;margin-top:-7px;left:-9px;cursor:ew-resize}.ch-e{top:50%;margin-top:-7px;right:-9px;cursor:ew-resize}
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 w-72 z-40 flex flex-col text-white shadow-xl">
+  <div class="flex items-center justify-between px-5 pt-4">
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-9 h-9 rounded-md object-cover">
+      <span class="text-2xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+    <button type="button" onclick="toggleSb()" title="Sembunyikan menu" aria-label="Sembunyikan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A44E0">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center mt-8">
+    <div class="w-28 h-28 rounded-full bg-white flex items-center justify-center"><i class="fa-solid fa-user text-5xl text-[#2563EB]"></i></div>
+    <div class="mt-3 text-xl font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+  <nav class="mt-10 px-1 space-y-2 text-sm">
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Dashboard</a>
+    <a href="Layanan.html" class="block rounded-md bg-white/40 px-8 py-2.5 font-medium">Layanan</a>
+    <a href="Pelanggan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pelanggan</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pemesanan</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Jadwal</a>
+  </nav>
+  <a href="#" class="mt-auto mb-10 flex items-center justify-center gap-3 text-lg hover:opacity-80"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Logout</a>
+</aside>
+
+<!-- NAVBAR (muncul saat sidebar ditutup) -->
+<header id="topbar" class="fixed top-0 inset-x-0 h-14 z-30 items-center justify-between px-4 sm:px-5 text-white shadow-md">
+  <div class="flex items-center gap-3">
+    <button type="button" onclick="toggleSb()" title="Tampilkan menu" aria-label="Tampilkan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A3FDC">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-8 h-8 rounded-md object-cover">
+      <span class="text-xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+  </div>
+  <div class="text-right leading-tight">
+    <div class="text-sm font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+</header>
+
+<!-- KONTEN -->
+<main id="main" class="min-h-screen p-5 sm:p-8">
+  <a href="Layanan.html" class="inline-flex items-center gap-2 text-xs font-semibold text-gray-700 hover:text-black mb-4"><i class="fa-solid fa-arrow-left"></i> Kembali ke Layanan</a>
+
+  <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+
+    <!-- GALERI -->
+    <section>
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-bold">Galeri Layanan<span id="svcName" class="text-gray-500 font-semibold"></span></h1>
+          <p class="text-sm text-gray-800 mt-1 max-w-md">Contoh hasil foto yang tampil di halaman publik. Gambar cover jadi gambar utama di kartu layanan. Maksimal 8 gambar</p>
+        </div>
+        <span id="count" class="flex-shrink-0 bg-black text-white text-xs font-semibold px-3 py-1 rounded-full"></span>
+      </div>
+      <div class="mt-4 bg-white rounded-xl border border-gray-200 shadow-md p-4">
+        <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div>
+        <p id="empty" class="hidden text-sm text-gray-500 text-center py-10">Belum ada gambar. Unggah gambar lewat panel Upload Images.</p>
+      </div>
+    </section>
+
+    <!-- UPLOAD -->
+    <section>
+      <div class="bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden">
+        <div class="bg-[#FFE600] px-5 py-3 flex items-center gap-3 text-2xl font-bold"><i class="fa-regular fa-images text-3xl"></i> Upload Images</div>
+        <div class="p-5">
+          <div id="drop" class="border-2 border-dashed border-gray-500 rounded-lg min-h-[14rem] flex flex-col items-center justify-center text-center px-4 py-6 transition">
+            <button type="button" onclick="document.getElementById('file').click()" class="bg-white border border-gray-200 shadow-md rounded-md px-5 py-2 text-xs font-bold flex items-center gap-2 hover:bg-gray-50"><i class="fa-solid fa-cloud-arrow-up text-lg"></i> Upload</button>
+            <div class="mt-5 text-xs font-bold">Choose File or Drag &amp; Drop it Here</div>
+            <div class="mt-2 text-[11px] font-semibold text-gray-500">JPG/PNG/WebP, 5 MB per gambar.</div>
+            <input id="file" type="file" accept="image/jpeg,image/png,image/webp" multiple class="hidden" onchange="handleFiles(this.files)">
+          </div>
+        </div>
+      </div>
+      <div id="uploads" class="mt-4 flex flex-col gap-3"></div>
+    </section>
+  </div>
+</main>
+
+<!-- MODAL CROP -->
+<div id="cropModal" class="hidden fixed inset-0 bg-black/60 z-50 items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl p-4 max-h-full overflow-y-auto">
+    <h3 class="text-lg font-bold">Potong Gambar</h3>
+    <p class="text-xs text-gray-600 mb-3">Seret kotak untuk memindahkan, tarik titik di sisi atau sudut untuk mengubah ukuran. Atau pilih ukuran template di bawah.</p>
+    <div class="flex justify-center">
+      <div class="relative overflow-hidden bg-gray-300 rounded-lg p-3">
+        <div id="cropStage" class="relative select-none" style="touch-action:none">
+          <img id="cropImg" alt="" draggable="false" class="block max-w-full" style="max-height:50vh">
+          <div id="cropRect" class="crop-rect"></div>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-between gap-2 mt-3">
+      <span class="text-[11px] font-semibold text-gray-600">Ukuran template</span>
+      <span id="cropInfo" class="text-[11px] font-semibold text-gray-600"></span>
+    </div>
+    <div id="ratios" class="flex flex-wrap gap-2 mt-2"></div>
+    <div class="flex justify-end gap-2 mt-4">
+      <button type="button" onclick="closeCrop()" class="bg-gray-200 text-xs font-bold px-4 py-2 rounded-md hover:bg-gray-300">Batal</button>
+      <button type="button" onclick="applyCrop()" class="bg-[#FFE600] hover:bg-yellow-400 text-xs font-bold px-4 py-2 rounded-md">Terapkan</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white text-sm font-medium px-4 py-2 rounded-full shadow-lg z-[60]"></div>
+
+<script>
+/* ====== KONFIGURASI ====== */
+const MAX = 8, MAX_MB = 5, OK_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+const sid = new URLSearchParams(location.search).get('id');
+const GAL = `/api/layanan/${encodeURIComponent(sid || '')}/gallery`;
+async function http(url, opt = {}) {
+  const res = await fetch(url, opt);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || Object.values(data.errors || {}).join(' | ') || 'HTTP ' + res.status);
+  return data;
+}
+const J = { 'Content-Type': 'application/json' };
+
+/* ====== DATA ====== */
+let items = [];   // dari GET /api/layanan/:id/gallery (src = url gambar)
+let uploads = [], seq = 10, dragId = null;
+
+/* ====== HELPER ====== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+const sizeText = b => (b / 1048576 >= 0.1 ? (b / 1048576).toFixed(1).replace(/\.0$/, '') + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB');
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg; t.classList.remove('hidden');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add('hidden'), 2400);
+}
+
+/* ====== GALERI ====== */
+function renderGrid() {
+  $('count').textContent = `${items.length}/${MAX} gambar`;
+  $('empty').classList.toggle('hidden', items.length > 0);
+  const ico = 'w-8 h-8 bg-black text-white rounded-md flex items-center justify-center text-xs hover:bg-gray-800 flex-shrink-0';
+  $('grid').innerHTML = items.map((g, i) => `
+    <article data-id="${g.id}" class="g-card bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden flex flex-col">
+      <div class="relative aspect-video bg-[#7F7F7F]">
+        ${g.src ? `<img src="${esc(g.src)}" alt="" class="w-full h-full object-cover">` : '<div class="w-full h-full flex items-center justify-center text-white/60"><i class="fa-regular fa-image text-3xl"></i></div>'}
+        <span class="handle absolute top-2 left-2 w-6 h-6 bg-white rounded-md flex items-center justify-center cursor-grab text-xs" title="Tahan &amp; geser untuk mengurutkan"><i class="fa-solid fa-grip-lines"></i></span>
+        ${g.cover ? '<i class="fa-solid fa-star absolute top-2 right-2 text-[#FFE600] text-lg drop-shadow"></i>' : ''}
+        <span class="absolute bottom-2 left-2 w-6 h-6 bg-white rounded-md text-[10px] font-bold flex items-center justify-center">${i + 1}</span>
+      </div>
+      <div class="p-3 flex flex-col gap-2">
+        <label class="text-[10px] font-medium">Tambah Keterangan <span class="text-gray-500">(opsional)</span></label>
+        <input type="text" value="${esc(g.caption)}" maxlength="120" placeholder="Boleh dikosongkan" oninput="setCaption('${g.id}', this.value)" class="bg-[#EDEDED] border border-gray-300 rounded-md px-2 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-[#FFE600]">
+        <div class="flex items-center gap-1.5">
+          <button type="button" onclick="openCrop('${g.id}')" title="Potong gambar" class="${ico}"><i class="fa-solid fa-crop-simple"></i></button>
+          <button type="button" onclick="delItem('${g.id}')" title="Hapus" class="${ico}"><i class="fa-solid fa-trash"></i></button>
+          <button type="button" ${g.cover ? 'disabled' : ''} onclick="setCover('${g.id}')" class="flex-1 text-white text-[10px] font-bold py-2 rounded-md ${g.cover ? 'bg-gray-400 cursor-default' : 'bg-black hover:bg-gray-800'}">Jadikan Cover</button>
+        </div>
+        <button type="button" onclick="saveItem('${g.id}')" class="bg-[#FFE600] hover:bg-yellow-400 text-black text-[10px] font-bold py-2 rounded-md shadow">Simpan</button>
+      </div>
+    </article>`).join('');
+}
+const find = id => items.find(g => g.id === id);
+const setCaption = (id, v) => { find(id).caption = v; };
+async function saveItem(id) {
+  try { await http(`${GAL}/${id}`, { method: 'PUT', headers: J, body: JSON.stringify({ caption: find(id).caption }) }); toast('Gambar tersimpan pada layanan'); }
+  catch (e) { toast('Gagal menyimpan: ' + e.message); }
+}
+async function saveOrder() {
+  try { await http(`${GAL}/order`, { method: 'PUT', headers: J, body: JSON.stringify({ ids: items.map(g => g.id) }) }); }
+  catch (e) { toast('Gagal menyimpan urutan: ' + e.message); }
+}
+async function loadGallery() {
+  if (!sid) { toast('Buka dari tombol Gallery pada kartu layanan (?id= kosong).'); renderGrid(); return; }
+  try {
+    const d = (await http('/api/layanan/' + encodeURIComponent(sid))).data;
+    $('svcName').textContent = ' - ' + d.nama;
+    items = (await http(GAL)).data.map(g => ({ id: g.id, src: g.url, caption: g.caption, cover: g.cover }));
+  } catch (e) { toast('Gagal memuat galeri: ' + e.message); }
+  renderGrid();
+}
+function coverFirst() {   // cover selalu berada di urutan pertama
+  const i = items.findIndex(g => g.cover);
+  if (i > 0) items.unshift(items.splice(i, 1)[0]);
+}
+async function setCover(id) {
+  try { await http(`${GAL}/${id}`, { method: 'PUT', headers: J, body: JSON.stringify({ cover: true }) }); }
+  catch (e) { return toast('Gagal mengubah cover: ' + e.message); }
+  items.forEach(g => g.cover = g.id === id);
+  coverFirst(); renderGrid(); toast('Cover dipindah ke urutan pertama.');
+}
+function removeItem(id) {
+  const g = find(id); if (!g) return;
+  if (g.src && g.src.startsWith('blob:')) URL.revokeObjectURL(g.src);
+  items = items.filter(x => x.id !== id);
+  if (g.cover && items.length) items[0].cover = true;
+}
+async function delItem(id) {
+  if (!confirm('Hapus gambar ini dari galeri?')) return;
+  try { await http(`${GAL}/${id}`, { method: 'DELETE' }); } catch (e) { return toast('Gagal menghapus: ' + e.message); }
+  removeItem(id);
+  uploads = uploads.filter(u => u.itemId !== id);
+  renderGrid(); renderUploads();
+}
+
+/* urutan: tahan ikon grip lalu geser */
+const grid = $('grid');
+grid.addEventListener('mousedown', e => { const h = e.target.closest('.handle'); if (h) h.closest('.g-card').draggable = true; });
+grid.addEventListener('dragstart', e => {
+  const c = e.target.closest('.g-card');
+  if (!c || !c.draggable) { e.preventDefault(); return; }
+  dragId = c.dataset.id; e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', dragId);
+  setTimeout(() => c.classList.add('opacity-40'), 0);
+});
+grid.addEventListener('dragover', e => { if (dragId) e.preventDefault(); });
+grid.addEventListener('drop', e => {
+  e.preventDefault();
+  const c = e.target.closest('.g-card');
+  if (!c || !dragId || c.dataset.id === dragId) return;
+  const from = items.findIndex(g => g.id === dragId), to = items.findIndex(g => g.id === c.dataset.id);
+  items.splice(to, 0, items.splice(from, 1)[0]);
+  coverFirst();
+});
+grid.addEventListener('dragend', () => { const moved = dragId; dragId = null; renderGrid(); if (moved) saveOrder(); });
+
+/* ====== UPLOAD ====== */
+const drop = $('drop');
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('bg-yellow-50', 'border-black'); }));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('bg-yellow-50', 'border-black'); }));
+drop.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
+
+function handleFiles(list) {
+  [...list].forEach(f => {
+    if (!OK_TYPES.includes(f.type)) return toast(`"${f.name}" ditolak: hanya JPG/PNG/WebP.`);
+    if (f.size > MAX_MB * 1048576) return toast(`"${f.name}" melebihi ${MAX_MB} MB.`);
+    const pending = uploads.filter(u => !u.done).length;
+    if (items.length + pending >= MAX) return toast(`Maksimal ${MAX} gambar.`);
+    const u = { id: 'u' + (++seq), name: f.name, size: f.size, pct: 0, done: false, file: f };
+    uploads.push(u); runUpload(u);
+  });
+  $('file').value = '';
+  renderUploads();
+}
+// Upload nyata: POST biner gambar ke /api/layanan/:id/gallery (progres dari XMLHttpRequest)
+function runUpload(u) {
+  const x = u.xhr = new XMLHttpRequest();
+  x.open('POST', GAL);
+  x.setRequestHeader('Content-Type', u.file.type);
+  x.upload.onprogress = e => { if (e.lengthComputable) { u.pct = e.loaded / e.total * 100; renderUploads(); } };
+  x.onload = () => {
+    let d = {}; try { d = JSON.parse(x.responseText); } catch (_) { }
+    if (x.status !== 201) { uploads = uploads.filter(v => v !== u); renderUploads(); return toast(`"${u.name}" gagal: ${d.error || 'HTTP ' + x.status}`); }
+    u.pct = 100; u.done = true;
+    const g = { id: d.data.id, src: d.data.url, caption: '', cover: d.data.cover };
+    u.itemId = g.id; items.push(g); renderGrid(); renderUploads();
+  };
+  x.onerror = () => { uploads = uploads.filter(v => v !== u); renderUploads(); toast(`"${u.name}" gagal: jaringan terputus.`); };
+  x.send(u.file);
+}
+function cancelUpload(id) {
+  const u = uploads.find(x => x.id === id); if (!u) return;
+  if (u.xhr) u.xhr.abort(); uploads = uploads.filter(x => x !== u); renderUploads();
+}
+async function removeUpload(id) {
+  const u = uploads.find(x => x.id === id); if (!u) return;
+  if (u.itemId) { try { await http(`${GAL}/${u.itemId}`, { method: 'DELETE' }); } catch (e) { return toast('Gagal menghapus: ' + e.message); } removeItem(u.itemId); }
+  uploads = uploads.filter(x => x !== u);
+  renderGrid(); renderUploads();
+}
+function renderUploads() {
+  $('uploads').innerHTML = uploads.map(u => `
+    <div class="bg-white rounded-lg border border-gray-200 shadow-md px-4 py-3 flex items-center gap-3">
+      <span class="w-11 h-11 bg-black text-white rounded-md flex items-center justify-center flex-shrink-0"><i class="fa-regular fa-file text-xl"></i></span>
+      <div class="min-w-0 ${u.done ? 'flex-1' : 'w-32 sm:w-40'}"><div class="font-semibold truncate">${esc(u.name)}</div><div class="text-sm text-gray-600">${sizeText(u.size)}</div></div>
+      ${u.done
+        ? `<span class="text-green-600 font-semibold flex items-center gap-1.5"><i class="fa-regular fa-circle-check"></i> Completed</span>
+           <button type="button" onclick="removeUpload('${u.id}')" title="Hapus" class="text-red-600 text-xl ml-2 hover:opacity-70"><i class="fa-regular fa-trash-can"></i></button>`
+        : `<div class="flex-1 h-1.5 bg-gray-300 rounded-full overflow-hidden"><div class="h-full bg-blue-700" style="width:${Math.round(u.pct)}%"></div></div>
+           <span class="font-medium w-10 text-right">${Math.round(u.pct)}%</span>
+           <button type="button" onclick="cancelUpload('${u.id}')" title="Batalkan" class="text-xl ml-1 hover:opacity-70"><i class="fa-solid fa-xmark"></i></button>`}
+    </div>`).join('');
+}
+
+/* ====== CROP ====== */
+const PRESETS = [['free', 'Bebas'], ['16/9', '16:9'], ['4/3', '4:3'], ['3/2', '3:2'], ['1/1', '1:1'], ['3/4', '3:4']];
+const MINC = 30;
+let cropId = null, preset = 'free', cr = { x: 0, y: 0, w: 0, h: 0 }, SW = 0, SH = 0, cdrag = null;
+const cimg = $('cropImg'), crect = $('cropRect');
+const clamp = (v, a, b) => Math.min(Math.max(v, a), Math.max(a, b));
+const curRatio = () => { if (preset === 'free') return null; const [a, b] = preset.split('/').map(Number); return a / b; };
+['nw', 'n', 'ne', 'e', 'se', 's', 'sw', 'w'].forEach(h => {
+  const d = document.createElement('div'); d.className = 'ch ch-' + h; d.dataset.h = h; crect.appendChild(d);
+});
+
+function openCrop(id) {
+  const g = find(id);
+  if (!g.src) return toast('Belum ada gambar untuk dipotong.');
+  cropId = id; preset = 'free'; renderPresets();
+  $('cropModal').classList.remove('hidden'); $('cropModal').classList.add('flex');
+  cimg.onload = initCrop; cimg.src = g.src;
+  if (cimg.complete && cimg.naturalWidth) initCrop();
+}
+function closeCrop() { $('cropModal').classList.add('hidden'); $('cropModal').classList.remove('flex'); }
+function initCrop() {
+  SW = cimg.clientWidth; SH = cimg.clientHeight;
+  if (!SW) return;
+  cr = { x: SW * 0.05, y: SH * 0.05, w: SW * 0.9, h: SH * 0.9 };
+  const r = curRatio(); if (r) fitRatio(r);
+  drawCrop();
+}
+function fitRatio(r) {   // kotak terbesar dengan rasio r, di tengah gambar
+  const w = Math.min(SW * 0.9, SH * 0.9 * r), h = w / r;
+  cr = { x: (SW - w) / 2, y: (SH - h) / 2, w, h };
+}
+function setPreset(k) {
+  preset = k; renderPresets();
+  const r = curRatio(); if (r) fitRatio(r);
+  drawCrop();
+}
+function renderPresets() {
+  $('ratios').innerHTML = PRESETS.map(([k, l]) =>
+    `<button type="button" onclick="setPreset('${k}')" class="text-xs font-semibold px-3 py-1.5 rounded-full ${k === preset ? 'bg-black text-white' : 'bg-gray-200 hover:bg-gray-300'}">${l}</button>`).join('');
+}
+function drawCrop() {
+  Object.assign(crect.style, { left: cr.x + 'px', top: cr.y + 'px', width: cr.w + 'px', height: cr.h + 'px' });
+  const k = cimg.naturalWidth / SW;
+  $('cropInfo').textContent = `${Math.round(cr.w * k)} x ${Math.round(cr.h * k)} px`;
+}
+
+/* geser & ubah ukuran dengan mouse/sentuh */
+crect.addEventListener('pointerdown', e => {
+  e.preventDefault();
+  cdrag = { mode: e.target.dataset.h || 'move', px: e.clientX, py: e.clientY, s: { ...cr } };
+  crect.setPointerCapture(e.pointerId);
+});
+crect.addEventListener('pointermove', e => {
+  if (!cdrag) return;
+  const dx = e.clientX - cdrag.px, dy = e.clientY - cdrag.py, s = cdrag.s;
+  if (cdrag.mode === 'move') { cr.x = clamp(s.x + dx, 0, SW - s.w); cr.y = clamp(s.y + dy, 0, SH - s.h); }
+  else resizeCrop(cdrag.mode, dx, dy, s);
+  drawCrop();
+});
+['pointerup', 'pointercancel'].forEach(ev => crect.addEventListener(ev, () => { cdrag = null; }));
+
+function resizeCrop(hd, dx, dy, s) {
+  const r = curRatio(); let L = s.x, T = s.y, R = s.x + s.w, B = s.y + s.h;
+  const hasW = hd.includes('w'), hasE = hd.includes('e'), hasN = hd.includes('n'), hasS = hd.includes('s');
+  if (!r) {                                   // bebas
+    if (hasW) L = clamp(s.x + dx, 0, R - MINC);
+    if (hasE) R = clamp(s.x + s.w + dx, L + MINC, SW);
+    if (hasN) T = clamp(s.y + dy, 0, B - MINC);
+    if (hasS) B = clamp(s.y + s.h + dy, T + MINC, SH);
+  } else if (hd.length === 2) {               // sudut, rasio terkunci
+    const ax = hasW ? R : L, ay = hasN ? B : T;
+    let w = hasW ? s.w - dx : s.w + dx;
+    const maxW = Math.min(hasW ? ax : SW - ax, (hasN ? ay : SH - ay) * r);
+    w = clamp(w, Math.max(MINC, MINC * r), maxW); const h = w / r;
+    L = hasW ? ax - w : ax; R = L + w; T = hasN ? ay - h : ay; B = T + h;
+  } else if (hd === 'e' || hd === 'w') {      // sisi kiri/kanan, rasio terkunci
+    const cy = s.y + s.h / 2, ax = hd === 'w' ? R : L;
+    let w = hd === 'w' ? s.w - dx : s.w + dx;
+    const maxW = Math.min(hd === 'w' ? ax : SW - ax, 2 * Math.min(cy, SH - cy) * r);
+    w = clamp(w, Math.max(MINC, MINC * r), maxW); const h = w / r;
+    L = hd === 'w' ? ax - w : ax; R = L + w; T = cy - h / 2; B = T + h;
+  } else {                                    // sisi atas/bawah, rasio terkunci
+    const cx = s.x + s.w / 2, ay = hd === 'n' ? B : T;
+    let h = hd === 'n' ? s.h - dy : s.h + dy;
+    const maxH = Math.min(hd === 'n' ? ay : SH - ay, 2 * Math.min(cx, SW - cx) / r);
+    h = clamp(h, Math.max(MINC, MINC / r), maxH); const w = h * r;
+    T = hd === 'n' ? ay - h : ay; B = T + h; L = cx - w / 2; R = L + w;
+  }
+  cr = { x: L, y: T, w: R - L, h: B - T };
+}
+window.addEventListener('resize', () => {
+  if ($('cropModal').classList.contains('hidden') || !SW) return;
+  const w = cimg.clientWidth, h = cimg.clientHeight; if (!w) return;
+  const fx = w / SW, fy = h / SH;
+  cr = { x: cr.x * fx, y: cr.y * fy, w: cr.w * fx, h: cr.h * fy }; SW = w; SH = h; drawCrop();
+});
+
+function applyCrop() {
+  const g = find(cropId), im = new Image();
+  im.onload = () => {
+    const k = im.naturalWidth / SW;
+    const c = document.createElement('canvas'); c.width = Math.round(cr.w * k); c.height = Math.round(cr.h * k);
+    c.getContext('2d').drawImage(im, cr.x * k, cr.y * k, cr.w * k, cr.h * k, 0, 0, c.width, c.height);
+    c.toBlob(async blob => {
+      try {
+        const d = (await http(`${GAL}/${g.id}/image`, { method: 'PUT', headers: { 'Content-Type': 'image/jpeg' }, body: blob })).data;
+        g.src = d.url;
+        closeCrop(); renderGrid(); toast('Gambar dipotong dan disimpan.');
+      } catch (e) { toast('Gagal menyimpan hasil potongan: ' + e.message); }
+    }, 'image/jpeg', 0.92);
+  };
+  im.src = g.src;
+}
+
+/* ====== SIDEBAR ====== */
+const toggleSb = () => document.body.classList.toggle('sb-hidden');
+if (window.innerWidth < 1024) document.body.classList.add('sb-hidden');
+
+renderGrid(); renderUploads(); loadGallery();
+</script>
+</body>
+</html>

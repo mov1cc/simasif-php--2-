@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMASIF - Tambah Pelanggan</title>
+<link rel="icon" href="data:image/png;base64,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">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',system-ui,sans-serif}
+  #sidebar{background:linear-gradient(165deg,#0038D8 0%,#4A86FF 100%);transition:transform .25s}
+  #main{transition:margin .25s}
+  .sb-hidden #sidebar{transform:translateX(-100%)}
+  /* navbar atas: hanya muncul saat sidebar ditutup */
+  #topbar{display:none;background:linear-gradient(90deg,#0038D8 0%,#4A86FF 100%)}
+  .sb-hidden #topbar{display:flex}
+  .sb-hidden #main{padding-top:5.5rem}
+  /* ikon panel sidebar: kotak putih + panel kiri berwarna (--pn) */
+  .ico-panel{width:1.375rem;height:1.375rem;display:block}
+  .ico-panel .box{fill:#fff}
+  .ico-panel .pn{fill:var(--pn)}
+  @media(min-width:1024px){#main{margin-left:18rem}.sb-hidden #main{margin-left:0}}
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 w-72 z-40 flex flex-col text-white shadow-xl">
+  <div class="flex items-center justify-between px-5 pt-4">
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-9 h-9 rounded-md object-cover">
+      <span class="text-2xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+    <button type="button" onclick="toggleSb()" title="Sembunyikan menu" aria-label="Sembunyikan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A44E0">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center mt-8">
+    <div class="w-28 h-28 rounded-full bg-white flex items-center justify-center"><i class="fa-solid fa-user text-5xl text-[#2563EB]"></i></div>
+    <div class="mt-3 text-xl font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+  <nav class="mt-10 px-1 space-y-2 text-sm">
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Dashboard</a>
+    <a href="Layanan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Layanan</a>
+    <a href="pelanggan.html" class="block rounded-md bg-white/40 px-8 py-2.5 font-medium">Pelanggan</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pemesanan</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Jadwal</a>
+  </nav>
+  <a href="#" class="mt-auto mb-10 flex items-center justify-center gap-3 text-lg hover:opacity-80"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Logout</a>
+</aside>
+
+<!-- NAVBAR (muncul saat sidebar ditutup) -->
+<header id="topbar" class="fixed top-0 inset-x-0 h-14 z-30 items-center justify-between px-4 sm:px-5 text-white shadow-md">
+  <div class="flex items-center gap-3">
+    <button type="button" onclick="toggleSb()" title="Tampilkan menu" aria-label="Tampilkan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A3FDC">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-8 h-8 rounded-md object-cover">
+      <span class="text-xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+  </div>
+  <div class="text-right leading-tight">
+    <div class="text-sm font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+</header>
+
+<!-- KONTEN -->
+<main id="main" class="min-h-screen p-5 sm:p-8">
+  <div class="max-w-4xl mx-auto">
+    <section class="bg-white rounded-2xl border border-gray-200 shadow-md px-6 py-8 sm:px-14 sm:py-12">
+      <div>
+        <label for="fNama" class="block text-lg sm:text-xl font-semibold">Nama Pelanggan</label>
+        <input id="fNama" type="text" maxlength="100" autocomplete="off" placeholder="Masukkan nama pelanggan" oninput="liveCheck('nama')" onblur="blurCheck('nama')" onkeydown="if(event.key==='Enter')submitForm()" class="mt-3 w-full h-12 bg-[#EEEEEE] border border-gray-300 rounded-lg px-4 text-base focus:outline-none placeholder:text-gray-400">
+        <p id="eNama" class="hidden text-sm text-red-600 mt-2"></p>
+      </div>
+      <div class="mt-6">
+        <label for="fNomor" class="block text-lg sm:text-xl font-semibold">Nomor Telepon/ WhatsApp</label>
+        <input id="fNomor" type="tel" inputmode="tel" maxlength="16" autocomplete="off" placeholder="Masukkan nomor telepon atau WhatsApp" oninput="liveCheck('nomor')" onblur="blurCheck('nomor')" onkeydown="if(event.key==='Enter')submitForm()" class="mt-3 w-full h-12 bg-[#EEEEEE] border border-gray-300 rounded-lg px-4 text-base focus:outline-none placeholder:text-gray-400">
+        <p id="eNomor" class="hidden text-sm text-red-600 mt-2"></p>
+      </div>
+    </section>
+
+    <div class="mt-8 flex flex-col gap-3">
+      <button id="btnSave" type="button" onclick="submitForm()" class="w-full bg-[#FFE600] hover:bg-yellow-400 text-black text-xl font-semibold py-2.5 rounded-xl shadow-md border border-gray-200 disabled:opacity-60">Tambah Pelanggan</button>
+      <a href="Pelanggan.html" class="w-full bg-black hover:bg-gray-800 text-white text-xl font-semibold py-2.5 rounded-xl shadow-md text-center">Kembali</a>
+    </div>
+  </div>
+</main>
+
+<div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white text-sm font-medium px-4 py-2 rounded-full shadow-lg z-50"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const KEY = 'simasif_pelanggan_baru';   // sementara: antrean pelanggan baru untuk halaman daftar (hapus saat API sudah ada)
+
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg; t.classList.remove('hidden');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add('hidden'), 2400);
+}
+function showErr(id, msg) {
+  const e = $(id), inp = $(id.replace(/^e/, 'f'));
+  e.textContent = msg || ''; e.classList.toggle('hidden', !msg);
+  inp.style.borderColor = msg ? '#F87171' : ''; inp.style.background = msg ? '#FEF2F2' : '';   // kolom error: tepi merah + latar merah muda
+  inp.setAttribute('aria-invalid', msg ? 'true' : 'false');
+}
+/* ====== ATURAN VALIDASI ====== */
+// Nama: wajib, hanya huruf & spasi, minimal 3 karakter
+function checkNama(v, full) {
+  if (!v) return 'Nama pelanggan wajib diisi.';
+  if (!/^[\p{L}\s]+$/u.test(v)) return 'Nama hanya boleh berisi huruf dan spasi.';
+  if (full && v.length < 3) return 'Nama minimal 3 karakter.';
+  return '';
+}
+// Nomor: wajib, hanya angka (boleh diawali +62 atau 08), 10-15 digit, tanpa huruf/spasi/simbol lain
+function checkNomor(v, full) {
+  if (!v) return 'Nomor telepon wajib diisi.';
+  if (!/^\+?\d*$/.test(v)) return 'Nomor hanya boleh berisi angka, tanpa huruf, spasi, atau simbol lain.';
+  if (full) {
+    if (!/^(\+62|08)/.test(v)) return 'Nomor harus diawali +62 atau 08.';
+    const d = v.replace('+', '').length;
+    if (d < 10 || d > 15) return 'Nomor harus 10-15 digit.';
+  }
+  return '';
+}
+const fieldVal = f => $(f === 'nama' ? 'fNama' : 'fNomor').value.trim();
+// saat mengetik: cek kosong & karakter terlarang; aturan panjang dicek saat kolom ditinggalkan/disimpan
+function liveCheck(f) {
+  const v = fieldVal(f);
+  showErr(f === 'nama' ? 'eNama' : 'eNomor', (f === 'nama' ? checkNama : checkNomor)(v, false));
+}
+function blurCheck(f) {
+  const v = fieldVal(f);
+  if (v) showErr(f === 'nama' ? 'eNama' : 'eNomor', (f === 'nama' ? checkNama : checkNomor)(v, true));
+}
+function readQueue() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+
+function submitForm() {
+  const nama = $('fNama').value.trim().replace(/\s+/g, ' ');
+  const nomor = $('fNomor').value.trim();
+  const eN = checkNama(nama, true);
+  let eT = checkNomor(nomor, true);
+  if (!eT && readQueue().some(c => c.nomor === nomor)) eT = 'Nomor telepon sudah terdaftar.';
+  showErr('eNama', eN); showErr('eNomor', eT);
+  if (eN || eT) return;
+
+  // sambungkan ke POST /api/pelanggan { nama, nomor }; 422 { errors } = tampilkan lewat showErr
+  try { localStorage.setItem(KEY, JSON.stringify([...readQueue(), { nama, nomor }])); } catch (e) {}
+  $('btnSave').disabled = true;
+  toast('Pelanggan ditambahkan.');
+  setTimeout(() => { location.href = 'pelanggan.html'; }, 900);
+}
+
+/* ====== SIDEBAR ====== */
+const toggleSb = () => document.body.classList.toggle('sb-hidden');
+if (window.innerWidth < 1024) document.body.classList.add('sb-hidden');
+$('fNama').focus();
+</script>
+</body>
+</html>

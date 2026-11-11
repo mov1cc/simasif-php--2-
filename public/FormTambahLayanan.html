@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMASIF - Tambah Layanan</title>
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAIAAAAErfB6AAALFUlEQVR42u2dSUwTXxzHX2cKlFIoLZuGJSCCC8gSRItBIokmeBDcDQe96IEQPXk1xoMhHPTiwRBMNBo5KMgWIoQAIZqACRhRUERUEMMiIAUKAu0s/8NPJ/NvURkEneX3ORhcWue97/utM/MeIQiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiyLuhwCpaZFJ3O7VcBnufhV/gBBVaMohRFgZYcx3Ect5JPURRFURR8RLaS61BUT0W9vLyCgoLMZrPJZPLz8/P29qYoyuVyLS0tzc/POxyOqamp6elpty+kaXrZb0OB/zZgeQzDCH8SFBSUkJCQlJSUnJwcHx8fHh4eEhLi5+dH07Tnx51O58zMzNjY2NDQUE9Pz6tXr16+fNnf3+90OoXvB6XlYNM6rZmsMO96vT49PT07Ozs7OzslJSU4ONjzI0LEFb7BLSQDHMd9/Pixvb29paWltbV1cHBQsGme52Vl0KqVVmyLKSkpRUVFPT09vAiO41wul8vlYhiGZVnwtPxywF+xLMswDPx78d/Ozc01NDScPXs2NDTULVQj64IgrcFgyM/Pb2lpYVlWLCrDMD/TcoWA3m5ij4+Pl5SUpKWloczrGGvBoxqNxoKCgjdv3giz73K5BJnXFo7jGIYRlGZZtqqqKjMzU5yIoTRr6ZNPnz7d29sL0y2e+vUGlBZ+W1FRkZSU5OZUkFUaLvxgs9laW1sFadfJZH+LEAIWFxevX79uNpvRlFePXq8nhPj6+hYXF7tcrn8rrZvM8ENfX19ubq7bWkQkuOWdO3d2dnZ6Osl/DuR08PONGzeMRqOwIpGV5lMFBQULCwuQRv1hbrxOsCwLHqWjo2P79u2o8UqDLk3TJSUlbv5QtoAp2+32w4cPo8a/L3PNZnN9fb04o5E/wiq8cOECpl2/Ujc0NPTZs2c8zzudTl5RCO768uXLqPHynjksLKyrq0tweopDyLyuXr2KvtpdXavV+vz5c+Wq66Yx2DFq/P2+kI+PD/QxFK2um8aFhYWo8ffxl5WVqUNdcWuT47hDhw5pup0J6l66dEmJWdVvcy6O46anp7ds2aLRPhes65ycHPBpSqmIpNZOL168MBqNmkuqoV0VGho6MjICt2B5NQJB5+bNm5pz1DDaR48eKaJX9eca5+XlaUhjGGd+fr6aEqtfB+OhoaHAwEChzb7KeVNKXUQICQwMrK6uNplMP3v4TU11IMuyFovFaDTW19fDw3vqN9/i4mItmK/4Oa+lpaXExESo+1WeW8XGxs7Pz4Pv4rUB5Bk1NTUqj8Qwtlu3bmnHfN2C8Z49e1SrMZhvXFzcwsKCpsxXbMR1dXWr7nvI3bPrdDqe58+fP28wGDiO09rdNJqmOY7LyclJSUnhOG4VGtMyV5fjuJCQkNLSUoPB8IcFg0JhWVav13t5edXW1lIUJTWdpmS+fgkhx48ft1qtGjRf8SQcO3YsJCSEZVmpk0DJfPHqdLozZ86ovApcQU0cGBh49OjRVaRa8hUY3FFCQkJ6ejrR/NsAPM+fOnWKECL1XUVZC0wIycvLo2maZVktqwvJh81mi46OlppqyVdgEPXgwYPEY6MMbXppX1/f/fv3S62XKNmuWZ7nIyIiUlNTCb7i8eMl9AMHDhDRC+kKFhhMNiMjw2g0riJ1VKWXJoTYbDZfX19JEyJrgW02m9QFq2KBeZ6PjIyEp3kULzAEYMif0XzFRaPUmEXJ03x5njeZTJs3b8YA7IbwFrmyBSaEREVFCfuYIMK0wAuJK6+G5StwdHQ0tNrRRYunJSIiAlr0K5wWSs4jIdIbN6oXOCwszGKxqKHRsWHDBhTVk8DAQNizTcEWDFitVpTT04Jpmg4ICFj5p+T4khMUvmazGV6fxRgsAI1of3//lVuwfN9iCw4Opmkat5QSA7Ph5+enBgvu6Ojw9vZmGAbrYPHMUBQ1Pj5OsMGHfI/ccs4pMPr+zI7RfBEEQbQYgzGn/UWRipOAyNuCKYqKiIhQ/+uq0hN+hmGGh4dlaMS6lY+B53mLxdLd3R0cHIx38cRFC0VRY2NjiYmJc3NzMFHyuTxpnSyO47y9vX18fFBXN7y8vOT58LY0gZ1O57dv3+D9c8y2hEVPUdT8/LzL5VK8wIuLi+CFsM0kDl46nc7hcMBRanLLTlZqhTzPQ3SZnZ0l2On+/8wQQuAoQxl6NSkvQVAUIWR4eBgF9hR4dHSUyPIJXwkCw9UPDAygqJ7AtChbYOD9+/cop+e67+vrk+flSRAYfFFvby/Bs7s8Ild/fz+RZbdSgsBw9W/fvp2ZmZFbOf8PA7BOp5ucnHz37p08UxNK6mAmJibAiLG3LkzC69ev7Xb7KnZIkV0MBs/c3t6OibQ4bLW1tRG53mejVjGelpYWgvcNRQEYJkSeK15aWg+hNygoqL+/32KxgNPWeAAeHx+Pi4ubnZ2VZ14i2YJpmv769Sscd6LxvVFgy/mmpqbZ2VnZ3kKV7GbBZCsrK7EdDTNQWVlJZPyWum4Vo+J53mq19vX1BQcHa9ZLw02kkZGRrVu3OhwO2daNki0YvPTU1FRVVRX5sdeCZgukiooKh8OhtkdcoFhKS0tT0FGf67Eju9Pp3LFjhzoLChhSY2Oj6g9A+cU2zrW1taotF8GIDxw4ALm01gSGrcmzsrKIitvysHKhXtKUEcNgGxoaVN7tgZWblZUFpypqynwZhtm1axdR/V01GN6DBw+0Y8RwKsjdu3eJFu6Zwja3mzZtmp2d1cKJGXCWkd1uj4yMVMpZRn+0BoWaeHFxMScnh2VZdd+BYFmWpumLFy82NzfDHl6aaNfBThpPnjxRt6OGoTU2NsKQNdS/A6uNjY2dnp6GfXHUWhdNTk4qyDmvfbZ18uRJVR5OBodR8zyv6cPX4eT1oqIiXnUnr8Nwrly5IgxTo/fOYPDl5eVqsmNQ9/79+5pWV9CYoihfX9+nT5+qQ2MYQlNTk7e3tzbPXVs+4bJarZ2dnUrXGC6+ra0N9obEZ9D+p3FoaGhHR4dyNQbP3NbWBnuiorrLJNVWq1WhvhrUbW5uRtv9jR0bjcaHDx9Cl0AR9bFQx5eVlcFGBqjubzQWaif597kETwMVEaq70ryaEHLixImJiQmYRBnekxBaGaOjo3l5ecJ9FFRQQg8kJibm8ePHbrYiK8OtqamJiorCenf1aRchpLCwcHJyEozmn3ts4QK+fPly7tw5t0tFJIdkcNfR0dG3b98GRw0y/2WnLf5PWZYtLS2NjIwUXyGyBqacmZlZV1cn9pN/Ic1mWVYcHaqrq3fv3o2Gu/amLMxmdnZ2ZWWlMOnwuNOaGzR8rbCAnE5neXn53r17BWkxn1pHj00ISU5Ovnbt2sDAgFtaC6qsQm94toZhGLek/cOHD8XFxYmJiZ7XgKyXxxam2N/f/8iRI/fu3fv8+bNnNuRyuUByUN0N+HPh37h9fGho6M6dO7m5uSaTydOLqLxSlYk1wynm8NuAgIDU1NR9+/ZlZGQkJiaGh4dL/UKe54eHh7u7u9vb21tbW7u6uhwOh1CzcRynnf0nZBR7hK6I+IU2f3//mJiY+Pj4bdu2RUVFbdy40WKxmM1mg8Hg5eVFCHG5XIuLizMzM3a7fXR09NOnT729vX19fYODg3Nzc27JHbhrbfWaZNv/gjM2f2Zqer1er9frdDrwyb8I8xCSea3uKCL37FEnAnzvsmoJa4L8OHUGwCxHkeWBW1WDQiIIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiCIUvkPhQ27v035Vy8AAAAASUVORK5CYII=">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  .drag-handle,.sub-drag{cursor:grab}
+  .ghost{opacity:.4;background:#f3f4f6}
+  .field-error{border-color:#ef4444!important;background:#fef2f2!important}
+</style>
+<style>
+  #sidebar,#topbar{font-family:'Inter',system-ui,sans-serif}
+  #sidebar{background:linear-gradient(165deg,#0038D8 0%,#4A86FF 100%);transition:transform .25s}
+  #main{transition:margin .25s}
+  .sb-hidden #sidebar{transform:translateX(-100%)}
+  /* navbar atas: hanya muncul saat sidebar ditutup */
+  #topbar{display:none;background:linear-gradient(90deg,#0038D8 0%,#4A86FF 100%)}
+  .sb-hidden #topbar{display:flex}
+  .sb-hidden #main{padding-top:5.5rem}
+  /* ikon panel sidebar: kotak putih + panel kiri berwarna (--pn) */
+  .ico-panel{width:1.375rem;height:1.375rem;display:block}
+  .ico-panel .box{fill:#fff}
+  .ico-panel .pn{fill:var(--pn)}
+  @media(min-width:1024px){#main{margin-left:18rem}.sb-hidden #main{margin-left:0}}
+</style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 w-72 z-40 flex flex-col text-white shadow-xl">
+  <div class="flex items-center justify-between px-5 pt-4">
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAIAAAAErfB6AAALFUlEQVR42u2dSUwTXxzHX2cKlFIoLZuGJSCCC8gSRItBIokmeBDcDQe96IEQPXk1xoMhHPTiwRBMNBo5KMgWIoQAIZqACRhRUERUEMMiIAUKAu0s/8NPJ/NvURkEneX3ORhcWue97/utM/MeIQiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiyLuhwCpaZFJ3O7VcBnufhV/gBBVaMohRFgZYcx3Ect5JPURRFURR8RLaS61BUT0W9vLyCgoLMZrPJZPLz8/P29qYoyuVyLS0tzc/POxyOqamp6elpty+kaXrZb0OB/zZgeQzDCH8SFBSUkJCQlJSUnJwcHx8fHh4eEhLi5+dH07Tnx51O58zMzNjY2NDQUE9Pz6tXr16+fNnf3+90OoXvB6XlYNM6rZmsMO96vT49PT07Ozs7OzslJSU4ONjzI0LEFb7BLSQDHMd9/Pixvb29paWltbV1cHBQsGme52Vl0KqVVmyLKSkpRUVFPT09vAiO41wul8vlYhiGZVnwtPxywF+xLMswDPx78d/Ozc01NDScPXs2NDTULVQj64IgrcFgyM/Pb2lpYVlWLCrDMD/TcoWA3m5ij4+Pl5SUpKWloczrGGvBoxqNxoKCgjdv3giz73K5BJnXFo7jGIYRlGZZtqqqKjMzU5yIoTRr6ZNPnz7d29sL0y2e+vUGlBZ+W1FRkZSU5OZUkFUaLvxgs9laW1sFadfJZH+LEAIWFxevX79uNpvRlFePXq8nhPj6+hYXF7tcrn8rrZvM8ENfX19ubq7bWkQkuOWdO3d2dnZ6Osl/DuR08PONGzeMRqOwIpGV5lMFBQULCwuQRv1hbrxOsCwLHqWjo2P79u2o8UqDLk3TJSUlbv5QtoAp2+32w4cPo8a/L3PNZnN9fb04o5E/wiq8cOECpl2/Ujc0NPTZs2c8zzudTl5RCO768uXLqPHynjksLKyrq0tweopDyLyuXr2KvtpdXavV+vz5c+Wq66Yx2DFq/P2+kI+PD/QxFK2um8aFhYWo8ffxl5WVqUNdcWuT47hDhw5pup0J6l66dEmJWdVvcy6O46anp7ds2aLRPhes65ycHPBpSqmIpNZOL168MBqNmkuqoV0VGho6MjICt2B5NQJB5+bNm5pz1DDaR48eKaJX9eca5+XlaUhjGGd+fr6aEqtfB+OhoaHAwEChzb7KeVNKXUQICQwMrK6uNplMP3v4TU11IMuyFovFaDTW19fDw3vqN9/i4mItmK/4Oa+lpaXExESo+1WeW8XGxs7Pz4Pv4rUB5Bk1NTUqj8Qwtlu3bmnHfN2C8Z49e1SrMZhvXFzcwsKCpsxXbMR1dXWr7nvI3bPrdDqe58+fP28wGDiO09rdNJqmOY7LyclJSUnhOG4VGtMyV5fjuJCQkNLSUoPB8IcFg0JhWVav13t5edXW1lIUJTWdpmS+fgkhx48ft1qtGjRf8SQcO3YsJCSEZVmpk0DJfPHqdLozZ86ovApcQU0cGBh49OjRVaRa8hUY3FFCQkJ6ejrR/NsAPM+fOnWKECL1XUVZC0wIycvLo2maZVktqwvJh81mi46OlppqyVdgEPXgwYPEY6MMbXppX1/f/fv3S62XKNmuWZ7nIyIiUlNTCb7i8eMl9AMHDhDRC+kKFhhMNiMjw2g0riJ1VKWXJoTYbDZfX19JEyJrgW02m9QFq2KBeZ6PjIyEp3kULzAEYMif0XzFRaPUmEXJ03x5njeZTJs3b8YA7IbwFrmyBSaEREVFCfuYIMK0wAuJK6+G5StwdHQ0tNrRRYunJSIiAlr0K5wWSs4jIdIbN6oXOCwszGKxqKHRsWHDBhTVk8DAQNizTcEWDFitVpTT04Jpmg4ICFj5p+T4khMUvmazGV6fxRgsAI1of3//lVuwfN9iCw4Opmkat5QSA7Ph5+enBgvu6Ojw9vZmGAbrYPHMUBQ1Pj5OsMGHfI/ccs4pMPr+zI7RfBEEQbQYgzGn/UWRipOAyNuCKYqKiIhQ/+uq0hN+hmGGh4dlaMS6lY+B53mLxdLd3R0cHIx38cRFC0VRY2NjiYmJc3NzMFHyuTxpnSyO47y9vX18fFBXN7y8vOT58LY0gZ1O57dv3+D9c8y2hEVPUdT8/LzL5VK8wIuLi+CFsM0kDl46nc7hcMBRanLLTlZqhTzPQ3SZnZ0l2On+/8wQQuAoQxl6NSkvQVAUIWR4eBgF9hR4dHSUyPIJXwkCw9UPDAygqJ7AtChbYOD9+/cop+e67+vrk+flSRAYfFFvby/Bs7s8Ild/fz+RZbdSgsBw9W/fvp2ZmZFbOf8PA7BOp5ucnHz37p08UxNK6mAmJibAiLG3LkzC69ev7Xb7KnZIkV0MBs/c3t6OibQ4bLW1tRG53mejVjGelpYWgvcNRQEYJkSeK15aWg+hNygoqL+/32KxgNPWeAAeHx+Pi4ubnZ2VZ14i2YJpmv769Sscd6LxvVFgy/mmpqbZ2VnZ3kKV7GbBZCsrK7EdDTNQWVlJZPyWum4Vo+J53mq19vX1BQcHa9ZLw02kkZGRrVu3OhwO2daNki0YvPTU1FRVVRX5sdeCZgukiooKh8OhtkdcoFhKS0tT0FGf67Eju9Pp3LFjhzoLChhSY2Oj6g9A+cU2zrW1taotF8GIDxw4ALm01gSGrcmzsrKIitvysHKhXtKUEcNgGxoaVN7tgZWblZUFpypqynwZhtm1axdR/V01GN6DBw+0Y8RwKsjdu3eJFu6Zwja3mzZtmp2d1cKJGXCWkd1uj4yMVMpZRn+0BoWaeHFxMScnh2VZdd+BYFmWpumLFy82NzfDHl6aaNfBThpPnjxRt6OGoTU2NsKQNdS/A6uNjY2dnp6GfXHUWhdNTk4qyDmvfbZ18uRJVR5OBodR8zyv6cPX4eT1oqIiXnUnr8Nwrly5IgxTo/fOYPDl5eVqsmNQ9/79+5pWV9CYoihfX9+nT5+qQ2MYQlNTk7e3tzbPXVs+4bJarZ2dnUrXGC6+ra0N9obEZ9D+p3FoaGhHR4dyNQbP3NbWBnuiorrLJNVWq1WhvhrUbW5uRtv9jR0bjcaHDx9Cl0AR9bFQx5eVlcFGBqjubzQWaif597kETwMVEaq70ryaEHLixImJiQmYRBnekxBaGaOjo3l5ecJ9FFRQQg8kJibm8ePHbrYiK8OtqamJiorCenf1aRchpLCwcHJyEozmn3ts4QK+fPly7tw5t0tFJIdkcNfR0dG3b98GRw0y/2WnLf5PWZYtLS2NjIwUXyGyBqacmZlZV1cn9pN/Ic1mWVYcHaqrq3fv3o2Gu/amLMxmdnZ2ZWWlMOnwuNOaGzR8rbCAnE5neXn53r17BWkxn1pHj00ISU5Ovnbt2sDAgFtaC6qsQm94toZhGLek/cOHD8XFxYmJiZ7XgKyXxxam2N/f/8iRI/fu3fv8+bNnNuRyuUByUN0N+HPh37h9fGho6M6dO7m5uSaTydOLqLxSlYk1wynm8NuAgIDU1NR9+/ZlZGQkJiaGh4dL/UKe54eHh7u7u9vb21tbW7u6uhwOh1CzcRynnf0nZBR7hK6I+IU2f3//mJiY+Pj4bdu2RUVFbdy40WKxmM1mg8Hg5eVFCHG5XIuLizMzM3a7fXR09NOnT729vX19fYODg3Nzc27JHbhrbfWaZNv/gjM2f2Zqer1er9frdDrwyb8I8xCSea3uKCL37FEnAnzvsmoJa4L8OHUGwCxHkeWBW1WDQiIIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiCIUvkPhQ27v035Vy8AAAAASUVORK5CYII=" alt="Logo SIMASIF" class="w-9 h-9 rounded-md object-cover">
+      <span class="text-2xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+    <button type="button" onclick="toggleSb()" title="Sembunyikan menu" aria-label="Sembunyikan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A44E0">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center mt-8">
+    <div class="w-28 h-28 rounded-full bg-white flex items-center justify-center"><i class="fa-solid fa-user text-5xl text-[#2563EB]"></i></div>
+    <div class="mt-3 text-xl font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+  <nav class="mt-10 px-1 space-y-2 text-sm">
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Dashboard</a>
+    <a href="Layanan.html" class="block rounded-md bg-white/40 px-8 py-2.5 font-medium">Layanan</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pelanggan</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pemesanan</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Jadwal</a>
+  </nav>
+  <a href="#" class="mt-auto mb-10 flex items-center justify-center gap-3 text-lg hover:opacity-80"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Logout</a>
+</aside>
+
+<!-- NAVBAR (muncul saat sidebar ditutup) -->
+<header id="topbar" class="fixed top-0 inset-x-0 h-14 z-30 items-center justify-between px-4 sm:px-5 text-white shadow-md">
+  <div class="flex items-center gap-3">
+    <button type="button" onclick="toggleSb()" title="Tampilkan menu" aria-label="Tampilkan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A3FDC">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-8 h-8 rounded-md object-cover">
+      <span class="text-xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+  </div>
+  <div class="text-right leading-tight">
+    <div class="text-sm font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+</header>
+
+<!-- KONTEN -->
+<main id="main" class="min-h-screen flex flex-col items-center p-4 py-8">
+<div class="w-full max-w-xl bg-white rounded-xl shadow-md p-6 border border-gray-200">
+  <div id="app" class="space-y-5"></div>
+</div>
+<div class="w-full max-w-xl mt-5 space-y-2">
+  <button type="button" onclick="submitForm()" class="w-full bg-[#FFE600] hover:bg-yellow-400 text-black text-lg font-bold py-2.5 rounded-xl border border-gray-300 shadow transition">Tambah Layanan</button>
+  <button type="button" onclick="history.back()" class="w-full bg-black hover:bg-gray-800 text-white text-lg font-bold py-2.5 rounded-xl border border-gray-400 shadow transition">Kembali</button>
+  <div id="summary" class="hidden text-red-600 text-sm font-medium px-1"></div>
+</div>
+</main>
+
+<script>
+/* ====== KONFIGURASI ====== */
+const API_URL = '/api/layanan';
+const EXISTING = []; // keunikan nama dicek backend (respons 422 -> serverErrors.nama)
+const editId = new URLSearchParams(location.search).get('id'); // ada = mode edit (PUT)
+const DUR_MAX = { Menit: 525600, Jam: 8760, Hari: 365 }; // = 365 hari
+
+/* ====== STATE ====== */
+let uid = 100;
+const nid = p => p + (++uid);
+let submitted = false;
+const touched = new Set();
+let serverErrors = {};
+const state = {
+  nama: '', jenis: 'pilihan', hargaTunggal: '',
+  groups: [{ id: 'g1', title: 'Hard File (Cetak)', children: [
+    { id: 'p1', title: '3 × 4', price: '2000' }, { id: 'p2', title: '3R', price: '2000' }] }],
+  ket: 'layanan', durVal: '', durUnit: 'Menit', estVal: '', estUnit: 'Hari',
+  maks: '', deskripsi: '',
+  outputs: [
+    { id: 'o1', title: '10 Soft File Hasil Foto + Editing', type: 'non', children: [] },
+    { id: 'o2', title: '1 Warna Background Bebas Pilih Warna', type: 'pilihan',
+      children: [{ id: 's1', title: 'Merah' }, { id: 's2', title: 'Biru' }] }],
+  jadwal: true, publik: true
+};
+
+/* ====== VALIDASI ====== */
+const int = s => (s === '' ? NaN : parseInt(s, 10));
+function validate() {
+  const e = {}, f = state;
+  const nama = f.nama.trim();
+  if (!nama) e.nama = 'Nama layanan wajib diisi.';
+  else if (nama.length < 3) e.nama = 'Nama layanan minimal 3 karakter.';
+  else if (nama.length > 100) e.nama = 'Nama layanan maksimal 100 karakter.';
+  else if (EXISTING.includes(nama.toLowerCase())) e.nama = 'Nama layanan sudah digunakan.';
+
+  if (!f.jenis) e.jenis = 'Pilih jenis harga layanan.';
+  if (f.jenis === 'tunggal') {
+    if (f.hargaTunggal === '') e.hargaTunggal = 'Harga wajib diisi.';
+    else if (int(f.hargaTunggal) < 1) e.hargaTunggal = 'Harga minimal Rp1.';
+  }
+  if (f.jenis === 'pilihan') {
+    if (!f.groups.length) e.groups = 'Minimal harus ada 1 kelompok harga.';
+    f.groups.forEach(g => {
+      if (!g.title.trim()) e['g:' + g.id] = 'Nama kelompok harga wajib diisi.';
+      if (!g.children.length) e['ge:' + g.id] = 'Setiap kelompok minimal memiliki 1 pilihan.';
+      const seen = new Set();
+      g.children.forEach(p => {
+        const t = p.title.trim().toLowerCase();
+        if (!t) e['pt:' + p.id] = 'Nama pilihan wajib diisi.';
+        else if (seen.has(t)) e['pt:' + p.id] = 'Nama pilihan tidak boleh sama dalam satu kelompok.';
+        seen.add(t);
+        if (p.price === '') e['pp:' + p.id] = 'Harga wajib diisi.';
+        else if (int(p.price) < 1) e['pp:' + p.id] = 'Harga minimal Rp1.';
+      });
+    });
+  }
+  if (!f.ket) e.ket = 'Pilih keterangan harga.';
+
+  const d = int(f.durVal);
+  if (f.durVal === '') e.durasi = 'Durasi wajib diisi.';
+  else if (d < 1) e.durasi = 'Durasi minimal 1.';
+  else if (d > DUR_MAX[f.durUnit]) e.durasi = `Durasi maksimal 365 hari (${DUR_MAX[f.durUnit].toLocaleString('id-ID')} ${f.durUnit}).`;
+
+  if (f.estVal !== '' && int(f.estVal) < 1) e.est = 'Estimasi harus lebih dari 0.';
+  if (f.maks !== '') {
+    const m = int(f.maks);
+    if (m < 1) e.maks = 'Maksimal orang minimal 1.';
+    else if (m > 999) e.maks = 'Maksimal orang tidak boleh lebih dari 999.';
+  }
+  if (f.deskripsi !== '') {
+    const t = f.deskripsi.trim();
+    if (!t) e.deskripsi = 'Deskripsi tidak boleh hanya berisi spasi.';
+    else if (t.length > 1000) e.deskripsi = 'Deskripsi maksimal 1000 karakter.';
+  }
+  if (!f.outputs.length) e.outputs = 'Minimal harus ada 1 output layanan.';
+  f.outputs.forEach(o => {
+    if (!o.title.trim()) e['o:' + o.id] = 'Nama output wajib diisi.';
+    if (o.type === 'pilihan') {
+      if (!o.children.length) e['oe:' + o.id] = 'Output berjenis Pilihan minimal memiliki 1 sub pilihan.';
+      const seen = new Set();
+      o.children.forEach(s => {
+        const t = s.title.trim().toLowerCase();
+        if (!t) e['st:' + s.id] = 'Nama sub pilihan wajib diisi.';
+        else if (seen.has(t)) e['st:' + s.id] = 'Nama sub pilihan tidak boleh sama.';
+        seen.add(t);
+      });
+    }
+  });
+  if (f.jadwal === null) e.jadwal = 'Pilih kebutuhan jadwal.';
+  if (f.publik === null) e.publik = 'Pilih tampilan pada layanan publik.';
+  return { ...serverErrors, ...e };
+}
+
+function showErrors() {
+  const e = validate();
+  const on = k => e[k] && (submitted || touched.has(k));
+  document.querySelectorAll('[data-err]').forEach(p => {
+    const k = p.dataset.err, v = on(k);
+    p.textContent = v ? e[k] : '';
+    p.classList.toggle('hidden', !v);
+  });
+  document.querySelectorAll('[data-key]').forEach(i => i.classList.toggle('field-error', !!on(i.dataset.key)));
+}
+
+/* ====== HELPER RENDER ====== */
+const INP = 'w-full bg-[#EFEFEF] border border-gray-300 rounded-md px-3.5 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-500 font-medium';
+const SM = 'bg-[#EFEFEF] border border-gray-200 rounded-lg px-3 py-1.5 text-xs text-gray-800 font-semibold w-full focus:outline-none focus:border-blue-500';
+const BTN = 'bg-black hover:bg-gray-800 text-white rounded-full flex items-center justify-center flex-shrink-0 transition disabled:opacity-40 disabled:cursor-not-allowed';
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+const rp = v => (v === '' ? '' : 'Rp' + Number(v).toLocaleString('id-ID'));
+const E = k => `<p data-err="${k}" class="hidden text-red-600 text-xs mt-1"></p>`;
+const label = (t, opt) => `<label class="block text-sm font-bold text-gray-900">${t}${opt ? ' <span class="text-gray-400 font-normal text-xs">(Opsional)</span>' : ''}</label>`;
+const seg = (opts, cur, fn) => `<div class="inline-flex rounded-md overflow-hidden p-0.5 bg-blue-700 text-white shadow-sm">${opts.map(([v, l]) =>
+  `<button type="button" onclick='${fn}(${JSON.stringify(v)})' class="px-4 py-1.5 text-xs font-semibold rounded transition ${v === cur ? 'bg-blue-900 shadow text-white' : 'text-gray-200 hover:text-white'}">${l}</button>`).join('')}</div>`;
+const unitSel = (path, key, units, cur) => `<select data-set="${path}" data-key="${key}" class="${INP} !w-32">${units.map(u => `<option ${u === cur ? 'selected' : ''}>${u}</option>`).join('')}</select>`;
+const field = (title, opt, body, key) => `<div class="space-y-1.5">${label(title, opt)}${body}${E(key)}</div>`;
+
+function render() {
+  const f = state;
+  let harga = '';
+  if (f.jenis === 'tunggal') {
+    harga = `<h3 class="text-sm font-bold text-gray-900">Harga Layanan</h3>
+      <input data-set="f.hargaTunggal" data-fmt="rp" data-key="hargaTunggal" inputmode="numeric" placeholder="Contoh: Rp50.000" value="${rp(f.hargaTunggal)}" class="${INP}">${E('hargaTunggal')}`;
+  } else if (f.jenis === 'pilihan') {
+    harga = `<h3 class="text-sm font-bold text-gray-900">Atur Pilihan Harga</h3>
+      <div class="space-y-3">${f.groups.map(g => `
+        <div class="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
+          <div class="bg-[#3B82F6] px-4 py-2 flex items-center gap-2">
+            <input data-set="g.${g.id}.title" data-key="g:${g.id}" value="${esc(g.title)}" placeholder="Nama Kelompok Harga" class="flex-grow min-w-0 rounded px-2.5 py-1 text-sm font-bold text-gray-800 bg-white focus:outline-none">
+            <button type="button" onclick="addPrice('${g.id}')" title="Tambah pilihan" class="${BTN} w-6 h-6 text-xs"><i class="fa-solid fa-plus"></i></button>
+            
+          </div>
+          <div class="px-3 pt-1">${E('g:' + g.id)}</div>
+          <div data-sort="p:${g.id}" class="p-3 space-y-2">${g.children.map(p => `
+            <div class="flex items-start gap-2">
+              <span class="sub-drag text-gray-700 px-0.5 pt-2"><i class="fa-solid fa-bars text-sm"></i></span>
+              <div class="flex-grow"><input data-set="p.${g.id}.${p.id}.title" data-key="pt:${p.id}" value="${esc(p.title)}" placeholder="Nama pilihan" class="${SM}">${E('pt:' + p.id)}</div>
+              <div class="w-32 flex-shrink-0"><input data-set="p.${g.id}.${p.id}.price" data-fmt="rp" data-key="pp:${p.id}" inputmode="numeric" placeholder="Rp0" value="${rp(p.price)}" class="${SM} text-center">${E('pp:' + p.id)}</div>
+              <button type="button" ${g.children.length <= 1 ? 'disabled' : ''} onclick="delPrice('${g.id}','${p.id}')" class="${BTN} w-7 h-7 text-xs mt-0.5"><i class="fa-solid fa-minus"></i></button>
+            </div>`).join('')}</div>
+          <div class="px-3 pb-2">${E('ge:' + g.id)}</div>
+        </div>`).join('')}</div>${E('groups')}`;
+  }
+
+  const outputs = f.outputs.map(o => {
+    const pl = o.type === 'pilihan';
+    return `<div class="border rounded-md p-2 ${pl ? 'bg-gray-100 border-gray-400' : 'bg-gray-50 border-gray-200'}">
+      <div class="flex items-start justify-between gap-2">
+        <span class="drag-handle text-gray-500 px-1 pt-1.5"><i class="fa-solid fa-bars text-xs"></i></span>
+        <div class="flex-grow"><input data-set="o.${o.id}.title" data-key="o:${o.id}" value="${esc(o.title)}" placeholder="Nama output" class="bg-white border border-gray-300 rounded px-2.5 py-1 text-xs text-gray-800 w-full focus:outline-none focus:border-blue-500 font-medium">${E('o:' + o.id)}</div>
+        <div class="flex bg-blue-700 p-0.5 rounded text-[11px] font-semibold text-white flex-shrink-0">
+          <button type="button" onclick="setOutType('${o.id}','non')" class="px-2.5 py-0.5 rounded ${!pl ? 'bg-blue-900 shadow' : 'text-gray-200'}">Non</button>
+          <button type="button" onclick="setOutType('${o.id}','pilihan')" class="px-2.5 py-0.5 rounded ${pl ? 'bg-blue-900 shadow' : 'text-gray-200'}">Pilihan</button>
+        </div>
+        ${pl ? `<button type="button" onclick="addSub('${o.id}')" class="${BTN} w-6 h-6 text-[10px] mt-0.5"><i class="fa-solid fa-plus"></i></button>` : ''}
+        <button type="button" ${f.outputs.length <= 1 ? 'disabled' : ''} onclick="delOut('${o.id}')" class="${BTN} w-6 h-6 text-[10px] mt-0.5"><i class="fa-solid fa-minus"></i></button>
+      </div>
+      ${pl ? `<div class="mt-2 pl-5 ml-2 border-l-2 border-gray-300">
+        <div data-sort="s:${o.id}" class="space-y-1.5">${o.children.map(s => `
+          <div class="flex items-start gap-2 bg-white p-1.5 rounded border border-gray-200">
+            <span class="sub-drag text-gray-400 px-1 pt-1"><i class="fa-solid fa-bars text-[10px]"></i></span>
+            <div class="flex-grow"><input data-set="s.${o.id}.${s.id}.title" data-key="st:${s.id}" value="${esc(s.title)}" placeholder="Nama sub pilihan" class="bg-gray-50 border border-gray-200 rounded px-2 py-0.5 text-xs text-gray-700 w-full focus:outline-none">${E('st:' + s.id)}</div>
+            <button type="button" ${o.children.length <= 1 ? 'disabled' : ''} onclick="delSub('${o.id}','${s.id}')" class="${BTN} w-5 h-5 text-[9px] mt-0.5"><i class="fa-solid fa-minus"></i></button>
+          </div>`).join('')}</div>${E('oe:' + o.id)}</div>` : ''}
+    </div>`;
+  }).join('');
+
+  document.getElementById('app').innerHTML = `
+    ${field('Nama Layanan', 0, `<input data-set="f.nama" data-key="nama" value="${esc(f.nama)}" placeholder="Masukkan nama layanan" class="${INP}">`, 'nama')}
+    <div class="space-y-2">${label('Pilih Jenis Harga Layanan')}${seg([['tunggal', 'Harga Tunggal'], ['pilihan', 'Harga Daftar Pilihan']], f.jenis, 'setJenis')}${E('jenis')}</div>
+    <div class="space-y-3">${harga}</div>
+    <div class="space-y-2">${label('Pilih Keterangan Harga')}${seg([['layanan', '/Layanan'], ['foto', '/Foto']], f.ket, 'setKet')}${E('ket')}</div>
+    <div class="space-y-1.5">${label('Durasi')}<div class="flex gap-2">
+      <input data-set="f.durVal" data-fmt="num" data-key="durasi" inputmode="numeric" placeholder="Contoh: 60" value="${esc(f.durVal)}" class="${INP}">${unitSel('f.durUnit', 'durasi', ['Menit', 'Jam', 'Hari'], f.durUnit)}</div>${E('durasi')}</div>
+    <div class="space-y-1.5">${label('Estimasi Hasil', 1)}<div class="flex gap-2">
+      <input data-set="f.estVal" data-fmt="num" data-key="est" inputmode="numeric" placeholder="Contoh: 1" value="${esc(f.estVal)}" class="${INP}">${unitSel('f.estUnit', 'est', ['Menit', 'Jam', 'Hari', 'Minggu'], f.estUnit)}</div>${E('est')}</div>
+    <div class="space-y-1.5">${label('Maks.', 1)}<div class="flex items-center">
+      <input data-set="f.maks" data-fmt="num" data-key="maks" inputmode="numeric" placeholder="0" value="${esc(f.maks)}" class="${INP} !rounded-r-none">
+      <span class="bg-blue-600 text-white font-semibold text-xs px-4 py-2.5 rounded-r-md">Orang</span></div>${E('maks')}</div>
+    ${field('Deskripsi', 1, `<textarea rows="3" data-set="f.deskripsi" data-key="deskripsi" placeholder="Tuliskan deskripsi layanan..." class="${INP}">${esc(f.deskripsi)}</textarea>`, 'deskripsi')}
+    <div class="w-full bg-white rounded-lg shadow-sm overflow-hidden border border-gray-300">
+      <div class="bg-blue-600 text-white px-4 py-3 flex justify-between items-center">
+        <h3 class="text-base font-bold">Atur Output Layanan</h3>
+        <button type="button" onclick="addOut()" class="${BTN} w-7 h-7"><i class="fa-solid fa-plus text-xs"></i></button></div>
+      <div data-sort="outputs" class="p-3 space-y-2.5">${outputs}</div>
+      <div class="px-3 pb-3">${E('outputs')}</div>
+    </div>
+    <div class="space-y-2 pt-2">${label('Kebutuhan Jadwal')}${seg([[true, 'Ya'], [false, 'Tidak']], f.jadwal, 'setJadwal')}${E('jadwal')}</div>
+    <div class="space-y-2">${label('Tampilkan Pada Layanan Publik')}${seg([[true, 'Ya'], [false, 'Tidak']], f.publik, 'setPublik')}${E('publik')}</div>`;
+
+  // drag & drop
+  document.querySelectorAll('[data-sort]').forEach(el => {
+    const [t, id] = el.dataset.sort.split(':');
+    const arr = t === 'outputs' ? state.outputs : t === 'p' ? G(id).children : O(id).children;
+    new Sortable(el, {
+      handle: t === 'outputs' ? '.drag-handle' : '.sub-drag', animation: 150, ghostClass: 'ghost',
+      onEnd: ev => { arr.splice(ev.newIndex, 0, arr.splice(ev.oldIndex, 1)[0]); render(); }
+    });
+  });
+  showErrors();
+}
+
+/* ====== EVENT INPUT (delegasi) ====== */
+const app = document.getElementById('app');
+app.addEventListener('input', ev => {
+  const t = ev.target, path = t.dataset.set;
+  if (!path) return;
+  let v = t.value;
+  if (t.dataset.fmt) {
+    v = v.replace(/\D/g, '').replace(/^0+(?=\d)/, '').slice(0, 12); // hanya angka, tanpa negatif
+    t.value = t.dataset.fmt === 'rp' ? rp(v) : v;
+  }
+  setPath(path, v);
+  delete serverErrors[t.dataset.key];
+  touched.add(t.dataset.key);
+  showErrors();
+});
+app.addEventListener('focusout', ev => {
+  const k = ev.target.dataset && ev.target.dataset.key;
+  if (k) { touched.add(k); showErrors(); }
+});
+
+const G = id => state.groups.find(g => g.id === id);
+const O = id => state.outputs.find(o => o.id === id);
+function setPath(p, v) {
+  const a = p.split('.');
+  if (a[0] === 'f') state[a[1]] = v;
+  else if (a[0] === 'g') G(a[1]).title = v;
+  else if (a[0] === 'p') G(a[1]).children.find(x => x.id === a[2])[a[3]] = v;
+  else if (a[0] === 'o') O(a[1]).title = v;
+  else if (a[0] === 's') O(a[1]).children.find(x => x.id === a[2]).title = v;
+}
+
+/* ====== AKSI ====== */
+const setJenis = v => { state.jenis = v; render(); };
+const setKet = v => { state.ket = v; render(); };
+const setJadwal = v => { state.jadwal = v; render(); };
+const setPublik = v => { state.publik = v; render(); };
+const addPrice = gid => { G(gid).children.push({ id: nid('p'), title: '', price: '' }); render(); };
+const delPrice = (gid, pid) => { const g = G(gid); if (g.children.length <= 1) return; g.children = g.children.filter(p => p.id !== pid); render(); };
+const addOut = () => { state.outputs.push({ id: nid('o'), title: '', type: 'non', children: [] }); render(); };
+const delOut = id => { if (state.outputs.length <= 1) return; state.outputs = state.outputs.filter(o => o.id !== id); render(); };
+const setOutType = (id, t) => { const o = O(id); o.type = t; if (t === 'pilihan' && !o.children.length) o.children.push({ id: nid('s'), title: '' }); render(); };
+const addSub = id => { O(id).children.push({ id: nid('s'), title: '' }); render(); };
+const delSub = (oid, sid) => { const o = O(oid); if (o.children.length <= 1) return; o.children = o.children.filter(s => s.id !== sid); render(); };
+
+/* ====== SUBMIT ====== */
+function showSummary(msg) {
+  const s = document.getElementById('summary');
+  s.innerHTML = msg ? `<i class="fa-solid fa-circle-exclamation"></i> ${esc(msg)}` : '';
+  s.classList.toggle('hidden', !msg);
+}
+
+function buildPayload() {
+  const f = state;
+  return {
+    nama: f.nama.trim(),
+    jenis_harga: f.jenis,
+    harga_tunggal: f.jenis === 'tunggal' ? int(f.hargaTunggal) : null,   // integer, mis. 50000
+    harga_pilihan: f.jenis === 'pilihan' ? f.groups.map(g => ({
+      nama: g.title.trim(),
+      pilihan: g.children.map(p => ({ nama: p.title.trim(), harga: int(p.price) }))
+    })) : [],
+    keterangan_harga: f.ket,
+    durasi: { nilai: int(f.durVal), satuan: f.durUnit },
+    estimasi_hasil: f.estVal === '' ? null : { nilai: int(f.estVal), satuan: f.estUnit },
+    maks_orang: f.maks === '' ? null : int(f.maks),
+    deskripsi: f.deskripsi.trim() || null,
+    output: f.outputs.map(o => ({
+      nama: o.title.trim(), tipe: o.type,
+      sub_pilihan: o.type === 'pilihan' ? o.children.map(s => s.title.trim()) : []
+    })),
+    kebutuhan_jadwal: f.jadwal,
+    tampil_publik: f.publik
+  };
+}
+
+/* kunci error backend (mis. harga_pilihan[0].pilihan[1].nama) -> kunci field di form */
+function mapServerErrors(errs) {
+  const out = {}, f = state;
+  for (const [k, msg] of Object.entries(errs || {})) {
+    let m, key = null;
+    if ((m = k.match(/^harga_pilihan\[(\d+)\]\.pilihan\[(\d+)\]\.(nama|harga)$/))) {
+      const p = f.groups[m[1]] && f.groups[m[1]].children[m[2]];
+      key = p && (m[3] === 'nama' ? 'pt:' : 'pp:') + p.id;
+    } else if ((m = k.match(/^harga_pilihan\[(\d+)\]\.nama$/))) { const g = f.groups[m[1]]; key = g && 'g:' + g.id; }
+    else if ((m = k.match(/^harga_pilihan\[(\d+)\]\.pilihan$/))) { const g = f.groups[m[1]]; key = g && 'ge:' + g.id; }
+    else if ((m = k.match(/^output\[(\d+)\]\.(nama|tipe)$/))) { const o = f.outputs[m[1]]; key = o && 'o:' + o.id; }
+    else if ((m = k.match(/^output\[(\d+)\]\.sub_pilihan\[(\d+)\]$/))) { const o = f.outputs[m[1]], s = o && o.children[m[2]]; key = s && 'st:' + s.id; }
+    else if ((m = k.match(/^output\[(\d+)\]\.sub_pilihan$/))) { const o = f.outputs[m[1]]; key = o && 'oe:' + o.id; }
+    else key = { nama: 'nama', jenis_harga: 'jenis', harga_tunggal: 'hargaTunggal', harga_pilihan: 'groups', keterangan_harga: 'ket', durasi: 'durasi',
+      estimasi_hasil: 'est', maks_orang: 'maks', deskripsi: 'deskripsi', output: 'outputs', kebutuhan_jadwal: 'jadwal', tampil_publik: 'publik' }[k];
+    if (key) out[key] = msg;
+  }
+  return out;
+}
+
+async function submitForm() {
+  submitted = true;
+  showErrors();
+  const keys = Object.keys(validate());
+  if (keys.length) {
+    showSummary('Periksa kembali isian yang ditandai merah.');
+    const el = document.querySelector(`[data-key="${keys[0]}"]`) || document.querySelector(`[data-err="${keys[0]}"]`);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  showSummary('');
+  const payload = buildPayload();
+  try {
+    const res = await fetch(editId ? `${API_URL}/${encodeURIComponent(editId)}` : API_URL, { method: editId ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 422) {   // validasi backend gagal
+      serverErrors = mapServerErrors(data.errors);
+      showErrors();
+      showSummary(Object.values(data.errors || {}).join(' | ') || 'Validasi backend gagal.');
+      return;
+    }
+    if (!res.ok) throw new Error(data.error || 'HTTP ' + res.status);
+    location.href = 'Layanan.html';
+  } catch (err) {
+    console.log('Payload siap kirim:', payload);
+    showSummary('Gagal menyimpan: ' + err.message);
+  }
+}
+
+/* ====== SIDEBAR ====== */
+const toggleSb = () => document.body.classList.toggle('sb-hidden');
+if (window.innerWidth < 1024) document.body.classList.add('sb-hidden');
+
+/* ====== MODE EDIT: isi form dari GET /api/layanan/:id ====== */
+function fillFromServer(d) {
+  Object.assign(state, {
+    nama: d.nama, jenis: d.jenis_harga,
+    hargaTunggal: d.harga_tunggal != null ? String(d.harga_tunggal) : '',
+    groups: d.jenis_harga === 'pilihan' ? d.harga_pilihan.map(g => ({
+      id: nid('g'), title: g.nama,
+      children: g.pilihan.map(p => ({ id: nid('p'), title: p.nama, price: String(p.harga) }))
+    })) : state.groups,
+    ket: d.keterangan_harga,
+    durVal: String(d.durasi.nilai), durUnit: d.durasi.satuan,
+    estVal: d.estimasi_hasil ? String(d.estimasi_hasil.nilai) : '', estUnit: d.estimasi_hasil ? d.estimasi_hasil.satuan : 'Hari',
+    maks: d.maks_orang != null ? String(d.maks_orang) : '', deskripsi: d.deskripsi || '',
+    outputs: d.output.map(o => ({ id: nid('o'), title: o.nama, type: o.tipe, children: o.sub_pilihan.map(t => ({ id: nid('s'), title: t })) })),
+    jadwal: d.kebutuhan_jadwal, publik: d.tampil_publik
+  });
+}
+document.addEventListener('DOMContentLoaded', async () => {
+  if (editId) {
+    document.title = 'SIMASIF - Edit Layanan';
+    document.querySelector('button[onclick="submitForm()"]').textContent = 'Simpan Perubahan';
+    try {
+      const res = await fetch(`${API_URL}/${encodeURIComponent(editId)}`);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      fillFromServer((await res.json()).data);
+    } catch (err) { showSummary('Gagal memuat data layanan: ' + err.message); }
+  }
+  render();
+});
+</script>
+</body>
+</html>

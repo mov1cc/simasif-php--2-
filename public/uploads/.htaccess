@@ -1,0 +1,6 @@
+# Jangan pernah mengeksekusi skrip dari folder upload
+php_flag engine off
+RemoveHandler .php .phtml
+<FilesMatch "\.(php|phtml|phar)$">
+  Require all denied
+</FilesMatch>

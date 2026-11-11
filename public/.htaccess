@@ -1,0 +1,4 @@
+# Apache (XAMPP/Laragon/hosting): arahkan /api/* ke front controller
+DirectoryIndex Layanan.html
+RewriteEngine On
+RewriteRule ^api/ api/index.php [L]
