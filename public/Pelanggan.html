@@ -113,50 +113,27 @@
   <nav id="pager" class="mt-5 flex items-center justify-center gap-3"></nav>
 </main>
 
-<!-- MODAL TAMBAH / EDIT -->
-<div id="formModal" class="hidden fixed inset-0 bg-black/60 z-50 items-center justify-center p-4">
-  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
-    <div class="bg-[#FFE600] px-5 py-3 text-lg font-bold" id="formTitle">Tambah Pelanggan</div>
-    <div class="p-5 flex flex-col gap-4">
-      <div>
-        <label for="fNama" class="text-xs font-semibold">Nama Pelanggan</label>
-        <input id="fNama" type="text" maxlength="100" oninput="liveCheck('nama')" onblur="blurCheck('nama')" placeholder="Contoh: Ayu Wardatul Widad" onkeydown="if(event.key==='Enter')saveForm()" class="mt-1 w-full bg-[#EDEDED] border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none">
-        <p id="eNama" class="hidden text-[11px] text-red-600 mt-1"></p>
-      </div>
-      <div>
-        <label for="fNomor" class="text-xs font-semibold">Nomor Telepon</label>
-        <input id="fNomor" type="tel" inputmode="tel" maxlength="16" oninput="liveCheck('nomor')" onblur="blurCheck('nomor')" placeholder="Contoh: 08123456789" onkeydown="if(event.key==='Enter')saveForm()" class="mt-1 w-full bg-[#EDEDED] border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none">
-        <p id="eNomor" class="hidden text-[11px] text-red-600 mt-1"></p>
-      </div>
-      <div class="flex justify-end gap-2 pt-1">
-        <button type="button" onclick="closeForm()" class="bg-gray-200 text-xs font-bold px-4 py-2 rounded-md hover:bg-gray-300">Batal</button>
-        <button type="button" onclick="saveForm()" class="bg-[#FFE600] hover:bg-yellow-400 text-xs font-bold px-5 py-2 rounded-md shadow">Simpan</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white text-sm font-medium px-4 py-2 rounded-full shadow-lg z-[60]"></div>
 
 <script>
-/* ====== DATA CONTOH (ganti dengan hasil GET /api/pelanggan) ====== */
 const TODAY = new Date(); TODAY.setHours(0, 0, 0, 0);
-const daysAgo = n => { const d = new Date(TODAY); d.setDate(d.getDate() - n); return d; };
-// [nama, total pemesanan, terdaftar (hari yang lalu), pemesanan sedang berjalan/diproses]
-const SEED = [
-  ['Ayu Wardatul Widad', 6, 0, 1], ['Ibrahim Movic', 0, 1, 0], ['M Rayyan Abie D.', 10, 2, 1], ['Rivaldo Aditya Putra', 0, 3, 0],
-  ['Riska Putri', 12, 4, 2], ['Cika Larasati', 0, 5, 0], ['Yogi Prasetya', 0, 6, 0], ['Risky Dwi Kurniawan', 5, 7, 1],
-  ['Nafis Zulianto', 0, 8, 0], ['Rara Rucika', 5, 10, 1],
-  ['Dewi Lestari', 3, 12, 1], ['Bagus Santoso', 8, 14, 1], ['Putri Ayu Ningrum', 2, 15, 1], ['Fajar Nugroho', 11, 17, 2],
-  ['Salsa Maharani', 4, 19, 1], ['Dimas Prakoso', 1, 21, 1], ['Nabila Zahra', 7, 24, 1], ['Agus Hermawan', 9, 27, 1],
-  ['Intan Permata', 2, 30, 1], ['Hendra Wijaya', 6, 34, 1]
-];
-let customers = SEED.map(([nama, pemesanan, h, berjalan], i) => ({
-  id: 'c' + (i + 1), nama, pemesanan, berjalan, terdaftar: daysAgo(h),
-  nomor: i === 0 ? '08123456789' : '0812' + (3450000 + i * 7919)
-}));
-let seq = SEED.length, q = '', cat = 'semua', sort = 'terbaru', page = 1, editId = null;
+let customers = [], q = '', cat = 'semua', sort = 'terbaru', page = 1;
 const PER = 10;
+
+async function api(url, opt = {}) {
+  const res = await fetch(url, { headers: { 'Content-Type': 'application/json' }, ...opt });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) { const e = new Error(data.error || 'HTTP ' + res.status); e.status = res.status; e.data = data; throw e; }
+  return data;
+}
+const toCust = c => ({ ...c, terdaftar: new Date(c.terdaftar) });
+async function loadCustomers() {
+  try { customers = (await api('/api/pelanggan')).data.map(toCust); }
+  catch (e) { toast('Gagal memuat pelanggan: ' + e.message); }
+  refresh();
+}
 
 /* ====== HELPER ====== */
 const $ = id => document.getElementById(id);
@@ -233,7 +210,7 @@ function row(c) {
     <div class="flex items-center justify-center gap-2"><span class="w-3 h-3 rounded-full" style="background:${COLOR[st]}"></span>${st}</div>
     <div>${fmtDate(c.terdaftar)}</div>
     <div class="flex items-center justify-center gap-2">
-      <button type="button" ${lock ? `disabled title="${lockTip}"` : `onclick="openForm('${c.id}')" title="Edit"`} class="w-9 h-9 rounded-full text-white flex items-center justify-center shadow ${lock ? 'bg-[#808080] opacity-60 cursor-not-allowed' : 'bg-black hover:bg-gray-800'}"><i class="fa-solid fa-pen"></i></button>
+      <button type="button" ${lock ? `disabled title="${lockTip}"` : `onclick="location.href='FormTambahPelanggan.html?id=${encodeURIComponent(c.id)}'" title="Edit"`} class="w-9 h-9 rounded-full text-white flex items-center justify-center shadow ${lock ? 'bg-[#808080] opacity-60 cursor-not-allowed' : 'bg-black hover:bg-gray-800'}"><i class="fa-solid fa-pen"></i></button>
       <button type="button" ${lock ? `disabled title="${lockTip}"` : `onclick="delCustomer('${c.id}')" title="Hapus"`} class="w-9 h-9 rounded-full text-white flex items-center justify-center shadow ${lock ? 'bg-[#FF8A8A] opacity-70 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700'}"><i class="fa-solid fa-trash-can"></i></button>
     </div></div>`;
 }
@@ -259,75 +236,15 @@ function renderPager(pages) {
 }
 function goPage(p) { page = p; renderTable(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-/* ====== TAMBAH / EDIT / HAPUS ====== */
-function openForm(id) {
-  editId = id || null;
-  const c = id ? customers.find(x => x.id === id) : null;
-  if (c && isLocked(c)) return toast('Pelanggan masih punya pemesanan yang sedang berjalan.');
-  $('formTitle').textContent = 'Edit Pelanggan';
-  $('fNama').value = c ? c.nama : ''; $('fNomor').value = c ? c.nomor : '';
-  showErr('eNama'); showErr('eNomor');
-  $('formModal').classList.remove('hidden'); $('formModal').classList.add('flex');
-  setTimeout(() => $('fNama').focus(), 0);
-}
-function closeForm() { $('formModal').classList.add('hidden'); $('formModal').classList.remove('flex'); }
-function showErr(id, msg) {
-  const e = $(id), inp = $(id.replace(/^e/, 'f'));
-  e.textContent = msg || ''; e.classList.toggle('hidden', !msg);
-  inp.style.borderColor = msg ? '#F87171' : ''; inp.style.background = msg ? '#FEF2F2' : '';   // kolom error: tepi merah + latar merah muda
-  inp.setAttribute('aria-invalid', msg ? 'true' : 'false');
-}
 
-/* ====== ATURAN VALIDASI ====== */
-// Nama: wajib, hanya huruf & spasi, minimal 3 karakter
-function checkNama(v, full) {
-  if (!v) return 'Nama pelanggan wajib diisi.';
-  if (!/^[\p{L}\s]+$/u.test(v)) return 'Nama hanya boleh berisi huruf dan spasi.';
-  if (full && v.length < 3) return 'Nama minimal 3 karakter.';
-  return '';
-}
-// Nomor: wajib, hanya angka (boleh diawali +62 atau 08), 10-15 digit, tanpa huruf/spasi/simbol lain
-function checkNomor(v, full) {
-  if (!v) return 'Nomor telepon wajib diisi.';
-  if (!/^\+?\d*$/.test(v)) return 'Nomor hanya boleh berisi angka, tanpa huruf, spasi, atau simbol lain.';
-  if (full) {
-    if (!/^(\+62|08)/.test(v)) return 'Nomor harus diawali +62 atau 08.';
-    const d = v.replace('+', '').length;
-    if (d < 10 || d > 15) return 'Nomor harus 10-15 digit.';
-  }
-  return '';
-}
-const fieldVal = f => $(f === 'nama' ? 'fNama' : 'fNomor').value.trim();
-// saat mengetik: cek kosong & karakter terlarang; aturan panjang dicek saat kolom ditinggalkan/disimpan
-function liveCheck(f) {
-  const v = fieldVal(f);
-  showErr(f === 'nama' ? 'eNama' : 'eNomor', (f === 'nama' ? checkNama : checkNomor)(v, false));
-}
-function blurCheck(f) {
-  const v = fieldVal(f);
-  if (v) showErr(f === 'nama' ? 'eNama' : 'eNomor', (f === 'nama' ? checkNama : checkNomor)(v, true));
-}
-
-function saveForm() {
-  const nama = $('fNama').value.trim().replace(/\s+/g, ' ');
-  const nomor = $('fNomor').value.trim();
-  const eN = checkNama(nama, true);
-  let eT = checkNomor(nomor, true);
-  if (!eT && customers.some(c => c.nomor === nomor && c.id !== editId)) eT = 'Nomor telepon sudah terdaftar.';
-  showErr('eNama', eN); showErr('eNomor', eT);
-  if (eN || eT) return;
-
-  if (!editId) return;
-  Object.assign(customers.find(c => c.id === editId), { nama, nomor });   // sambungkan ke PUT /api/pelanggan/:id
-  toast('Data pelanggan diperbarui.');
-  closeForm(); refresh();
-}
-function delCustomer(id) {
+async function delCustomer(id) {
   const c = customers.find(x => x.id === id);
   if (!c) return;
   if (isLocked(c)) return toast('Pelanggan masih punya pemesanan yang sedang berjalan.');
   if (!confirm(`Hapus pelanggan "${c.nama}"?`)) return;
-  customers = customers.filter(x => x.id !== id);   // sambungkan ke DELETE /api/pelanggan/:id
+  try { await api('/api/pelanggan/' + encodeURIComponent(id), { method: 'DELETE' }); }
+  catch (err) { return toast('Gagal menghapus: ' + err.message); }
+  customers = customers.filter(x => x.id !== id);
   refresh(); toast('Pelanggan dihapus.');
 }
 function refresh() { renderStats(); renderTable(); }
@@ -336,14 +253,7 @@ function refresh() { renderStats(); renderTable(); }
 const toggleSb = () => document.body.classList.toggle('sb-hidden');
 if (window.innerWidth < 1024) document.body.classList.add('sb-hidden');
 
-/* pelanggan baru dari halaman form (sementara lewat localStorage, ganti dengan GET /api/pelanggan) */
-try {
-  const KEY = 'simasif_pelanggan_baru', baru = JSON.parse(localStorage.getItem(KEY)) || [];
-  baru.forEach(b => customers.push({ id: 'c' + (++seq), nama: b.nama, nomor: b.nomor, pemesanan: 0, berjalan: 0, terdaftar: new Date(TODAY) }));
-  if (baru.length) { localStorage.removeItem(KEY); toast(baru.length > 1 ? `${baru.length} pelanggan ditambahkan.` : 'Pelanggan ditambahkan.'); }
-} catch (e) {}
-
-refresh();
+loadCustomers();
 </script>
 </body>
 </html>

@@ -7,6 +7,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__, 2) . '/src/Db.php';
 require_once dirname(__DIR__, 2) . '/src/ValidateService.php';
 require_once dirname(__DIR__, 2) . '/src/ValidateAddOn.php';
+require_once dirname(__DIR__, 2) . '/src/ValidatePelanggan.php';
 
 const MAX_GALLERY = 8;
 const MAX_BYTES = 5 * 1048576;
@@ -164,6 +165,38 @@ function saveAddOn(?string $id): never
         $n = count(array_filter($db['addon'], fn($a) => $a['layanan_id'] === $lid));
         $row = ['id' => newId('a'), 'layanan_id' => $lid, 'aktif' => true, 'urutan' => $n] + $data;
         $db['addon'][] = $row;
+        return [201, ['ok' => true, 'data' => $row]];
+    });
+    out($code, $body);
+}
+
+/* ---------- simpan pelanggan (POST / PUT) ---------- */
+function savePelanggan(?string $id): never
+{
+    $b = readJson();
+    [$code, $body] = Db::write(function (array &$db) use ($b, $id) {
+        $ei = null;
+        if ($id !== null) {
+            $ei = findIdx($db['pelanggan'], $id);
+            if ($ei === null) return [404, ['error' => 'Pelanggan tidak ditemukan.']];
+            if (($db['pelanggan'][$ei]['berjalan'] ?? 0) > 0)
+                return [409, ['error' => 'Pelanggan masih punya pemesanan yang sedang berjalan.']];
+        }
+        $errors = ValidatePelanggan::validate($b, function (string $n) use ($db, $id) {
+            $c0 = ValidatePelanggan::canon($n);
+            foreach ($db['pelanggan'] as $c)
+                if ($c['id'] !== $id && ValidatePelanggan::canon($c['nomor']) === $c0) return true;
+            return false;
+        });
+        if ($errors) return [422, ['errors' => $errors]];
+
+        $data = ['nama' => ValidatePelanggan::cleanNama($b['nama']), 'nomor' => V::str($b['nomor'])];
+        if ($ei !== null) {
+            $db['pelanggan'][$ei] = array_merge($db['pelanggan'][$ei], $data);
+            return [200, ['ok' => true, 'data' => $db['pelanggan'][$ei]]];
+        }
+        $row = ['id' => newId('c'), 'pemesanan' => 0, 'berjalan' => 0, 'terdaftar' => date('c')] + $data;
+        $db['pelanggan'][] = $row;
         return [201, ['ok' => true, 'data' => $row]];
     });
     out($code, $body);
@@ -351,6 +384,30 @@ if (preg_match('#^/api/layanan/([\w-]+)/gallery(?:/([\w-]+))?(/image)?$#', $p, $
             });
             out($c, $body);
         }
+    }
+}
+/* --- pelanggan --- */
+if ($p === '/api/pelanggan') {
+    if ($m === 'GET') { $db = Db::read(); out(200, ['data' => $db['pelanggan']]); }
+    if ($m === 'POST') savePelanggan(null);
+}
+if (preg_match('#^/api/pelanggan/([\w-]+)$#', $p, $r)) {
+    $id = $r[1];
+    $db = Db::read();
+    $i = findIdx($db['pelanggan'], $id);
+    if ($i === null) out(404, ['error' => 'Pelanggan tidak ditemukan.']);
+    if ($m === 'GET') out(200, ['data' => $db['pelanggan'][$i]]);
+    if ($m === 'PUT') savePelanggan($id);
+    if ($m === 'DELETE') {
+        [$c, $body] = Db::write(function (array &$db) use ($id) {
+            $i = findIdx($db['pelanggan'], $id);
+            if ($i === null) return [404, ['error' => 'Pelanggan tidak ditemukan.']];
+            if (($db['pelanggan'][$i]['berjalan'] ?? 0) > 0)
+                return [409, ['error' => 'Pelanggan masih punya pemesanan yang sedang berjalan.']];
+            array_splice($db['pelanggan'], $i, 1);
+            return [200, ['ok' => true]];
+        });
+        out($c, $body);
     }
 }
 

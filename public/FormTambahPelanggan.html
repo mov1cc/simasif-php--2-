@@ -96,7 +96,7 @@
 
 <script>
 const $ = id => document.getElementById(id);
-const KEY = 'simasif_pelanggan_baru';   // sementara: antrean pelanggan baru untuk halaman daftar (hapus saat API sudah ada)
+const editId = new URLSearchParams(location.search).get('id');
 
 function toast(msg) {
   const t = $('toast');
@@ -138,28 +138,94 @@ function blurCheck(f) {
   const v = fieldVal(f);
   if (v) showErr(f === 'nama' ? 'eNama' : 'eNomor', (f === 'nama' ? checkNama : checkNomor)(v, true));
 }
-function readQueue() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
 
-function submitForm() {
+async function submitForm() {
   const nama = $('fNama').value.trim().replace(/\s+/g, ' ');
   const nomor = $('fNomor').value.trim();
-  const eN = checkNama(nama, true);
-  let eT = checkNomor(nomor, true);
-  if (!eT && readQueue().some(c => c.nomor === nomor)) eT = 'Nomor telepon sudah terdaftar.';
-  showErr('eNama', eN); showErr('eNomor', eT);
+  const eN = checkNama(nama, true), eT = checkNomor(nomor, true);
+  showErr('eNama', eN);
+  showErr('eNomor', eT);
   if (eN || eT) return;
 
-  // sambungkan ke POST /api/pelanggan { nama, nomor }; 422 { errors } = tampilkan lewat showErr
-  try { localStorage.setItem(KEY, JSON.stringify([...readQueue(), { nama, nomor }])); } catch (e) {}
   $('btnSave').disabled = true;
-  toast('Pelanggan ditambahkan.');
-  setTimeout(() => { location.href = 'pelanggan.html'; }, 900);
+
+  try {
+    const url = editId
+      ? '/api/pelanggan/' + encodeURIComponent(editId)
+      : '/api/pelanggan';
+
+    const res = await fetch(url, {
+      method: editId ? 'PUT' : 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ nama, nomor })
+    });
+
+    const data = await res.json().catch(() => ({}));
+
+    if (res.status === 422) {
+      showErr('eNama', (data.errors || {}).nama);
+      showErr('eNomor', (data.errors || {}).nomor);
+      $('btnSave').disabled = false;
+      return;
+    }
+
+    if (!res.ok)
+      throw new Error(data.error || ('HTTP ' + res.status));
+
+    toast(editId ? 'Data pelanggan diperbarui.' : 'Pelanggan ditambahkan.');
+
+    setTimeout(() => {
+      location.href = 'Pelanggan.html';
+    }, 900);
+
+  } catch (err) {
+    toast('Gagal menyimpan: ' + err.message);
+    $('btnSave').disabled = false;
+  }
 }
 
 /* ====== SIDEBAR ====== */
 const toggleSb = () => document.body.classList.toggle('sb-hidden');
-if (window.innerWidth < 1024) document.body.classList.add('sb-hidden');
-$('fNama').focus();
+if (window.innerWidth < 1024)
+    document.body.classList.add('sb-hidden');
+
+/* ===== MODE EDIT ===== */
+(async () => {
+  if (editId) {
+    document.title = 'SIMASIF - Edit Pelanggan';
+    $('btnSave').textContent = 'Simpan Perubahan';
+    $('btnSave').disabled = true;
+
+    try {
+      const res = await fetch('/api/pelanggan/' + encodeURIComponent(editId));
+      const d = (await res.json().catch(() => ({}))).data;
+
+      if (!res.ok || !d)
+        throw new Error('Pelanggan tidak ditemukan.');
+
+      if (d.berjalan > 0) {
+        toast('Pelanggan masih punya pemesanan yang sedang berjalan.');
+        setTimeout(() => {
+          location.href = 'Pelanggan.html';
+        }, 1500);
+        return;
+      }
+
+      $('fNama').value = d.nama;
+      $('fNomor').value = d.nomor;
+
+      $('btnSave').disabled = false;
+
+    } catch (err) {
+      toast('Gagal memuat data pelanggan: ' + err.message);
+      return;
+    }
+  }
+
+  $('fNama').focus();
+})();
 </script>
 </body>
 </html>
