@@ -282,7 +282,48 @@
             "caption": "",
             "cover": false,
             "urutan": 0
+        },
+        {
+            "id": "g069d04e397",
+            "layanan_id": "s6a17497357",
+            "url": "/uploads/img_03e6ae1e32.jpg",
+            "caption": "",
+            "cover": false,
+            "urutan": 1
         }
     ],
-    "pelanggan": []
+    "pelanggan": [
+        {
+            "id": "c41d1a4dff2",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T01:15:52+00:00",
+            "nama": "Ayu Wardatul Widad",
+            "nomor": "08123456789"
+        },
+        {
+            "id": "cb392f8376d",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T01:16:31+00:00",
+            "nama": "Ibrahim Movic",
+            "nomor": "0818765432"
+        },
+        {
+            "id": "c92832c6f6c",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T01:17:19+00:00",
+            "nama": "M Rayyan Abie Dewanata",
+            "nomor": "0817654328"
+        },
+        {
+            "id": "c7a3cd889a5",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T01:18:19+00:00",
+            "nama": "Rivaldo Aditya Putra",
+            "nomor": "08139876542"
+        }
+    ]
 }
