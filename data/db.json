@@ -5,7 +5,7 @@
             "aktif": true,
             "sesi": 0,
             "dibuat": "2026-11-10T17:29:28+00:00",
-            "nama": "Self Foto",
+            "nama": "Self Studio",
             "jenis_harga": "tunggal",
             "harga_tunggal": 70000,
             "harga_pilihan": [],
@@ -147,6 +147,114 @@
             ],
             "kebutuhan_jadwal": true,
             "tampil_publik": true
+        },
+        {
+            "id": "sc71587b881",
+            "aktif": true,
+            "sesi": 0,
+            "dibuat": "2026-11-12T05:29:10+00:00",
+            "nama": "Pasfoto Pro",
+            "jenis_harga": "tunggal",
+            "harga_tunggal": 20000,
+            "harga_pilihan": [],
+            "keterangan_harga": "layanan",
+            "durasi": {
+                "nilai": 30,
+                "satuan": "Menit"
+            },
+            "estimasi_hasil": {
+                "nilai": 1,
+                "satuan": "Hari"
+            },
+            "maks_orang": 1,
+            "deskripsi": "abc",
+            "output": [
+                {
+                    "nama": "10 Soft File Hasil Foto + Editing",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                },
+                {
+                    "nama": "1 Warna Background Bebas Pilih Warna",
+                    "tipe": "pilihan",
+                    "sub_pilihan": [
+                        "Merah",
+                        "Biru"
+                    ]
+                }
+            ],
+            "kebutuhan_jadwal": true,
+            "tampil_publik": true
+        },
+        {
+            "id": "se07281bb34",
+            "aktif": true,
+            "sesi": 0,
+            "dibuat": "2026-11-12T05:30:02+00:00",
+            "nama": "Editing",
+            "jenis_harga": "tunggal",
+            "harga_tunggal": 5000,
+            "harga_pilihan": [],
+            "keterangan_harga": "foto",
+            "durasi": {
+                "nilai": 10,
+                "satuan": "Menit"
+            },
+            "estimasi_hasil": null,
+            "maks_orang": null,
+            "deskripsi": null,
+            "output": [
+                {
+                    "nama": "10 Soft File Hasil Foto + Editing",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                },
+                {
+                    "nama": "1 Warna Background Bebas Pilih Warna",
+                    "tipe": "pilihan",
+                    "sub_pilihan": [
+                        "Merah",
+                        "Biru"
+                    ]
+                }
+            ],
+            "kebutuhan_jadwal": false,
+            "tampil_publik": true
+        },
+        {
+            "id": "sca840ecee6",
+            "aktif": true,
+            "sesi": 0,
+            "dibuat": "2026-11-12T05:30:37+00:00",
+            "nama": "Scan Foto",
+            "jenis_harga": "tunggal",
+            "harga_tunggal": 2000,
+            "harga_pilihan": [],
+            "keterangan_harga": "foto",
+            "durasi": {
+                "nilai": 10,
+                "satuan": "Menit"
+            },
+            "estimasi_hasil": null,
+            "maks_orang": null,
+            "deskripsi": null,
+            "output": [
+                {
+                    "nama": "10 Soft File Hasil Foto + Editing",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                },
+                {
+                    "nama": "1 Warna Background Bebas Pilih Warna",
+                    "tipe": "pilihan",
+                    "sub_pilihan": [
+                        "Merah",
+                        "Biru"
+                    ]
+                }
+            ],
+            "kebutuhan_jadwal": false,
+            "tampil_publik": true
         }
     ],
     "addon": [
@@ -265,31 +373,39 @@
             "url": "/uploads/img_cb6c7b336a.jpg",
             "caption": "",
             "cover": true,
-            "urutan": 1
+            "urutan": 0
         },
         {
-            "id": "g2bffab1498",
-            "layanan_id": "s6a17497357",
-            "url": "/uploads/img_aac35cf54f.jpg",
+            "id": "g46ad2e72ba",
+            "layanan_id": "sc71587b881",
+            "url": "/uploads/img_c2542123f1.jpg",
             "caption": "",
             "cover": true,
             "urutan": 0
         },
         {
-            "id": "ge1bd204855",
-            "layanan_id": "s0711e95455",
-            "url": "/uploads/img_609ce843fe.jpg",
+            "id": "g039d2ff792",
+            "layanan_id": "se07281bb34",
+            "url": "/uploads/img_ec5da88ea7.jpg",
             "caption": "",
-            "cover": false,
+            "cover": true,
             "urutan": 0
         },
         {
-            "id": "g069d04e397",
-            "layanan_id": "s6a17497357",
-            "url": "/uploads/img_03e6ae1e32.jpg",
+            "id": "gd6fabf9c26",
+            "layanan_id": "sca840ecee6",
+            "url": "/uploads/img_ae5148ee69.jpg",
             "caption": "",
-            "cover": false,
-            "urutan": 1
+            "cover": true,
+            "urutan": 0
+        },
+        {
+            "id": "gdb188b0e22",
+            "layanan_id": "s6a17497357",
+            "url": "/uploads/img_078be15afb.jpg",
+            "caption": "",
+            "cover": true,
+            "urutan": 0
         }
     ],
     "pelanggan": [
@@ -324,6 +440,62 @@
             "terdaftar": "2026-11-12T01:18:19+00:00",
             "nama": "Rivaldo Aditya Putra",
             "nomor": "08139876542"
+        },
+        {
+            "id": "c35670ffc1a",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T05:10:52+00:00",
+            "nama": "Smith",
+            "nomor": "08145627889"
+        },
+        {
+            "id": "c9bfdddf31e",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T05:12:15+00:00",
+            "nama": "Muhammad Risky",
+            "nomor": "08142356457"
+        },
+        {
+            "id": "ca8bf474aa2",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T05:12:52+00:00",
+            "nama": "Yogi Putra Laksana",
+            "nomor": "081272656276"
+        },
+        {
+            "id": "c6b7a08bbce",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T05:16:08+00:00",
+            "nama": "Citra Arum",
+            "nomor": "08177666864"
+        },
+        {
+            "id": "c82205b2ee9",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T05:16:52+00:00",
+            "nama": "Zahra Syakila",
+            "nomor": "081562526878"
+        },
+        {
+            "id": "c563b7d9318",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T05:17:34+00:00",
+            "nama": "Putri Febria",
+            "nomor": "0815556265678"
+        },
+        {
+            "id": "cdaf0eabbd2",
+            "pemesanan": 0,
+            "berjalan": 0,
+            "terdaftar": "2026-11-12T05:18:01+00:00",
+            "nama": "Zidan Zakarya",
+            "nomor": "08198987654"
         }
     ]
 }

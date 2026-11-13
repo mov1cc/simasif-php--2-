@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMASIF - Pemesanan</title>
+<link rel="icon" href="data:image/png;base64,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">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',system-ui,sans-serif}
+  #sidebar{background:linear-gradient(165deg,#0038D8 0%,#4A86FF 100%);transition:transform .25s}
+  #main{transition:margin .25s}
+  .sb-hidden #sidebar{transform:translateX(-100%)}
+  /* navbar atas: hanya muncul saat sidebar ditutup */
+  #topbar{display:none;background:linear-gradient(90deg,#0038D8 0%,#4A86FF 100%)}
+  .sb-hidden #topbar{display:flex}
+  .sb-hidden #main{padding-top:5.5rem}
+  /* ikon panel sidebar: kotak putih + panel kiri berwarna (--pn) */
+  .ico-panel{width:1.375rem;height:1.375rem;display:block}
+  .ico-panel .box{fill:#fff}
+  .ico-panel .pn{fill:var(--pn)}
+  @media(min-width:1024px){#main{margin-left:18rem}.sb-hidden #main{margin-left:0}}
+  /* Mengatur ukuran font untuk pilihan dropdown */
+  select option {
+    font-size: 14px; /* Ubah ukuran sesuai keinginan, misal: 14px atau 16px */
+  }
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 w-72 z-40 flex flex-col text-white shadow-xl">
+  <div class="flex items-center justify-between px-5 pt-4">
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-9 h-9 rounded-md object-cover">
+      <span class="text-2xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+    <button type="button" onclick="toggleSb()" title="Sembunyikan menu" aria-label="Sembunyikan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A44E0">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center mt-8">
+    <div class="w-28 h-28 rounded-full bg-white flex items-center justify-center"><i class="fa-solid fa-user text-5xl text-[#2563EB]"></i></div>
+    <div class="mt-3 text-xl font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+  <nav class="mt-10 px-1 space-y-2 text-sm">
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Dashboard</a>
+    <a href="Layanan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Layanan</a>
+    <a href="Pelanggan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pelanggan</a>
+    <a href="Pemesanan.html" class="block rounded-md bg-white/40 px-8 py-2.5 font-medium">Pemesanan</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Jadwal</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Workflow</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Transaksi</a>
+  </nav>
+  <a href="#" class="mt-auto mb-10 flex items-center justify-center gap-3 text-lg hover:opacity-80"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Logout</a>
+</aside>
+
+<!-- NAVBAR (muncul saat sidebar ditutup) -->
+<header id="topbar" class="fixed top-0 inset-x-0 h-14 z-30 items-center justify-between px-4 sm:px-5 text-white shadow-md">
+  <div class="flex items-center gap-3">
+    <button type="button" onclick="toggleSb()" title="Tampilkan menu" aria-label="Tampilkan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A3FDC">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-8 h-8 rounded-md object-cover">
+      <span class="text-xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+  </div>
+  <div class="text-right leading-tight">
+    <div class="text-sm font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+</header>
+
+<!-- KONTEN -->
+<main id="main" class="min-h-screen p-5 sm:p-8">
+  <h1 class="text-2xl sm:text-3xl font-bold">Data Pemesanan Pelanggan</h1>
+  <p class="text-sm sm:text-base text-gray-800 mt-1">Semua pemesanan yang masuk dari pelanggan.</p>
+
+  <section id="stats" class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6"></section>
+
+  <section class="mt-5 bg-white rounded-xl shadow-md border border-gray-200 p-3 flex flex-col lg:flex-row lg:items-center gap-3">
+    <label class="flex-1 flex items-center gap-2 bg-[#EDEDED] border border-gray-300 rounded-md px-3 py-2">
+      <i class="fa-solid fa-magnifying-glass text-gray-700"></i>
+      <input id="search" type="text" placeholder="Cari nama, kode, atau nomor telepon" oninput="q=this.value; page=1; renderTable()" class="bg-transparent w-full text-xs focus:outline-none">
+    </label>
+    <div class="relative lg:w-56">
+      <select id="statusF" onchange="stat=this.value; page=1; renderTable()" class="appearance-none w-full bg-[#D1D1D1] text-black text-[11px] font-semibold pl-3 pr-8 py-2 rounded-sm shadow focus:outline-none cursor-pointer"></select>
+      <i class="fa-solid fa-chevron-down text-black text-[10px] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+    </div>
+    <div class="relative lg:w-56">
+        <select id="payF" onchange="pay=this.value; page=1; renderTable()" class="appearance-none w-full bg-[#D1D1D1] text-black text-[11px] font-semibold pl-3 pr-8 py-2 rounded-sm shadow focus:outline-none cursor-pointer"></select>
+        <i class="fa-solid fa-chevron-down text-black text-[10px] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+    </div>
+    <div class="relative lg:w-44 bg-black text-white text-[11px] font-semibold rounded-sm shadow flex items-center justify-between pl-3 pr-3 py-2">
+      <span id="dateText">DD/MM/YY</span>
+      <span class="flex items-center gap-2">
+        <button id="dateClear" type="button" onclick="clearDate()" title="Hapus filter tanggal" class="hidden relative z-10 hover:opacity-70"><i class="fa-solid fa-xmark"></i></button>
+        <i class="fa-regular fa-calendar-check"></i>
+      </span>
+      <input id="dateF" type="date" aria-label="Filter tanggal jadwal" onclick="try{this.showPicker()}catch(e){}" onchange="setDate(this.value)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+    </div>
+  </section>
+
+  <section class="mt-6 overflow-x-auto pb-2">
+    <div class="min-w-[1000px]">
+      <div id="thead" class="grid grid-cols-[2.4fr_1.2fr_1.1fr_1.7fr_1.5fr_1fr_1fr] items-center gap-2 bg-[#0A4DFF] text-white font-bold rounded-xl px-4 py-1.5 text-center shadow-md"></div>
+      <div id="rows" class="mt-3 flex flex-col gap-2.5"></div>
+    </div>
+  </section>
+
+  <nav id="pager" class="mt-5 flex items-center justify-center gap-3"></nav>
+</main>
+
+<div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white text-sm font-medium px-4 py-2 rounded-full shadow-lg z-50"></div>
+
+<script>
+/* ====== KONFIGURASI ====== */
+// Isi rute halaman detail pemesanan. Kosong = tampil pesan "belum tersambung".
+const ROUTES = { detail: '' };
+
+/* ====== DATA CONTOH (ganti dengan hasil GET /api/pemesanan) ====== */
+const dt = (m, d) => new Date(2026, m - 1, d, 10, 0);
+// [pelanggan, kode, jadwal, status pemesanan, status pembayaran, total]
+const RAW = [
+  ['Ayu Wardatul Widad', 'SF-3XWYZK', dt(11, 12), 'Pemesanan Dibuat', 'Belum Dibayar', 70000],
+  ['Ibrahim Movic', 'SF-2KWYZK', dt(11, 13), 'Pembayaran Diverifikasi', 'Ditolak', 30000],
+  ['Yogi Darmawangsah', 'CK-3WWYZK', dt(11, 14), 'Menunggu Pembayaran', 'Lunas', 130000],
+  ['M Rayyan Abie', 'SC-1XYYZX', dt(11, 15), 'Terjadwal', 'Menunggu Verifikasi', 120000],
+  ['Rivaldo Aditya Putra', 'FS-2KWZYX', dt(11, 16), 'Sesi Foto', 'Belum Dibayar', 70000],
+  ['Riska Putri', 'SF-3XWWZZ', dt(11, 17), 'Proses Editing', 'Belum Dibayar', 50000],
+  ['Cika Larasati', 'ED-3XXYYK', dt(11, 18), 'Hasil Siap', 'Belum Dibayar', 70000],
+  ['Nafis Yulianto', 'SF-3XXXXK', dt(11, 19), 'Selesai', 'Belum Dibayar', 30000],
+  ['Rara Rucika', 'FS-2YYYZK', dt(11, 21), 'Pemesanan Dibuat', 'Belum Dibayar', 70000],
+  ['Smith', 'CK-2WWWK', dt(11, 20), 'Pemesanan Dibuat', 'Belum Dibayar', 80000],
+  ['Dewi Lestari', 'SF-1AXBZK', dt(11, 2), 'Selesai', 'Lunas', 70000],
+  ['Bagus Santoso', 'FS-4KLMNZ', dt(11, 3), 'Selesai', 'Lunas', 120000],
+  ['Putri Ayu Ningrum', 'CK-2PQRST', dt(11, 4), 'Selesai', 'Lunas', 30000],
+  ['Fajar Nugroho', 'SC-3ABCDE', dt(11, 5), 'Selesai', 'Lunas', 20000],
+  ['Salsa Maharani', 'ED-5FGHIJ', dt(11, 6), 'Selesai', 'Lunas', 25000],
+  ['Dimas Prakoso', 'SF-6KLMNO', dt(11, 7), 'Selesai', 'Lunas', 70000],
+  ['Nabila Zahra', 'FS-7PQRSU', dt(11, 8), 'Hasil Siap', 'Lunas', 120000],
+  ['Agus Hermawan', 'PF-8TUVWX', dt(11, 9), 'Menunggu Pembayaran', 'Belum Dibayar', 30000],
+  ['Intan Permata', 'CK-9YZABC', dt(11, 10), 'Menunggu Pembayaran', 'Belum Dibayar', 60000],
+  ['Hendra Wijaya', 'SF-1DEFGH', dt(11, 11), 'Menunggu Pembayaran', 'Belum Dibayar', 70000]
+];
+
+let orders = RAW.map(([nama, kode, jadwal, status, bayar, total], i) => ({
+  id: 'o' + (i + 1), nama, kode, jadwal, status, bayar, total, ci: i,
+  nomor: i === 0 ? '08123456789' : '0812' + (3450000 + i * 7919)
+}));
+let q = '', stat = 'semua', pay = 'semua', dateStr = '', sort = 'default', page = 1;
+const PER = 10;
+
+/* ====== HELPER ====== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+const pad = n => String(n).padStart(2, '0');
+const fmtDate = d => `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
+const fmtTime = d => `${pad(d.getHours())} : ${pad(d.getMinutes())} WIB`;
+const money = n => 'Rp' + Number(n).toLocaleString('id-ID');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const TODAY = new Date(); TODAY.setHours(0, 0, 0, 0);
+const AV = ['#7FA8FF', '#FF8A8A', '#00C800'];   // warna avatar bergantian biru, merah muda, hijau
+const STATUS = {
+  'Pemesanan Dibuat': '#D9D9D9', 'Menunggu Pembayaran': '#FFE033', 'Pembayaran Diverifikasi': '#6A9BFF', 'Terjadwal': '#F27CF2',
+  'Sesi Foto': '#FFB27A', 'Proses Editing': '#7BF0FF', 'Hasil Siap': '#B388FF', 'Selesai': '#86F286'
+};
+const BAYAR = { 'Belum Dibayar': '#C4C4C4', 'Menunggu Verifikasi': '#FFE033', 'Lunas': '#8EF08E', 'Ditolak': '#FF8A8A' };
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg; t.classList.remove('hidden');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add('hidden'), 2400);
+}
+function go(key, id) {
+  const url = ROUTES[key];
+  if (!url) return toast('Halaman ini belum tersambung.');
+  location.href = url + (id ? '?id=' + encodeURIComponent(id) : '');
+}
+
+/* ====== STATISTIK ====== */
+function renderStats() {
+  const sc = (icon, title, sub, l, r) => `
+    <div class="bg-white rounded-xl border-2 border-[#FFE600] shadow-md overflow-hidden flex flex-col">
+      <div class="relative p-4 pt-9 flex-1"><span class="absolute top-3 right-4 text-xl leading-none">${icon}</span>
+        <div class="text-2xl font-bold leading-tight">${title}</div><div class="text-[13px]">${sub}</div></div>
+      <div class="bg-[#FFE600] px-4 py-2 flex justify-between gap-2 text-[11px] font-medium"><span>${l}</span><span class="text-right">${r}</span></div>
+    </div>`;
+  const dayMs = 86400000, ws = new Date(TODAY); ws.setDate(ws.getDate() - ((TODAY.getDay() + 6) % 7));   // awal minggu (Senin)
+  const selesai = orders.filter(o => o.status === 'Selesai').length;
+  const verif = orders.filter(o => o.bayar === 'Lunas').length;   // pembayaran sudah diverifikasi (lunas)
+  const hariIni = orders.filter(o => ymd(o.jadwal) === ymd(TODAY)).length;
+  const mingguIni = orders.filter(o => o.jadwal >= ws && o.jadwal < new Date(ws.getTime() + 7 * dayMs)).length;
+  const menunggu = orders.filter(o => o.status === 'Menunggu Pembayaran').length;
+  const badge = '<span class="relative inline-block"><i class="fa-solid fa-certificate"></i><i class="fa-solid fa-check text-white absolute inset-0 flex items-center justify-center text-[10px]"></i></span>';
+  $('stats').innerHTML =
+    sc('<i class="fa-solid fa-check-double"></i>', `${selesai} Pemesanan`, 'Total Pemesanan Selesai', 'Total Pemesanan', `${orders.length} Pemesanan`) +
+    sc(badge, `${verif} Pemesanan`, 'Total Pemesanan Pembayaran Diverifikasi', 'Pesanan Menunggu Pembayaran', `${menunggu} Pemesanan`) +
+    sc('<i class="fa-regular fa-calendar-check"></i>', `${hariIni} Pemesanan`, 'Total Pemesanan Hari Ini', 'Total Pemesanan Minggu Ini', `${mingguIni} Pemesanan`);
+}
+
+/* ====== FILTER & TABEL ====== */
+$('statusF').innerHTML = '<option value="semua">Semua Status</option>' + Object.keys(STATUS).map(s => `<option>${s}</option>`).join('');
+$('payF').innerHTML = '<option value="semua">Semua Pembayaran</option>' + Object.keys(BAYAR).map(s => `<option>${s}</option>`).join('');
+function setDate(v) { dateStr = v; $('dateText').textContent = v ? v.split('-').reverse().map((x, i) => i === 2 ? x.slice(2) : x).join('/') : 'DD/MM/YY'; $('dateClear').classList.toggle('hidden', !v); page = 1; renderTable(); }
+function clearDate() { $('dateF').value = ''; setDate(''); }
+
+const COLS = 'grid grid-cols-[2.4fr_1.2fr_1.1fr_1.7fr_1.5fr_1fr_1fr] items-center gap-2';
+function renderHead() {
+  const ico = sort === 'za' ? 'fa-arrow-down-z-a' : 'fa-arrow-down-a-z';
+  const tip = sort === 'az' ? 'Urutkan Z-A' : 'Urutkan A-Z';
+  $('thead').innerHTML = `
+    <div class="flex items-center"><button type="button" onclick="cycleSort()" title="${tip}" class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-white/20 ${sort === 'default' ? '' : 'bg-white/20'}"><i class="fa-solid ${ico}"></i></button><span class="flex-1">Pelanggan</span></div>
+    <div>Kode</div><div>Jadwal</div><div>Status</div><div>Pembayaran</div><div>Total</div><div>Aksi</div>`;
+}
+function cycleSort() { sort = sort === 'az' ? 'za' : 'az'; renderTable(); }   // dua kondisi: A-Z dan Z-A (urutan awal = urutan data)
+
+function filtered() {
+  const term = q.trim().toLowerCase(), digits = term.replace(/\D/g, '');
+  const isPhone = digits && /^[\d\s+\-()]+$/.test(term);   // hanya angka = cari nomor telepon
+
+  // jika kode diketik lengkap, tampilkan hanya pemesanan dengan kode itu
+  const exact = term && orders.filter(o => o.kode.toLowerCase() === term);
+  const base = exact && exact.length ? exact : orders.filter(o =>
+    !term || o.nama.toLowerCase().includes(term) || o.kode.toLowerCase().includes(term) || (isPhone && o.nomor.includes(digits)));
+
+  const rows = base.filter(o =>
+    (stat === 'semua' || o.status === stat) &&
+    (pay === 'semua' || o.bayar === pay) &&
+    (!dateStr || ymd(o.jadwal) === dateStr));
+
+  if (sort !== 'default') rows.sort((a, b) => a.nama.localeCompare(b.nama, 'id') * (sort === 'az' ? 1 : -1));
+  return rows;
+}
+
+const pill = (txt, bg) => `<span class="inline-block text-[11px] font-semibold px-3 py-1 rounded-full whitespace-nowrap" style="background:${bg}">${esc(txt)}</span>`;
+function row(o) {
+  return `<div class="${COLS} bg-white rounded-lg border border-gray-200 shadow-md px-4 py-3 text-center">
+    <div class="flex items-center gap-4 min-w-0">
+      <span class="w-12 h-12 rounded-full flex items-center justify-center font-semibold text-xl flex-shrink-0" style="background:${AV[o.ci % 3]}">${esc(o.nama.charAt(0).toUpperCase())}</span>
+      <div class="min-w-0 flex-1"><div class="font-bold text-sm truncate" title="${esc(o.nama)}">${esc(o.nama)}</div><div class="text-gray-500 font-semibold text-sm">${esc(o.nomor)}</div></div></div>
+    <div class="font-bold text-sm">${esc(o.kode)}</div>
+    <div><div class="font-bold text-sm">${fmtDate(o.jadwal)}</div><div class="text-[10px] font-semibold">${fmtTime(o.jadwal)}</div></div>
+    <div>${pill(o.status, STATUS[o.status] || '#D9D9D9')}</div>
+    <div>${pill(o.bayar, BAYAR[o.bayar] || '#C4C4C4')}</div>
+    <div class="font-semibold text-sm">${money(o.total)}</div>
+    <div><button type="button" onclick="go('detail','${o.id}')" class="bg-[#FFE600] hover:bg-yellow-400 text-sm font-bold px-4 py-1.5 rounded-full shadow inline-flex items-center gap-2"><i class="fa-regular fa-eye"></i> Detail</button></div>
+  </div>`;
+}
+function renderTable() {
+  renderHead();
+  const all = filtered(), pages = Math.max(1, Math.ceil(all.length / PER));
+  page = Math.min(Math.max(page, 1), pages);
+  $('rows').innerHTML = all.length ? all.slice((page - 1) * PER, page * PER).map(row).join('')
+    : '<p class="text-sm text-gray-500 text-center py-10">Tidak ada pemesanan yang cocok.</p>';
+  renderPager(pages);
+}
+function renderPager(pages) {
+  const nav = 'w-9 h-9 rounded-full bg-white text-black border border-gray-200 flex items-center justify-center shadow-md disabled:opacity-40 disabled:cursor-not-allowed';
+  let nums = '';
+  for (let i = 1; i <= pages; i++)
+    nums += `<button type="button" onclick="goPage(${i})" class="w-7 h-7 rounded-full text-sm font-bold ${i === page ? 'bg-[#FFE600]' : ''} text-black">${i}</button>`;
+  $('pager').innerHTML = `
+    <button type="button" class="${nav}" ${page <= 1 ? 'disabled' : ''} onclick="goPage(${page - 1})" title="Sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+    <div class="bg-white border border-gray-200 rounded-full px-1.5 py-1 flex items-center gap-1 shadow-md">${nums}</div>
+    <button type="button" class="${nav}" ${page >= pages ? 'disabled' : ''} onclick="goPage(${page + 1})" title="Berikutnya"><i class="fa-solid fa-chevron-right"></i></button>`;
+}
+function goPage(p) { page = p; renderTable(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+/* ====== SIDEBAR ====== */
+const toggleSb = () => document.body.classList.toggle('sb-hidden');
+if (window.innerWidth < 1024) document.body.classList.add('sb-hidden');
+
+renderStats(); renderTable();
+</script>
+</body>
+</html>
