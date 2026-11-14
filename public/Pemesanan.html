@@ -137,36 +137,16 @@ html.sb-hidden #sidebar{
 // Isi rute halaman detail pemesanan. Kosong = tampil pesan "belum tersambung".
 const ROUTES = { detail: 'DetailPemesanan.html' };
 
-/* ====== DATA CONTOH (ganti dengan hasil GET /api/pemesanan) ====== */
-const dt = (m, d) => new Date(2026, m - 1, d, 10, 0);
-// [pelanggan, kode, jadwal, status pemesanan, status pembayaran, total]
-const RAW = [
-  ['Ayu Wardatul Widad', 'SF-3XWYZK', dt(11, 12), 'Pemesanan Dibuat', 'Belum Dibayar', 70000],
-  ['Ibrahim Movic', 'SF-2KWYZK', dt(11, 13), 'Pembayaran Diverifikasi', 'Ditolak', 30000],
-  ['Yogi Darmawangsah', 'CK-3WWYZK', dt(11, 14), 'Menunggu Pembayaran', 'Lunas', 130000],
-  ['M Rayyan Abie', 'SC-1XYYZX', dt(11, 15), 'Terjadwal', 'Menunggu Verifikasi', 120000],
-  ['Rivaldo Aditya Putra', 'FS-2KWZYX', dt(11, 16), 'Sesi Foto', 'Belum Dibayar', 70000],
-  ['Riska Putri', 'SF-3XWWZZ', dt(11, 17), 'Proses Editing', 'Belum Dibayar', 50000],
-  ['Cika Larasati', 'ED-3XXYYK', dt(11, 18), 'Hasil Siap', 'Belum Dibayar', 70000],
-  ['Nafis Yulianto', 'SF-3XXXXK', dt(11, 19), 'Selesai', 'Belum Dibayar', 30000],
-  ['Rara Rucika', 'FS-2YYYZK', dt(11, 21), 'Pemesanan Dibuat', 'Belum Dibayar', 70000],
-  ['Smith', 'CK-2WWWK', dt(11, 20), 'Pemesanan Dibuat', 'Belum Dibayar', 80000],
-  ['Dewi Lestari', 'SF-1AXBZK', dt(11, 2), 'Selesai', 'Lunas', 70000],
-  ['Bagus Santoso', 'FS-4KLMNZ', dt(11, 3), 'Selesai', 'Lunas', 120000],
-  ['Putri Ayu Ningrum', 'CK-2PQRST', dt(11, 4), 'Selesai', 'Lunas', 30000],
-  ['Fajar Nugroho', 'SC-3ABCDE', dt(11, 5), 'Selesai', 'Lunas', 20000],
-  ['Salsa Maharani', 'ED-5FGHIJ', dt(11, 6), 'Selesai', 'Lunas', 25000],
-  ['Dimas Prakoso', 'SF-6KLMNO', dt(11, 7), 'Selesai', 'Lunas', 70000],
-  ['Nabila Zahra', 'FS-7PQRSU', dt(11, 8), 'Hasil Siap', 'Lunas', 120000],
-  ['Agus Hermawan', 'PF-8TUVWX', dt(11, 9), 'Menunggu Pembayaran', 'Belum Dibayar', 30000],
-  ['Intan Permata', 'CK-9YZABC', dt(11, 10), 'Menunggu Pembayaran', 'Belum Dibayar', 60000],
-  ['Hendra Wijaya', 'SF-1DEFGH', dt(11, 11), 'Menunggu Pembayaran', 'Belum Dibayar', 70000]
-];
-
-let orders = RAW.map(([nama, kode, jadwal, status, bayar, total], i) => ({
-  id: 'o' + (i + 1), nama, kode, jadwal, status, bayar, total, ci: i,
-  nomor: i === 0 ? '08123456789' : '0812' + (3450000 + i * 7919)
-}));
+let orders = [];
+const hue = s => [...s].reduce((a, c) => a + c.charCodeAt(0), 0);
+async function loadOrders() {
+  try {
+    const res = await fetch('/api/pemesanan'), d = await res.json();
+    if (!res.ok) throw new Error(d.error || 'HTTP ' + res.status);
+    orders = d.data.map(o => ({ ...o, jadwal: new Date(o.jadwal), ci: hue(o.id) }));
+  } catch (e) { toast('Gagal memuat pemesanan: ' + e.message); }
+  renderStats(); renderTable();
+}
 let q = '', stat = 'semua', pay = 'semua', dateStr = '', sort = 'default', page = 1;
 const PER = 10;
 
@@ -319,7 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-renderStats(); renderTable();
+loadOrders();
 </script>
 </body>
 </html>

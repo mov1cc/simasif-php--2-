@@ -8,6 +8,7 @@ require_once dirname(__DIR__, 2) . '/src/Db.php';
 require_once dirname(__DIR__, 2) . '/src/ValidateService.php';
 require_once dirname(__DIR__, 2) . '/src/ValidateAddOn.php';
 require_once dirname(__DIR__, 2) . '/src/ValidatePelanggan.php';
+require_once dirname(__DIR__, 2) . '/src/ValidatePemesanan.php';
 
 const MAX_GALLERY = 8;
 const MAX_BYTES = 5 * 1048576;
@@ -80,6 +81,83 @@ function findIdx(array $rows, string $id): ?int
 {
     foreach ($rows as $i => $r) if ($r['id'] === $id) return $i;
     return null;
+}
+
+/* ---------- pemesanan ---------- */
+function nowIso(): string { return (new DateTimeImmutable('now', new DateTimeZone('Asia/Jakarta')))->format('c'); }
+function qs(string $k): string { return is_string($_GET[$k] ?? null) ? $_GET[$k] : ''; }
+
+function fmtDurasi(int $m): string
+{
+    if ($m >= 1440 && $m % 1440 === 0) return intdiv($m, 1440) . ' Hari';
+    $h = intdiv($m, 60); $r = $m % 60; $p = [];
+    if ($h) $p[] = "$h Jam";
+    if ($r || !$h) $p[] = "$r Menit";
+    return implode(' ', $p);
+}
+function newKode(array $db, string $layanan): string
+{
+    $w = preg_split('/\s+/u', preg_replace('/[^\p{L}\s]/u', '', $layanan) ?? '', -1, PREG_SPLIT_NO_EMPTY);
+    $pre = count($w) >= 2 ? mb_substr($w[0], 0, 1) . mb_substr($w[1], 0, 1) : mb_substr($w[0] ?? 'XX', 0, 2);
+    $pre = mb_strtoupper($pre, 'UTF-8');
+    $abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    do {
+        $s = '';
+        for ($i = 0; $i < 6; $i++) $s .= $abc[random_int(0, 31)];
+        $kode = "$pre-$s";
+    } while (array_filter($db['pemesanan'], fn($o) => $o['kode'] === $kode));
+    return $kode;
+}
+function pemRow(array $o): array
+{
+    return array_intersect_key($o, array_flip(['id', 'kode', 'pelanggan_id', 'nama', 'nomor', 'layanan', 'jadwal', 'status', 'bayar', 'total']));
+}
+function pemDetail(array $o): array
+{
+    $o['durasi'] = fmtDurasi((int) $o['durasi_menit']);
+    $o['status_berikutnya'] = ValidatePemesanan::next($o['status']);
+    return $o;
+}
+function pemStats(array $rows): array
+{
+    $tz = new DateTimeZone('Asia/Jakarta');
+    $h0 = (new DateTimeImmutable('today', $tz))->getTimestamp();
+    $w0 = (new DateTimeImmutable('monday this week', $tz))->getTimestamp();
+    $s = ['total' => count($rows), 'selesai' => 0, 'lunas' => 0, 'menunggu_pembayaran' => 0, 'hari_ini' => 0, 'minggu_ini' => 0];
+    foreach ($rows as $o) {
+        $t = strtotime($o['jadwal']);
+        if ($o['status'] === 'Selesai') $s['selesai']++;
+        if ($o['bayar'] === 'Lunas') $s['lunas']++;
+        if ($o['status'] === 'Menunggu Pembayaran') $s['menunggu_pembayaran']++;
+        if ($t >= $h0 && $t < $h0 + 86400) $s['hari_ini']++;
+        if ($t >= $w0 && $t < $w0 + 7 * 86400) $s['minggu_ini']++;
+    }
+    return $s;
+}
+function savePemesanan(): never
+{
+    $b = readJson();
+    [$code, $body] = Db::write(function (array &$db) use ($b) {
+        [$errors, $d] = ValidatePemesanan::check($b, $db);
+        if ($errors) return [422, ['errors' => $errors]];
+
+        $now = nowIso();
+        $row = ['id' => newId('o'), 'kode' => newKode($db, $d['layanan']), 'status' => ValidatePemesanan::FLOW[0],
+                'bayar' => 'Belum Dibayar', 'dibuat' => $now] + $d;
+        $row['history'] = [['status' => $row['status'], 'waktu' => $now, 'aktor' => 'Pelanggan/Sistem',
+                            'teks' => 'Pemesanan Dibuat Pelanggan', 'catatan' => '']];
+        $db['pemesanan'][] = $row;
+
+        // counter yang dipakai halaman Pelanggan & Layanan
+        $pi = findIdx($db['pelanggan'], $d['pelanggan_id']);
+        $db['pelanggan'][$pi]['pemesanan'] = ($db['pelanggan'][$pi]['pemesanan'] ?? 0) + 1;
+        $db['pelanggan'][$pi]['berjalan'] = ($db['pelanggan'][$pi]['berjalan'] ?? 0) + 1;
+        $li = findIdx($db['layanan'], $d['layanan_id']);
+        $db['layanan'][$li]['sesi'] = ($db['layanan'][$li]['sesi'] ?? 0) + 1;
+
+        return [201, ['ok' => true, 'data' => pemDetail($row)]];
+    });
+    out($code, $body);
 }
 
 /* ---------- simpan layanan (POST / PUT) ---------- */
@@ -241,6 +319,9 @@ if (preg_match('#^/api/layanan/([\w-]+)$#', $p, $r)) {
     }
     if ($m === 'DELETE') {
         [$c, $body] = Db::write(function (array &$db) use ($id) {
+            foreach ($db['pemesanan'] as $o)
+                if ($o['layanan_id'] === $id && $o['status'] !== 'Selesai')
+                return [409, ['error' => 'Layanan masih punya pemesanan yang sedang berjalan.']];
             foreach ($db['gallery'] as $g) if ($g['layanan_id'] === $id) removeFile($g['url']);
             $db['layanan'] = array_values(array_filter($db['layanan'], fn($l) => $l['id'] !== $id));
             $db['addon'] = array_values(array_filter($db['addon'], fn($a) => $a['layanan_id'] !== $id));
@@ -406,6 +487,91 @@ if (preg_match('#^/api/pelanggan/([\w-]+)$#', $p, $r)) {
                 return [409, ['error' => 'Pelanggan masih punya pemesanan yang sedang berjalan.']];
             array_splice($db['pelanggan'], $i, 1);
             return [200, ['ok' => true]];
+        });
+        out($c, $body);
+    }
+}
+
+/* --- pemesanan --- */
+if ($p === '/api/pemesanan') {
+    if ($m === 'GET') {
+        $db = Db::read();
+        $tz = new DateTimeZone('Asia/Jakarta');
+        $term = V::lower(V::str(qs('q'))); $digits = preg_replace('/\D/', '', $term);
+        $phone = $digits !== '' && preg_match('/^[\d\s+\-()]+$/', $term);
+        $st = qs('status'); $by = qs('bayar'); $tgl = qs('tanggal');
+
+        $exact = $term !== '' ? array_filter($db['pemesanan'], fn($o) => V::lower($o['kode']) === $term) : [];
+        $base = $exact ?: array_filter($db['pemesanan'], fn($o) => $term === '' || str_contains(V::lower($o['nama']), $term)
+            || str_contains(V::lower($o['kode']), $term) || ($phone && str_contains($o['nomor'], $digits)));
+        $rows = array_values(array_filter($base, fn($o) =>
+            ($st === '' || $st === 'semua' || $o['status'] === $st) &&
+            ($by === '' || $by === 'semua' || $o['bayar'] === $by) &&
+            ($tgl === '' || (new DateTimeImmutable($o['jadwal']))->setTimezone($tz)->format('Y-m-d') === $tgl)));
+
+        $sort = qs('sort');
+        if ($sort === 'az' || $sort === 'za')
+            usort($rows, fn($a, $b) => strcmp(V::lower($a['nama']), V::lower($b['nama'])) * ($sort === 'az' ? 1 : -1));
+        else
+            usort($rows, fn($a, $b) => strtotime($b['dibuat']) <=> strtotime($a['dibuat']));   // terbaru dulu
+
+        out(200, ['data' => array_map('pemRow', $rows), 'stats' => pemStats($db['pemesanan'])]);
+    }
+    if ($m === 'POST') savePemesanan();
+}
+if (preg_match('#^/api/pemesanan/([\w-]+)(/status|/pembayaran)?$#', $p, $r)) {
+    $id = $r[1];
+    $sub = $r[2] ?? '';
+    $db = Db::read();
+    $i = findIdx($db['pemesanan'], $id);
+    if ($i === null) out(404, ['error' => 'Pemesanan tidak ditemukan.']);
+
+    if ($sub === '' && $m === 'GET') out(200, ['data' => pemDetail($db['pemesanan'][$i])]);
+
+    /* ubah status: harus tepat satu langkah ke status berikutnya */
+    if ($sub === '/status' && $m === 'PATCH') {
+        $b = readJson();
+        $b = is_array($b) ? $b : [];
+        $err = ValidatePemesanan::catatan($b['catatan'] ?? null);
+        if ($err !== '') out(422, ['errors' => ['catatan' => $err]]);
+        [$c, $body] = Db::write(function (array &$db) use ($id, $b) {
+            $i = findIdx($db['pemesanan'], $id);
+            if ($i === null) return [404, ['error' => 'Pemesanan tidak ditemukan.']];
+            $o = $db['pemesanan'][$i];
+            $next = ValidatePemesanan::next($o['status']);
+            if ($next === null) return [409, ['error' => 'Pemesanan sudah selesai.']];
+            if (isset($b['dari']) && $b['dari'] !== $o['status'])
+                return [409, ['error' => 'Status sudah berubah, muat ulang halaman.']];
+            if (isset($b['status']) && $b['status'] !== $next)
+                return [422, ['errors' => ['status' => "Status berikutnya harus \"$next\"."]]];
+
+            $o['status'] = $next;
+            if ($next === 'Pembayaran Diverifikasi') $o['bayar'] = 'Lunas';
+            $o['history'][] = ['status' => $next, 'waktu' => nowIso(), 'aktor' => 'Anonimus',
+                               'teks' => 'Pemesanan Diperbarui Pegawai', 'catatan' => V::str($b['catatan'] ?? null)];
+            $db['pemesanan'][$i] = $o;
+
+            if ($next === 'Selesai') {   // pelanggan tidak lagi "berjalan" -> boleh diedit/dihapus
+                $pi = findIdx($db['pelanggan'], $o['pelanggan_id']);
+                if ($pi !== null) $db['pelanggan'][$pi]['berjalan'] = max(0, ($db['pelanggan'][$pi]['berjalan'] ?? 0) - 1);
+            }
+            return [200, ['ok' => true, 'data' => pemDetail($o)]];
+        });
+        out($c, $body);
+    }
+
+    /* ubah status pembayaran (Menunggu Verifikasi / Ditolak / dst.) selama belum diverifikasi */
+    if ($sub === '/pembayaran' && $m === 'PATCH') {
+        $b = readJson();
+        if (!is_array($b) || !in_array($b['bayar'] ?? null, ValidatePemesanan::BAYAR, true))
+            out(422, ['errors' => ['bayar' => 'Status pembayaran tidak valid.']]);
+        [$c, $body] = Db::write(function (array &$db) use ($id, $b) {
+            $i = findIdx($db['pemesanan'], $id);
+            if ($i === null) return [404, ['error' => 'Pemesanan tidak ditemukan.']];
+            if (!in_array($db['pemesanan'][$i]['status'], ['Pemesanan Dibuat', 'Menunggu Pembayaran'], true))
+                return [409, ['error' => 'Pembayaran sudah diverifikasi dan tidak bisa diubah.']];
+            $db['pemesanan'][$i]['bayar'] = $b['bayar'];
+            return [200, ['ok' => true, 'data' => pemDetail($db['pemesanan'][$i])]];
         });
         out($c, $body);
     }

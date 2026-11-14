@@ -337,25 +337,6 @@
             ],
             "deskripsi": null,
             "durasi": null
-        },
-        {
-            "id": "ad648072c51",
-            "layanan_id": "s0711e95455",
-            "aktif": true,
-            "urutan": 0,
-            "nama": "abc",
-            "jenis_harga": "pilihan",
-            "harga_tunggal": null,
-            "keterangan_harga": null,
-            "pilihan_harga": [
-                {
-                    "nama": "aaa",
-                    "harga": 1000,
-                    "keterangan": "pcs"
-                }
-            ],
-            "deskripsi": null,
-            "durasi": null
         }
     ],
     "gallery": [
@@ -371,14 +352,6 @@
             "id": "g1a28c655b4",
             "layanan_id": "s0711e95455",
             "url": "/uploads/img_cb6c7b336a.jpg",
-            "caption": "",
-            "cover": true,
-            "urutan": 0
-        },
-        {
-            "id": "g46ad2e72ba",
-            "layanan_id": "sc71587b881",
-            "url": "/uploads/img_c2542123f1.jpg",
             "caption": "",
             "cover": true,
             "urutan": 0
@@ -403,6 +376,14 @@
             "id": "gdb188b0e22",
             "layanan_id": "s6a17497357",
             "url": "/uploads/img_078be15afb.jpg",
+            "caption": "",
+            "cover": true,
+            "urutan": 0
+        },
+        {
+            "id": "g623c4cef14",
+            "layanan_id": "sc71587b881",
+            "url": "/uploads/img_67592e1b8d.jpg",
             "caption": "",
             "cover": true,
             "urutan": 0
@@ -488,14 +469,7 @@
             "terdaftar": "2026-11-12T05:17:34+00:00",
             "nama": "Putri Febria",
             "nomor": "0815556265678"
-        },
-        {
-            "id": "cdaf0eabbd2",
-            "pemesanan": 0,
-            "berjalan": 0,
-            "terdaftar": "2026-11-12T05:18:01+00:00",
-            "nama": "Zidan Zakarya",
-            "nomor": "08198987654"
         }
-    ]
+    ],
+    "pemesanan": []
 }
