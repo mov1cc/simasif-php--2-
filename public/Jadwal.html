@@ -130,14 +130,9 @@ html.sb-hidden #sidebar{
 
 <script>
 /* ====== KONFIGURASI ====== */
-// Isi rute halaman detail pemesanan (menerima ?id=). Kosong = tampil pesan "belum tersambung".
 const ROUTES = { detail: 'DetailPemesanan.html' };
-// Jam operasional 08:00-18:00. Kapasitas harian TIDAK tetap: tiap pemesanan memakai waktu sesuai durasi layanannya.
-// Hari penuh = tidak ada lagi celah waktu yang cukup untuk layanan tersingkat.
-const OPEN_H = 8, CLOSE_H = 18;
-// kode layanan -> [nama, durasi sesi (menit)]; ganti dengan data layanan dari backend
-const SVC = { SF: ['Self Studio', 30], FS: ['Family Studio', 60], PF: ['Pas Foto', 15], ED: ['Editing', 45], CK: ['Cetak Kilat', 15], SC: ['Scan', 15] };
-const MIN_DUR = Math.min(...Object.values(SVC).map(v => v[1]));
+let OPEN_H = 8, CLOSE_H = 18, MIN_DUR = 15;   // diisi dari /api/jadwal (config)
+
 
 /* ====== HELPER ====== */
 const $ = id => document.getElementById(id);
@@ -156,7 +151,8 @@ const BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', '
 const BULAN3 = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 const TODAY = new Date(); TODAY.setHours(0, 0, 0, 0);
 const PILL = ['#FF8A8A', '#00D100', '#7FA8FF'];   // warna nama bergantian merah, hijau, biru
-const STATUS = { 'Terjadwal': '#F27CF2', 'Sesi Foto': '#FFB27A', 'Proses Editing': '#7BF0FF', 'Hasil Siap': '#B388FF', 'Selesai': '#86F286' };
+const STATUS = { 'Pemesanan Dibuat': '#D9D9D9', 'Menunggu Pembayaran': '#FFE033', 'Pembayaran Diverifikasi': '#6A9BFF',
+  'Terjadwal': '#F27CF2', 'Sesi Foto': '#FFB27A', 'Proses Editing': '#7BF0FF', 'Hasil Siap': '#B388FF', 'Selesai': '#86F286' };
 const BAYAR = { 'Belum Dibayar': '#C4C4C4', 'Menunggu Verifikasi': '#FFE033', 'Lunas': '#8EF08E', 'Ditolak': '#FF8A8A' };
 function toast(msg) {
   const t = $('toast');
@@ -165,40 +161,26 @@ function toast(msg) {
 }
 function openDetail(id) { if (!ROUTES.detail) return toast('Halaman detail belum tersambung.'); location.href = ROUTES.detail + '?id=' + encodeURIComponent(id); }
 
-/* ====== DATA CONTOH (ganti dengan GET /api/jadwal?dari=...&sampai=...) ====== */
-const POOL = ['Supriadi', 'Susilo', 'Bambang', 'Yudoyono', 'Dewi Lestari', 'Bagus Santoso', 'Putri Ayu', 'Fajar Nugroho', 'Salsa Maharani', 'Dimas Prakoso', 'Nabila Zahra', 'Agus Hermawan', 'Intan Permata', 'Hendra Wijaya', 'Ayu Wardatul', 'Rivaldo Putra', 'Cika Larasati', 'Yogi Prasetya', 'Nafis Yulianto', 'Rara Rucika', 'Smith', 'Rina Marlina', 'Doni Saputra', 'Lia Anggraini'];
-let seq = 0;
-const L = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-function mk(tgl, jam, nama, over = {}) {
-  seq++;
-  const pre = over.pre || 'SF', durasi = SVC[pre][1];
-  const kode = `${pre}-${1 + seq % 4}${L[seq * 3 % 26]}${L[(seq * 5 + 1) % 26]}${L[(seq * 7 + 2) % 26]}${L[(seq * 11 + 3) % 26]}${L[(seq * 13 + 4) % 26]}`;
-  const past = parseYmd(tgl) < TODAY;
-  return Object.assign({ id: 'j' + seq, tgl, jam, nama, kode, layanan: SVC[pre][0], durasi, mulai: toMin(jam), selesai: toMin(jam) + durasi, akhir: toJam(toMin(jam) + durasi),
-    status: past ? 'Selesai' : 'Terjadwal', bayar: seq % 5 === 0 ? 'Belum Dibayar' : 'Lunas' }, over);
+/* ====== DATA (GET /api/jadwal) ====== */
+let byDay = {}, loadedKey = '', reqId = 0;
+const monthKey = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}`;
+
+async function loadMonth(force) {
+  const key = monthKey(cursor);
+  if (!force && key === loadedKey) return;
+  const a = weekStart(new Date(cursor.getFullYear(), cursor.getMonth(), 1)), z = addDays(a, 41);   // grid 6 minggu
+  const my = ++reqId;
+  try {
+    const res = await fetch(`/api/jadwal?dari=${ymd(a)}&sampai=${ymd(z)}`);
+    const d = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(d.error || Object.values(d.errors || {}).join(' ') || 'HTTP ' + res.status);
+    if (my !== reqId) return;                      // abaikan respons usang
+    ({ buka: OPEN_H, tutup: CLOSE_H, min_durasi: MIN_DUR } = d.config);
+    byDay = {};
+    d.data.forEach(x => (byDay[x.tgl] = byDay[x.tgl] || []).push(x));
+    loadedKey = key;
+  } catch (e) { toast('Gagal memuat jadwal: ' + e.message); }
 }
-const jadwal = [];
-// pemesanan berurutan mulai jam tertentu: [[nama, kode layanan], ...]
-function seqDay(tgl, start, items, over = {}) { let m = toMin(start); items.forEach(([n, pre]) => { jadwal.push(mk(tgl, toJam(m), n, Object.assign({ pre }, over))); m += SVC[pre][1]; }); }
-// 3 Nov: hari penuh, diisi layanan berbeda-beda sampai jam tutup (jumlah pemesanan tidak tentu)
-(function () {
-  const cyc = ['SF', 'FS', 'PF', 'SF', 'ED', 'SF', 'CK', 'FS', 'SF', 'SC'];
-  let m = OPEN_H * 60, i = 0;
-  while (m < CLOSE_H * 60) {
-    const rem = CLOSE_H * 60 - m; let pre = cyc[i % cyc.length], g = 0;
-    while (SVC[pre][1] > rem && g++ < 20) pre = cyc[++i % cyc.length];
-    jadwal.push(mk('2026-11-03', toJam(m), POOL[i % POOL.length], { pre })); m += SVC[pre][1]; i++;
-  }
-})();
-seqDay('2026-11-10', '10:00', [['Sopo', 'SF'], ['Jarwo', 'SF'], ['Adit', 'SF']]);
-jadwal.push(mk('2026-11-15', '10:00', 'Ibrahim Movic', { pre: 'SF', status: 'Terjadwal', bayar: 'Lunas' }));
-jadwal.push(mk('2026-11-15', '10:30', 'Riska Putri', { pre: 'SF', status: 'Terjadwal', bayar: 'Lunas' }));
-jadwal.push(mk('2026-11-15', '11:00', 'M Rayyan Abie', { pre: 'FS', status: 'Terjadwal', bayar: 'Lunas' }));
-jadwal.push(mk('2026-11-17', '09:00', 'Denis', { pre: 'PF' })); jadwal.push(mk('2026-11-17', '09:30', 'Upin', { pre: 'SF' }));
-jadwal.push(mk('2026-11-24', '13:00', 'Ipin', { pre: 'FS' }));
-seqDay('2026-11-30', '10:00', [['Gopal', 'SF'], ['Yaya', 'SF'], ['Yin', 'FS'], ['Fang', 'SF'], ['Mei Mei', 'PF'], ['Ehsan', 'SF'], ['Fizi', 'SF'], ['Susanti', 'ED'], ['Ali', 'SF']]);
-const byDay = {}; jadwal.forEach(b => (byDay[b.tgl] = byDay[b.tgl] || []).push(b));
-Object.values(byDay).forEach(a => a.sort((x, y) => x.jam.localeCompare(y.jam)));
 const dayList = d => byDay[ymd(d)] || [];
 // celah waktu kosong sehari; penuh bila tidak ada celah yang muat untuk layanan tersingkat
 function dayInfo(list) {
@@ -348,11 +330,13 @@ function renderPanel() {
       : '<div class="text-xs text-gray-500 py-4 text-center border border-dashed border-gray-300 rounded-lg">Belum ada pemesanan pada hari ini.</div>'}</div>`;
 }
 
-function refresh() {
+function paint() {
   renderToolbar(); renderStats();
   if (view === 'bulan') renderMonth(); else if (view === 'minggu') renderWeek(); else renderDay();
   renderPanel();
 }
+async function refresh() { renderToolbar(); await loadMonth(); paint(); }
+window.addEventListener('focus', async () => { await loadMonth(true); paint(); });   // data terbaru saat kembali ke tab
 
 /* ====== LEBAR PANEL (bisa diseret) ====== */
 const PW_DEFAULT = 280, PW_MIN = 224, PW_MAX = 560, PW_KEY = 'simasif_jadwal_panel_w';

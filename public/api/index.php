@@ -9,6 +9,7 @@ require_once dirname(__DIR__, 2) . '/src/ValidateService.php';
 require_once dirname(__DIR__, 2) . '/src/ValidateAddOn.php';
 require_once dirname(__DIR__, 2) . '/src/ValidatePelanggan.php';
 require_once dirname(__DIR__, 2) . '/src/ValidatePemesanan.php';
+require_once dirname(__DIR__, 2) . '/src/Jadwal.php';
 
 const MAX_GALLERY = 8;
 const MAX_BYTES = 5 * 1048576;
@@ -575,6 +576,15 @@ if (preg_match('#^/api/pemesanan/([\w-]+)(/status|/pembayaran)?$#', $p, $r)) {
         });
         out($c, $body);
     }
+}
+
+/* --- jadwal --- */
+if ($p === '/api/jadwal' && $m === 'GET') {
+    $dari = qs('dari'); $sampai = qs('sampai');
+    $err = Jadwal::validate($dari, $sampai);
+    if ($err) out(422, ['errors' => $err]);
+    $db = Db::read();
+    out(200, ['data' => Jadwal::rows($db, $dari, $sampai), 'config' => Jadwal::config($db)]);
 }
 
 out(404, ['error' => 'Endpoint tidak ditemukan.']);

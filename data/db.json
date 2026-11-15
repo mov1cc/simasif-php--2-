@@ -3,7 +3,7 @@
         {
             "id": "s6a17497357",
             "aktif": true,
-            "sesi": 0,
+            "sesi": 1,
             "dibuat": "2026-11-10T17:29:28+00:00",
             "nama": "Self Studio",
             "jenis_harga": "tunggal",
@@ -392,8 +392,8 @@
     "pelanggan": [
         {
             "id": "c41d1a4dff2",
-            "pemesanan": 0,
-            "berjalan": 0,
+            "pemesanan": 1,
+            "berjalan": 1,
             "terdaftar": "2026-11-12T01:15:52+00:00",
             "nama": "Ayu Wardatul Widad",
             "nomor": "08123456789"
@@ -471,5 +471,46 @@
             "nomor": "0815556265678"
         }
     ],
-    "pemesanan": []
+    "pemesanan": [
+        {
+            "id": "ofb708b2d1e",
+            "kode": "SS-S399WF",
+            "status": "Pemesanan Dibuat",
+            "bayar": "Belum Dibayar",
+            "dibuat": "2026-11-15T17:36:33+07:00",
+            "pelanggan_id": "c41d1a4dff2",
+            "nama": "Ayu Wardatul Widad",
+            "nomor": "08123456789",
+            "layanan_id": "s6a17497357",
+            "layanan": "Self Studio",
+            "jadwal": "2026-11-20T10:00:00+07:00",
+            "durasi_menit": 30,
+            "pegawai": "Belum Ditentukan",
+            "catatan_khusus": null,
+            "output": [
+                "10 Soft File Hasil Foto + Editing",
+                "1 Hard File (cetak) Ukuran 4R",
+                "1 Warna Background Bebas Pilih Warna"
+            ],
+            "output_pilihan": [
+                {
+                    "output": "1 Warna Background Bebas Pilih Warna",
+                    "pilihan": "Merah"
+                }
+            ],
+            "pilihan_harga": null,
+            "harga_layanan": 70000,
+            "addons": [],
+            "total": 70000,
+            "history": [
+                {
+                    "status": "Pemesanan Dibuat",
+                    "waktu": "2026-11-15T17:36:33+07:00",
+                    "aktor": "Pelanggan/Sistem",
+                    "teks": "Pemesanan Dibuat Pelanggan",
+                    "catatan": ""
+                }
+            ]
+        }
+    ]
 }
