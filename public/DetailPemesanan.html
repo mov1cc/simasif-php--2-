@@ -102,7 +102,7 @@ html.sb-hidden #sidebar{
         <div id="badges" class="flex flex-wrap gap-3 mt-3"></div>
       </div>
       <div class="flex flex-wrap gap-2">
-        <button type="button" onclick="go('Jadwal.html')" class="bg-black text-white text-[11px] font-bold px-4 py-2 rounded-lg shadow flex items-center gap-2"><i class="fa-regular fa-calendar"></i> Lihat Jadwal</button>
+        <button type="button" onclick="openJadwal()" class="bg-black text-white text-[11px] font-bold px-4 py-2 rounded-lg shadow flex items-center gap-2"><i class="fa-regular fa-calendar"></i> Lihat Jadwal</button>
         <button type="button" onclick="openWA()" class="bg-[#00C800] text-white text-[11px] font-bold px-4 py-2 rounded-lg shadow flex items-center gap-2"><i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp</button>
         <button type="button" onclick="go('fotografi')" class="bg-[#FFE600] text-black text-[11px] font-bold px-4 py-2 rounded-lg shadow flex items-center gap-2"><i class="fa-regular fa-image"></i> File Fotografi</button>
       </div>
@@ -128,8 +128,13 @@ html.sb-hidden #sidebar{
 <script>
 /* ====== KONFIGURASI ====== */
 // Isi rute sesuai proyekmu. Kosong = tampil pesan "belum tersambung".
-const ROUTES = { jadwal: '', fotografi: '' };
+const ROUTES = {fotografi: '' };
 
+function openJadwal() {
+  const d = order.jadwal;
+  const tgl = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  location.href = 'Jadwal.html?tanggal=' + tgl;
+}
 /* ====== DATA CONTOH (ganti dengan GET /api/pemesanan/:id) ====== */
 
 const FLOW = ['Pemesanan Dibuat', 'Menunggu Pembayaran', 'Pembayaran Diverifikasi', 'Terjadwal', 'Sesi Foto', 'Proses Editing', 'Hasil Siap', 'Selesai'];
