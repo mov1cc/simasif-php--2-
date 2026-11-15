@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMASIF - Jadwal</title>
+<link rel="icon" href="data:image/png;base64,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">
+<script>
+(function () {
+    const sidebarHidden = localStorage.getItem('sidebarHidden');
+
+    if (sidebarHidden === 'true') {
+        document.documentElement.classList.add('sb-hidden');
+    }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',system-ui,sans-serif}
+  #sidebar{background:linear-gradient(165deg,#0038D8 0%,#4A86FF 100%);transition:transform .25s}
+  #main{transition:margin .25s}
+  .sb-hidden #sidebar{
+    transform:translateX(-100%)
+}
+
+html.sb-hidden #sidebar{
+    transform:translateX(-100%)
+}
+  /* navbar atas: hanya muncul saat sidebar ditutup */
+  #topbar{display:none;background:linear-gradient(90deg,#0038D8 0%,#4A86FF 100%)}
+  .sb-hidden #topbar{display:flex}
+  .sb-hidden #main{padding-top:5.5rem}
+  /* ikon panel sidebar: kotak putih + panel kiri berwarna (--pn) */
+  .ico-panel{width:1.375rem;height:1.375rem;display:block}
+  .ico-panel .box{fill:#fff}
+  .ico-panel .pn{fill:var(--pn)}
+  @media(min-width:1024px){#main{margin-left:18rem}.sb-hidden #main{margin-left:0}}
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 w-72 z-40 flex flex-col text-white shadow-xl">
+  <div class="flex items-center justify-between px-5 pt-4">
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-9 h-9 rounded-md object-cover">
+      <span class="text-2xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+    <button type="button" onclick="toggleSb()" title="Sembunyikan menu" aria-label="Sembunyikan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A44E0">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center mt-8">
+    <div class="w-28 h-28 rounded-full bg-white flex items-center justify-center"><i class="fa-solid fa-user text-5xl text-[#2563EB]"></i></div>
+    <div class="mt-3 text-xl font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+  <nav class="mt-10 px-1 space-y-2 text-sm">
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Dashboard</a>
+    <a href="Layanan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Layanan</a>
+    <a href="Pelanggan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pelanggan</a>
+    <a href="Pemesanan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pemesanan</a>
+    <a href="Jadwal.html" class="block rounded-md bg-white/40 px-8 py-2.5 font-medium">Jadwal</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Workflow</a>
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Transaksi</a>
+  </nav>
+  <a href="#" class="mt-auto mb-10 flex items-center justify-center gap-3 text-lg hover:opacity-80"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Logout</a>
+</aside>
+
+<!-- NAVBAR (muncul saat sidebar ditutup) -->
+<header id="topbar" class="fixed top-0 inset-x-0 h-14 z-30 items-center justify-between px-4 sm:px-5 text-white shadow-md">
+  <div class="flex items-center gap-3">
+    <button type="button" onclick="toggleSb()" title="Tampilkan menu" aria-label="Tampilkan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A3FDC">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-8 h-8 rounded-md object-cover">
+      <span class="text-xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+  </div>
+  <div class="text-right leading-tight">
+    <div class="text-sm font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+</header>
+
+<!-- KONTEN -->
+<main id="main" class="min-h-screen p-5 sm:p-8">
+  <h1 class="text-2xl sm:text-3xl font-bold">Jadwal Pemesanan Pelanggan</h1>
+  <p class="text-sm sm:text-base text-gray-800 mt-1">Semua Jadwal Pemesanan Pelanggan Studio.</p>
+
+  <section id="stats" class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5"></section>
+
+  <section id="split" class="mt-8 grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_var(--pw)] gap-6 items-start" style="--pw:280px">
+    <!-- KALENDER -->
+    <div class="min-w-0">
+      <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
+        <div class="flex items-center gap-2 relative">
+          <button type="button" onclick="shift(-1)" title="Sebelumnya" class="w-7 h-7 rounded-full bg-white border border-gray-300 shadow flex items-center justify-center text-xs hover:bg-gray-50"><i class="fa-solid fa-chevron-left"></i></button>
+          <button type="button" onclick="shift(1)" title="Berikutnya" class="w-7 h-7 rounded-full bg-white border border-gray-300 shadow flex items-center justify-center text-xs hover:bg-gray-50"><i class="fa-solid fa-chevron-right"></i></button>
+          <button id="title" type="button" onclick="toggleMonthPop(event)" class="text-xl sm:text-2xl font-bold flex items-center gap-2 hover:opacity-80"></button>
+          <div id="monthPop" class="hidden absolute left-0 top-full mt-2 z-20 bg-white border border-gray-200 rounded-xl shadow-xl p-3 w-60"></div>
+        </div>
+        <div class="flex-1"></div>
+        <button type="button" onclick="goToday()" class="border-2 border-[#0A4DFF] text-[11px] font-semibold px-4 py-1 rounded-md bg-white hover:bg-blue-50">Hari Ini</button>
+        <div id="viewSwitch" class="bg-gray-100 rounded-md p-0.5 flex text-[11px] font-semibold"></div>
+        <div class="relative">
+          <div class="border border-gray-300 rounded-md px-3 py-1.5 text-[11px] font-medium flex items-center gap-2 bg-white"><i class="fa-regular fa-calendar"></i><span id="range"></span><i class="fa-solid fa-chevron-down text-[9px]"></i></div>
+          <input id="jump" type="date" aria-label="Lompat ke tanggal" onclick="try{this.showPicker()}catch(e){}" onchange="jumpTo(this.value)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+        </div>
+      </div>
+
+      <div class="mt-4 overflow-x-auto pb-2"><div id="cal" class="min-w-[720px]"></div></div>
+    </div>
+
+    <!-- PANEL HARI TERPILIH -->
+    <aside class="relative min-w-0">
+      <div id="resizer" role="separator" aria-orientation="vertical" aria-label="Geser untuk mengubah lebar panel" tabindex="0" title="Seret untuk mengubah lebar (klik dua kali untuk reset)"
+        class="hidden xl:flex absolute -left-6 top-0 bottom-0 w-6 items-center justify-center cursor-col-resize group touch-none">
+        <span class="h-16 w-1.5 rounded-full bg-gray-300 group-hover:bg-[#0A4DFF] group-focus:bg-[#0A4DFF] transition"></span>
+      </div>
+      <div id="panel" class="bg-white rounded-xl border border-gray-200 shadow-md p-4"></div>
+    </aside>
+  </section>
+</main>
+
+<div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white text-sm font-medium px-4 py-2 rounded-full shadow-lg z-50"></div>
+
+<script>
+/* ====== KONFIGURASI ====== */
+// Isi rute halaman detail pemesanan (menerima ?id=). Kosong = tampil pesan "belum tersambung".
+const ROUTES = { detail: 'DetailPemesanan.html' };
+// Jam operasional 08:00-18:00. Kapasitas harian TIDAK tetap: tiap pemesanan memakai waktu sesuai durasi layanannya.
+// Hari penuh = tidak ada lagi celah waktu yang cukup untuk layanan tersingkat.
+const OPEN_H = 8, CLOSE_H = 18;
+// kode layanan -> [nama, durasi sesi (menit)]; ganti dengan data layanan dari backend
+const SVC = { SF: ['Self Studio', 30], FS: ['Family Studio', 60], PF: ['Pas Foto', 15], ED: ['Editing', 45], CK: ['Cetak Kilat', 15], SC: ['Scan', 15] };
+const MIN_DUR = Math.min(...Object.values(SVC).map(v => v[1]));
+
+/* ====== HELPER ====== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+const pad = n => String(n).padStart(2, '0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const parseYmd = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const sameDay = (a, b) => ymd(a) === ymd(b);
+const toMin = j => { const [h, m] = j.split(':').map(Number); return h * 60 + m; };
+const toJam = m => `${pad(Math.floor(m / 60))}:${pad(m % 60)}`;
+const fmtDur = m => { const h = Math.floor(m / 60), r = m % 60; return (h ? h + ' jam' : '') + (h && r ? ' ' : '') + (r ? r + ' menit' : (h ? '' : '0 menit')); };
+const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+const HARI3 = ['Ming', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+const BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+const BULAN3 = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+const TODAY = new Date(); TODAY.setHours(0, 0, 0, 0);
+const PILL = ['#FF8A8A', '#00D100', '#7FA8FF'];   // warna nama bergantian merah, hijau, biru
+const STATUS = { 'Terjadwal': '#F27CF2', 'Sesi Foto': '#FFB27A', 'Proses Editing': '#7BF0FF', 'Hasil Siap': '#B388FF', 'Selesai': '#86F286' };
+const BAYAR = { 'Belum Dibayar': '#C4C4C4', 'Menunggu Verifikasi': '#FFE033', 'Lunas': '#8EF08E', 'Ditolak': '#FF8A8A' };
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg; t.classList.remove('hidden');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add('hidden'), 2400);
+}
+function openDetail(id) { if (!ROUTES.detail) return toast('Halaman detail belum tersambung.'); location.href = ROUTES.detail + '?id=' + encodeURIComponent(id); }
+
+/* ====== DATA CONTOH (ganti dengan GET /api/jadwal?dari=...&sampai=...) ====== */
+const POOL = ['Supriadi', 'Susilo', 'Bambang', 'Yudoyono', 'Dewi Lestari', 'Bagus Santoso', 'Putri Ayu', 'Fajar Nugroho', 'Salsa Maharani', 'Dimas Prakoso', 'Nabila Zahra', 'Agus Hermawan', 'Intan Permata', 'Hendra Wijaya', 'Ayu Wardatul', 'Rivaldo Putra', 'Cika Larasati', 'Yogi Prasetya', 'Nafis Yulianto', 'Rara Rucika', 'Smith', 'Rina Marlina', 'Doni Saputra', 'Lia Anggraini'];
+let seq = 0;
+const L = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+function mk(tgl, jam, nama, over = {}) {
+  seq++;
+  const pre = over.pre || 'SF', durasi = SVC[pre][1];
+  const kode = `${pre}-${1 + seq % 4}${L[seq * 3 % 26]}${L[(seq * 5 + 1) % 26]}${L[(seq * 7 + 2) % 26]}${L[(seq * 11 + 3) % 26]}${L[(seq * 13 + 4) % 26]}`;
+  const past = parseYmd(tgl) < TODAY;
+  return Object.assign({ id: 'j' + seq, tgl, jam, nama, kode, layanan: SVC[pre][0], durasi, mulai: toMin(jam), selesai: toMin(jam) + durasi, akhir: toJam(toMin(jam) + durasi),
+    status: past ? 'Selesai' : 'Terjadwal', bayar: seq % 5 === 0 ? 'Belum Dibayar' : 'Lunas' }, over);
+}
+const jadwal = [];
+// pemesanan berurutan mulai jam tertentu: [[nama, kode layanan], ...]
+function seqDay(tgl, start, items, over = {}) { let m = toMin(start); items.forEach(([n, pre]) => { jadwal.push(mk(tgl, toJam(m), n, Object.assign({ pre }, over))); m += SVC[pre][1]; }); }
+// 3 Nov: hari penuh, diisi layanan berbeda-beda sampai jam tutup (jumlah pemesanan tidak tentu)
+(function () {
+  const cyc = ['SF', 'FS', 'PF', 'SF', 'ED', 'SF', 'CK', 'FS', 'SF', 'SC'];
+  let m = OPEN_H * 60, i = 0;
+  while (m < CLOSE_H * 60) {
+    const rem = CLOSE_H * 60 - m; let pre = cyc[i % cyc.length], g = 0;
+    while (SVC[pre][1] > rem && g++ < 20) pre = cyc[++i % cyc.length];
+    jadwal.push(mk('2026-11-03', toJam(m), POOL[i % POOL.length], { pre })); m += SVC[pre][1]; i++;
+  }
+})();
+seqDay('2026-11-10', '10:00', [['Sopo', 'SF'], ['Jarwo', 'SF'], ['Adit', 'SF']]);
+jadwal.push(mk('2026-11-15', '10:00', 'Ibrahim Movic', { pre: 'SF', status: 'Terjadwal', bayar: 'Lunas' }));
+jadwal.push(mk('2026-11-15', '10:30', 'Riska Putri', { pre: 'SF', status: 'Terjadwal', bayar: 'Lunas' }));
+jadwal.push(mk('2026-11-15', '11:00', 'M Rayyan Abie', { pre: 'FS', status: 'Terjadwal', bayar: 'Lunas' }));
+jadwal.push(mk('2026-11-17', '09:00', 'Denis', { pre: 'PF' })); jadwal.push(mk('2026-11-17', '09:30', 'Upin', { pre: 'SF' }));
+jadwal.push(mk('2026-11-24', '13:00', 'Ipin', { pre: 'FS' }));
+seqDay('2026-11-30', '10:00', [['Gopal', 'SF'], ['Yaya', 'SF'], ['Yin', 'FS'], ['Fang', 'SF'], ['Mei Mei', 'PF'], ['Ehsan', 'SF'], ['Fizi', 'SF'], ['Susanti', 'ED'], ['Ali', 'SF']]);
+const byDay = {}; jadwal.forEach(b => (byDay[b.tgl] = byDay[b.tgl] || []).push(b));
+Object.values(byDay).forEach(a => a.sort((x, y) => x.jam.localeCompare(y.jam)));
+const dayList = d => byDay[ymd(d)] || [];
+// celah waktu kosong sehari; penuh bila tidak ada celah yang muat untuk layanan tersingkat
+function dayInfo(list) {
+  const gaps = [], close = CLOSE_H * 60; let cur = OPEN_H * 60;
+  list.forEach(b => { if (cur < close && b.mulai > cur) gaps.push({ s: cur, e: Math.min(b.mulai, close) }); cur = Math.max(cur, b.selesai); });
+  if (cur < close) gaps.push({ s: cur, e: close });
+  return { gaps, free: gaps.reduce((a, g) => a + g.e - g.s, 0), full: !gaps.some(g => g.e - g.s >= MIN_DUR) };
+}
+
+/* ====== STATE ====== */
+let view = 'bulan', cursor = new Date(TODAY), selected = new Date(TODAY), popYear = cursor.getFullYear();
+const qs = new URLSearchParams(location.search).get('tanggal');
+if (qs && /^\d{4}-\d{2}-\d{2}$/.test(qs)) { cursor = parseYmd(qs); selected = parseYmd(qs); }
+
+/* ====== STATISTIK (untuk bulan yang sedang dilihat) ====== */
+function renderStats() {
+  const y = cursor.getFullYear(), m = cursor.getMonth(), n = new Date(y, m + 1, 0).getDate();
+  let best = null, bestN = 0, full = 0; const wd = Array(7).fill(0), wdCount = Array(7).fill(0);
+  for (let d = 1; d <= n; d++) {
+    const dd = new Date(y, m, d), c = dayList(dd).length;
+    if (c > bestN) { best = dd; bestN = c; }
+    if (dayInfo(dayList(dd)).full) full++;
+    wd[dd.getDay()] += c; wdCount[dd.getDay()]++;
+  }
+  let top = -1; wd.forEach((v, i) => { if (v > 0 && (top < 0 || v > wd[top])) top = i; });
+  const avg = top >= 0
+  ? Math.round(wd[top] / wdCount[top]).toLocaleString('id-ID')
+  : '0';
+  const sc = (icon, title, sub, l, r) => `
+    <div class="bg-white rounded-xl border-2 border-[#FFE600] shadow-md overflow-hidden flex flex-col">
+      <div class="relative p-4 pt-9 flex-1"><i class="${icon} absolute top-3 right-4 text-2xl"></i>
+        <div class="text-3xl font-bold leading-tight">${title}</div><div class="text-sm mt-1">${sub}</div></div>
+      <div class="bg-[#FFE600] px-4 py-2 flex justify-between gap-2 text-xs font-medium"><span>${l}</span><span class="text-right">${r}</span></div>
+    </div>`;
+  $('stats').innerHTML =
+    sc('fa-solid fa-ranking-star', best ? `${pad(best.getDate())} ${BULAN3[best.getMonth()]} ${best.getFullYear()}` : '-', 'Pemesanan Terbanyak dalam Satu Hari', 'Total Pemesanan', `${bestN} Pemesanan`) +
+    sc('fa-solid fa-list-check', `${full} Hari`, 'Total Hari Full dalam Satu Bulan', 'Hari dengan Slot Kosong', `${n - full} Hari`) +
+    sc('fa-solid fa-people-group', top >= 0 ? HARI[top] : '-', 'Hari dengan Pelanggan Ramai', 'Rata - Rata Pelanggan', `${avg} Pelanggan`);
+}
+
+/* ====== TOOLBAR ====== */
+function weekStart(d) { return addDays(d, -((d.getDay() + 6) % 7)); }   // minggu mulai Senin
+function renderToolbar() {
+  $('title').innerHTML = `${BULAN[cursor.getMonth()]} ${cursor.getFullYear()} <i class="fa-solid fa-caret-down text-sm"></i>`;
+  $('viewSwitch').innerHTML = [['hari', 'Hari'], ['minggu', 'Minggu'], ['bulan', 'Bulan']].map(([k, l]) =>
+    `<button type="button" onclick="setView('${k}')" class="px-3 py-1 rounded ${view === k ? 'bg-[#FFE600]' : 'hover:bg-gray-200'}">${l}</button>`).join('');
+  const f = d => `${BULAN3[d.getMonth()]}, ${pad(d.getDate())}, ${d.getFullYear()}`;
+  let a = cursor, b = cursor;
+  if (view === 'bulan') { a = new Date(cursor.getFullYear(), cursor.getMonth(), 1); b = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0); }
+  if (view === 'minggu') { a = weekStart(cursor); b = addDays(a, 6); }
+  $('range').textContent = view === 'hari' ? f(a) : `${f(a)} - ${f(b)}`;
+}
+function setView(v) { view = v; refresh(); }
+function shift(dir) {
+  if (view === 'bulan') cursor = new Date(cursor.getFullYear(), cursor.getMonth() + dir, 1);
+  else cursor = addDays(cursor, dir * (view === 'minggu' ? 7 : 1));
+  if (view === 'hari') selected = new Date(cursor);
+  refresh();
+}
+function goToday() { cursor = new Date(TODAY); selected = new Date(TODAY); refresh(); }
+function jumpTo(v) { if (!v) return; cursor = parseYmd(v); selected = parseYmd(v); refresh(); }
+function pick(s) { selected = parseYmd(s); if (view === 'hari') cursor = new Date(selected); refresh(); }
+
+/* pilih bulan */
+function toggleMonthPop(e) {
+  e.stopPropagation();
+  const p = $('monthPop');
+  if (p.classList.contains('hidden')) { popYear = cursor.getFullYear(); renderMonthPop(); p.classList.remove('hidden'); } else p.classList.add('hidden');
+}
+function renderMonthPop() {
+  $('monthPop').innerHTML = `
+    <div class="flex items-center justify-between mb-2">
+      <button type="button" onclick="event.stopPropagation(); popYear--; renderMonthPop()" class="w-7 h-7 rounded-full hover:bg-gray-100"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+      <span class="font-bold text-sm">${popYear}</span>
+      <button type="button" onclick="event.stopPropagation(); popYear++; renderMonthPop()" class="w-7 h-7 rounded-full hover:bg-gray-100"><i class="fa-solid fa-chevron-right text-xs"></i></button></div>
+    <div class="grid grid-cols-3 gap-1.5">${BULAN3.map((b, i) => `<button type="button" onclick="setMonth(${popYear},${i})" class="text-xs font-semibold py-1.5 rounded-md ${(cursor.getFullYear() === popYear && cursor.getMonth() === i) ? 'bg-[#FFE600]' : 'hover:bg-gray-100'}">${b}</button>`).join('')}</div>`;
+}
+function setMonth(y, m) { cursor = new Date(y, m, 1); $('monthPop').classList.add('hidden'); refresh(); }
+document.addEventListener('click', e => { if (!$('monthPop').contains(e.target)) $('monthPop').classList.add('hidden'); });
+
+/* ====== TAMPILAN KALENDER ====== */
+function renderMonth() {
+  const y = cursor.getFullYear(), m = cursor.getMonth();
+  const start = weekStart(new Date(y, m, 1)), end = new Date(y, m + 1, 0), rows = Math.ceil(((end - start) / 86400000 + 1) / 7);
+  // hari paling ramai dalam bulan ditandai garis merah
+  let best = null, bestN = 0;
+  for (let d = 1; d <= end.getDate(); d++) { const c = dayList(new Date(y, m, d)).length; if (c > bestN) { best = ymd(new Date(y, m, d)); bestN = c; } }
+  let cells = '';
+  for (let i = 0; i < rows * 7; i++) {
+    const d = addDays(start, i), key = ymd(d), inM = d.getMonth() === m, list = dayList(d);
+    const isToday = sameDay(d, TODAY), isSel = sameDay(d, selected), isBest = key === best && bestN > 0;
+    const border = isBest ? 'border-2 border-red-600' : isSel ? 'border-2 border-[#3478FF]' : 'border-2 border-transparent';
+    const shown = list.slice(0, 4);
+    cells += `<div role="button" tabindex="0" onclick="pick('${key}')" onkeydown="if(event.key==='Enter')pick('${key}')" class="min-h-[7.5rem] rounded-lg p-2 cursor-pointer ${border} ${inM ? 'bg-[#E6ECFF]' : 'bg-[#F1F5FF] text-gray-400'} hover:brightness-95">
+      <div class="flex justify-between items-start text-[11px]"><span class="${inM ? '' : 'text-gray-400'}">${HARI3[d.getDay()]}</span>
+        <span class="font-bold ${isToday ? 'bg-[#0A4DFF] text-white rounded-full px-1.5' : ''}">${pad(d.getDate())}</span></div>
+      <div class="mt-1.5 flex flex-col gap-1 ${inM ? '' : 'opacity-60'}">
+        ${shown.map((b, j) => `<span class="block truncate text-[11px] font-semibold text-black rounded-[5px] px-2.5 py-[3px] text-left" style="background:${PILL[j % 3]}" title="${esc(b.jam)}-${esc(b.akhir)} ${esc(b.nama)}">${esc(b.nama)}</span>`).join('')}
+        ${list.length > 4 ? `<span class="self-start text-[10px] font-semibold bg-gray-300 text-black rounded-full px-2 py-0.5">+ ${list.length - 4}</span>` : ''}
+      </div></div>`;
+  }
+  $('cal').innerHTML = `<div class="grid grid-cols-7 gap-2">${cells}</div>`;
+}
+function renderWeek() {
+  const s = weekStart(cursor);
+  $('cal').innerHTML = `<div class="grid grid-cols-7 gap-2">${[0, 1, 2, 3, 4, 5, 6].map(i => {
+    const d = addDays(s, i), key = ymd(d), list = dayList(d), isSel = sameDay(d, selected), isToday = sameDay(d, TODAY);
+    return `<div role="button" tabindex="0" onclick="pick('${key}')" onkeydown="if(event.key==='Enter')pick('${key}')" class="min-h-[22rem] rounded-lg p-2 cursor-pointer bg-[#E6ECFF] border-2 ${isSel ? 'border-[#3478FF]' : 'border-transparent'} hover:brightness-95">
+      <div class="flex justify-between items-start text-[11px]"><span>${HARI3[d.getDay()]}</span><span class="font-bold ${isToday ? 'bg-[#0A4DFF] text-white rounded-full px-1.5' : ''}">${pad(d.getDate())}</span></div>
+      <div class="mt-2 flex flex-col gap-1">${list.map((b, j) => `<span class="block text-[10px] font-semibold text-black rounded-md px-2 py-1" style="background:${PILL[j % 3]}"><span class="font-bold">${b.jam}</span> ${esc(b.nama)}</span>`).join('') || '<span class="text-[10px] text-gray-500 text-center mt-4">Kosong</span>'}</div></div>`;
+  }).join('')}</div>`;
+}
+function renderDay() {
+  const list = dayList(cursor), info = dayInfo(list), rows = []; let cur = OPEN_H * 60;
+  const gap = (s, e) => `<div class="flex items-center gap-3 text-xs"><span class="w-24 font-semibold text-gray-600">${toJam(s)}-${toJam(e)}</span><div class="flex-1 rounded-md px-3 py-2 border border-dashed border-gray-400 text-gray-500">Slot kosong <span class="text-gray-400">(${fmtDur(e - s)})</span></div></div>`;
+  list.forEach(b => {
+    if (cur < CLOSE_H * 60 && b.mulai > cur) rows.push(gap(cur, Math.min(b.mulai, CLOSE_H * 60)));
+    rows.push(`<div class="flex items-center gap-3 text-xs"><span class="w-24 font-semibold text-gray-600">${b.jam}-${b.akhir}</span>
+      <div class="flex-1 flex items-center justify-between gap-2 flex-wrap rounded-md px-3 py-2 bg-white shadow border border-gray-200"><span class="font-semibold truncate">${esc(b.nama)}</span><span class="text-gray-600">${esc(b.layanan)} (${b.durasi} mnt)</span><span class="text-gray-600">${esc(b.kode)}</span>${badges(b)}</div></div>`);
+    cur = Math.max(cur, b.selesai);
+  });
+  if (cur < CLOSE_H * 60) rows.push(gap(cur, CLOSE_H * 60));
+  $('cal').innerHTML = `<div class="bg-[#E6ECFF] rounded-lg p-3">
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-2"><div class="text-sm font-bold">${HARI[cursor.getDay()]}, ${pad(cursor.getDate())} ${BULAN[cursor.getMonth()]} ${cursor.getFullYear()}</div>
+      <div class="text-xs ${info.full ? 'text-red-600 font-semibold' : 'text-gray-600'}">${info.full ? 'Hari Penuh' : `Sisa waktu kosong ${fmtDur(info.free)}`}</div></div>
+    <div class="flex flex-col gap-1.5">${rows.join('')}</div></div>`;
+}
+const badges = b => `<span class="flex gap-1"><span class="text-[10px] font-semibold rounded px-2 py-0.5" style="background:${STATUS[b.status] || '#D9D9D9'}">${esc(b.status)}</span><span class="text-[10px] font-semibold rounded px-2 py-0.5" style="background:${BAYAR[b.bayar] || '#C4C4C4'}">${esc(b.bayar)}</span></span>`;
+
+/* ====== PANEL HARI TERPILIH ====== */
+function renderPanel() {
+  const list = dayList(selected), isToday = sameDay(selected, TODAY), info = dayInfo(list), full = info.full;
+  $('panel').innerHTML = `
+    <div class="flex items-start justify-between gap-2"><div class="font-bold text-base">${selected.getDate()} ${BULAN[selected.getMonth()]} ${selected.getFullYear()}</div>${isToday ? '<span class="text-sm font-semibold text-gray-500">Hari Ini</span>' : ''}</div>
+    <div class="text-xs ${full ? 'text-red-600' : 'text-[#0A22FF]'}">${full ? 'Hari Penuh, tidak ada slot kosong' : `Terdapat Slot Kosong (sisa ${fmtDur(info.free)})`}</div>
+    <div class="text-xs mt-2.5">${list.length} Pemesanan</div>
+    <div class="mt-2 flex flex-col gap-2 max-h-[32rem] overflow-y-auto pr-0.5">${list.length ? list.map((b, i) => `
+      <div class="rounded-lg border border-gray-200 shadow-md p-3 bg-white">
+        <div class="flex items-start gap-3">
+          <span class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-base flex-shrink-0" style="background:${PILL[i % 3]}">${esc(b.nama.charAt(0).toUpperCase())}</span>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between gap-2"><span class="font-semibold text-sm truncate" title="${esc(b.nama)}">${esc(b.nama)}</span>
+              <button type="button" onclick="openDetail('${b.id}')" title="Lihat detail" class="text-sm hover:opacity-60 flex-shrink-0"><i class="fa-regular fa-eye"></i></button></div>
+            <div class="text-xs text-gray-700 mt-0.5">${esc(b.layanan)} <span class="text-gray-500">(${b.durasi} menit)</span></div>
+            <div class="flex flex-wrap items-center gap-x-2 text-xs text-gray-700"><span class="font-medium">${esc(b.kode)}</span><span class="text-gray-400">•</span><span>${b.jam}-${b.akhir} WIB</span></div>
+            <div class="mt-2">${badges(b)}</div></div></div></div>`).join('')
+      : '<div class="text-xs text-gray-500 py-4 text-center border border-dashed border-gray-300 rounded-lg">Belum ada pemesanan pada hari ini.</div>'}</div>`;
+}
+
+function refresh() {
+  renderToolbar(); renderStats();
+  if (view === 'bulan') renderMonth(); else if (view === 'minggu') renderWeek(); else renderDay();
+  renderPanel();
+}
+
+/* ====== LEBAR PANEL (bisa diseret) ====== */
+const PW_DEFAULT = 280, PW_MIN = 224, PW_MAX = 560, PW_KEY = 'simasif_jadwal_panel_w';
+const split = $('split'), resizer = $('resizer');
+const curPW = () => parseFloat(split.style.getPropertyValue('--pw')) || PW_DEFAULT;
+function setPW(w, save) {
+  const maxByLayout = split.clientWidth - 24 - 480;   // sisakan minimal 480px untuk kalender
+  w = Math.round(Math.max(PW_MIN, Math.min(PW_MAX, maxByLayout, w)));
+  split.style.setProperty('--pw', w + 'px');
+  if (save) { try { localStorage.setItem(PW_KEY, String(w)); } catch (e) {} }
+}
+try { const s = parseFloat(localStorage.getItem(PW_KEY)); if (s) split.style.setProperty('--pw', s + 'px'); } catch (e) {}
+let rz = null;
+resizer.addEventListener('pointerdown', e => { rz = { x: e.clientX, w: curPW() }; resizer.setPointerCapture(e.pointerId); e.preventDefault(); });
+resizer.addEventListener('pointermove', e => { if (rz) setPW(rz.w + (rz.x - e.clientX), false); });
+['pointerup', 'pointercancel'].forEach(ev => resizer.addEventListener(ev, () => { if (rz) { rz = null; setPW(curPW(), true); } }));
+resizer.addEventListener('dblclick', () => setPW(PW_DEFAULT, true));
+resizer.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft') { setPW(curPW() + 16, true); e.preventDefault(); }
+  if (e.key === 'ArrowRight') { setPW(curPW() - 16, true); e.preventDefault(); }
+});
+window.addEventListener('resize', () => setPW(curPW(), false));
+
+/* ====== SIDEBAR ====== */
+
+const toggleSb = () => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    html.classList.toggle('sb-hidden');
+    body.classList.toggle('sb-hidden');
+
+    const isHidden = html.classList.contains('sb-hidden');
+
+    localStorage.setItem('sidebarHidden', isHidden);
+};
+
+
+// Saat halaman dibuka, ambil kondisi terakhir
+document.addEventListener("DOMContentLoaded", () => {
+
+    const isHidden = localStorage.getItem('sidebarHidden');
+
+    if (isHidden === 'true') {
+        document.documentElement.classList.add('sb-hidden');
+        document.body.classList.add('sb-hidden');
+    }
+
+    if (window.innerWidth < 1024 && isHidden === null) {
+        document.documentElement.classList.add('sb-hidden');
+        document.body.classList.add('sb-hidden');
+
+        localStorage.setItem('sidebarHidden', 'true');
+    }
+
+});
+
+refresh();
+</script>
+</body>
+</html>
