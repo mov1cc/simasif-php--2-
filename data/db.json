@@ -475,8 +475,8 @@
         {
             "id": "ofb708b2d1e",
             "kode": "SS-S399WF",
-            "status": "Menunggu Pembayaran",
-            "bayar": "Belum Dibayar",
+            "status": "Sesi Foto",
+            "bayar": "Lunas",
             "dibuat": "2026-11-15T17:36:33+07:00",
             "pelanggan_id": "c41d1a4dff2",
             "nama": "Ayu Wardatul Widad",
@@ -513,6 +513,27 @@
                 {
                     "status": "Menunggu Pembayaran",
                     "waktu": "2026-11-15T17:56:15+07:00",
+                    "aktor": "Anonimus",
+                    "teks": "Pemesanan Diperbarui Pegawai",
+                    "catatan": ""
+                },
+                {
+                    "status": "Pembayaran Diverifikasi",
+                    "waktu": "2026-11-17T19:43:03+07:00",
+                    "aktor": "Anonimus",
+                    "teks": "Pemesanan Diperbarui Pegawai",
+                    "catatan": ""
+                },
+                {
+                    "status": "Terjadwal",
+                    "waktu": "2026-11-17T19:43:11+07:00",
+                    "aktor": "Anonimus",
+                    "teks": "Pemesanan Diperbarui Pegawai",
+                    "catatan": ""
+                },
+                {
+                    "status": "Sesi Foto",
+                    "waktu": "2026-11-17T19:43:48+07:00",
                     "aktor": "Anonimus",
                     "teks": "Pemesanan Diperbarui Pegawai",
                     "catatan": ""

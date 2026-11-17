@@ -10,6 +10,7 @@ require_once dirname(__DIR__, 2) . '/src/ValidateAddOn.php';
 require_once dirname(__DIR__, 2) . '/src/ValidatePelanggan.php';
 require_once dirname(__DIR__, 2) . '/src/ValidatePemesanan.php';
 require_once dirname(__DIR__, 2) . '/src/Jadwal.php';
+require_once dirname(__DIR__, 2) . '/src/Workflow.php';
 
 const MAX_GALLERY = 8;
 const MAX_BYTES = 5 * 1048576;
@@ -585,6 +586,12 @@ if ($p === '/api/jadwal' && $m === 'GET') {
     if ($err) out(422, ['errors' => $err]);
     $db = Db::read();
     out(200, ['data' => Jadwal::rows($db, $dari, $sampai), 'config' => Jadwal::config($db)]);
+}
+
+/* --- workflow --- */
+if ($p === '/api/workflow' && $m === 'GET') {
+    $db = Db::read();
+    out(200, Workflow::board($db, qs('q')));   // ?q= cari nama/kode (opsional)
 }
 
 out(404, ['error' => 'Endpoint tidak ditemukan.']);

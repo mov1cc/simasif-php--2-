@@ -103,7 +103,7 @@ html.sb-hidden #sidebar{
 <script>
 /* ====== KONFIGURASI ====== */
 // Isi rute halaman detail pemesanan (menerima ?id=). Kosong = tampil pesan "belum tersambung".
-const ROUTES = { detail: '' };
+const ROUTES = { detail: 'DetailPemesanan.html' };
 
 /* ====== TAHAPAN ====== */
 // [status, warna judul kolom, warna latar kolom, teks judul]
@@ -120,29 +120,15 @@ const FLOW = [
 const STATUSES = FLOW.map(f => f[0]);
 const BAYAR = { 'Belum Dibayar': '#C4C4C4', 'Menunggu Verifikasi': '#FFE033', 'Lunas': '#8EF08E', 'Ditolak': '#FF8A8A' };
 
-/* ====== DATA CONTOH (ganti dengan GET /api/pemesanan) ====== */
-const JADWAL = new Date(2026, 10, 12, 10, 0);
-// [status, kode, pelanggan, layanan, pembayaran]
-const RAW = [
-  ['Pemesanan Dibuat', 'SF-3XWYZK', 'Cika', 'Self Studio', 'Belum Dibayar'],
-  ['Pemesanan Dibuat', 'SF-2KWYZK', 'Rita', 'Self Studio', 'Belum Dibayar'],
-  ['Menunggu Pembayaran', 'SF-3XWYZK', 'Yuli', 'Self Studio', 'Menunggu Verifikasi'],
-  ['Menunggu Pembayaran', 'SF-2KWYZK', 'Yuki', 'Self Studio', 'Menunggu Verifikasi'],
-  ['Menunggu Pembayaran', 'CK-3WWYZK', 'Yusuf', 'Self Studio', 'Menunggu Verifikasi'],
-  ['Pembayaran Diverifikasi', 'SF-3XWYZK', 'Ayu Wardatul Widad', 'Self Studio', 'Lunas'],
-  ['Pembayaran Diverifikasi', 'SF-2KWYZK', 'Ibrahim Movic', 'Self Studio', 'Ditolak'],
-  ['Pembayaran Diverifikasi', 'CK-3WWYZK', 'Yogi Darmawangsah', 'Self Studio', 'Lunas'],
-  ['Pembayaran Diverifikasi', 'SF-3XWWZZ', 'Riska Putri', 'Self Studio', 'Lunas'],
-  ['Terjadwal', 'SF-3XWYZK', 'Zaidan', 'Self Studio', 'Lunas'],
-  ['Terjadwal', 'CK-3WWYZK', 'Zayn', 'Self Studio', 'Lunas'],
-  ['Terjadwal', 'SF-3XWWZZ', 'Risma', 'Self Studio', 'Lunas'],
-  ['Sesi Foto', 'CK-3WWYZK', 'Setiawan', 'Self Studio', 'Lunas'],
-  ['Sesi Foto', 'SF-3XWWZZ', 'Aldi', 'Self Studio', 'Lunas'],
-  ['Proses Editing', 'SF-3XWWZZ', 'Nurul', 'Self Studio', 'Lunas'],
-  ['Hasil Siap', 'SF-3XWWZZ', 'Fitri', 'Self Studio', 'Lunas'],
-  ['Selesai', 'SF-3XWWZZ', 'Deko', 'Self Studio', 'Lunas']
-];
-let orders = RAW.map(([status, kode, nama, layanan, bayar], i) => ({ id: 'w' + (i + 1), status, kode, nama, layanan, bayar, jadwal: JADWAL }));
+let orders = [];
+async function loadBoard() {
+  try {
+    const res = await fetch('/api/workflow'), d = await res.json();
+    if (!res.ok) throw new Error(d.error || 'HTTP ' + res.status);
+    orders = d.columns.flatMap(c => c.items).map(o => ({ ...o, jadwal: new Date(o.jadwal) }));
+  } catch (e) { toast('Gagal memuat workflow: ' + e.message); }
+  refresh();
+}
 
 /* ====== HELPER ====== */
 const $ = id => document.getElementById(id);
@@ -196,14 +182,22 @@ function renderBoard() {
 }
 
 /* ====== AKSI ====== */
-function advance(id) {
+async function advance(id) {
   const o = orders.find(x => x.id === id); if (!o) return;
   const next = STATUSES[STATUSES.indexOf(o.status) + 1]; if (!next) return;
-  // sambungkan ke PATCH /api/pemesanan/:id/status { status: next }
-  o.status = next;
-  if (next === 'Pembayaran Diverifikasi') o.bayar = 'Lunas';
-  refresh(); toast(`${o.nama}: lanjut ke ${next}.`);
+  try {
+    const res = await fetch(`/api/pemesanan/${encodeURIComponent(id)}/status`, {
+      method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ dari: o.status, status: next })
+    });
+    const d = await res.json().catch(() => ({}));
+    if (res.status === 409) { toast(d.error || 'Status sudah berubah.'); return loadBoard(); }
+    if (!res.ok) throw new Error(d.error || Object.values(d.errors || {}).join(' ') || 'HTTP ' + res.status);
+    toast(`${o.nama}: lanjut ke ${next}.`);
+    await loadBoard();
+  } catch (e) { toast('Gagal mengubah status: ' + e.message); }
 }
+
 function refresh() { renderStats(); renderBoard(); }
 
 /* ====== SIDEBAR ====== */
@@ -240,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-refresh();
+loadBoard();
 </script>
 </body>
 </html>
