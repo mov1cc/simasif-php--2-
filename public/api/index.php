@@ -11,6 +11,7 @@ require_once dirname(__DIR__, 2) . '/src/ValidatePelanggan.php';
 require_once dirname(__DIR__, 2) . '/src/ValidatePemesanan.php';
 require_once dirname(__DIR__, 2) . '/src/Jadwal.php';
 require_once dirname(__DIR__, 2) . '/src/Workflow.php';
+require_once dirname(__DIR__, 2) . '/src/AuthApi.php';
 
 const MAX_GALLERY = 8;
 const MAX_BYTES = 5 * 1048576;
@@ -593,5 +594,7 @@ if ($p === '/api/workflow' && $m === 'GET') {
     $db = Db::read();
     out(200, Workflow::board($db, qs('q')));   // ?q= cari nama/kode (opsional)
 }
+
+AuthApi::handle($m, $p);
 
 out(404, ['error' => 'Endpoint tidak ditemukan.']);

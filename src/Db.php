@@ -7,7 +7,7 @@ declare(strict_types=1);
  */
 final class Db
 {
-    private const EMPTY = ['layanan' => [], 'addon' => [], 'gallery' => [], 'pelanggan' => [], 'pemesanan' => []];
+    private const EMPTY = ['layanan' => [], 'addon' => [], 'gallery' => [], 'pelanggan' => [], 'pemesanan' => [], 'users' => [], 'auth_limit' => []];
     
     private static function file(): string { return dirname(__DIR__) . '/data/db.json'; }
 

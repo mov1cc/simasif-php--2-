@@ -200,20 +200,22 @@
     if (!okPass) { password.focus(); return; }
 
     btn.disabled = true;
-    btn.textContent = 'Memproses...';
-
-    /* GANTI bagian ini dengan request ke backend Anda, contoh:
-       fetch('/api/login', {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({ email: email.value.trim(), password: password.value })
-       }).then(...)
-    */
-    setTimeout(function () {
-      btn.disabled = false;
-      btn.textContent = 'Masuk';
-      setStatus('Data valid. Hubungkan form ini ke backend untuk proses login.', 'text-[#1b6e2e]');
-    }, 700);
+btn.textContent = 'Memproses...';
+fetch('/api/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email: email.value.trim(), password: password.value })
+}).then(function (res) {
+  return res.json().catch(function () { return {}; }).then(function (d) { return { res: res, d: d }; });
+}).then(function (r) {
+  if (r.res.ok) { location.href = 'Layanan.html'; return; }
+  if (r.res.status === 422 && r.d.errors) {
+    if (r.d.errors.email) setError(email, errEmail, r.d.errors.email);
+    if (r.d.errors.password) setError(password, errPassword, r.d.errors.password);
+  } else setStatus(r.d.error || 'Gagal masuk. Coba lagi.', 'text-[#c62828]');
+}).catch(function () {
+  setStatus('Tidak bisa terhubung ke server.', 'text-[#c62828]');
+}).then(function () { btn.disabled = false; btn.textContent = 'Masuk'; });
   });
 })();
 </script>
