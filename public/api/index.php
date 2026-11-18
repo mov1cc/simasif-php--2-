@@ -295,6 +295,13 @@ $p = rtrim((string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 $p = preg_replace('#^.*?/api(?=/)#', '/api', $p);   // toleran bila aplikasi ada di subfolder
 $r = [];
 
+/* --- wajib login untuk semua endpoint, kecuali auth --- */
+$terbuka = ['/api/auth/login', '/api/auth/logout', '/api/auth/me'];   // tambahkan endpoint publik di sini bila perlu
+if (!in_array($p, $terbuka, true) && Auth::user(Db::read()) === null) {
+    header('Cache-Control: no-store');
+    out(401, ['error' => 'Belum masuk. Silakan login.']);
+}
+
 /* --- layanan --- */
 if ($p === '/api/layanan') {
     if ($m === 'GET') { $db = Db::read(); out(200, ['data' => array_map(fn($l) => withCover($db, $l), $db['layanan'])]); }
@@ -536,8 +543,9 @@ if (preg_match('#^/api/pemesanan/([\w-]+)(/status|/pembayaran)?$#', $p, $r)) {
         $b = readJson();
         $b = is_array($b) ? $b : [];
         $err = ValidatePemesanan::catatan($b['catatan'] ?? null);
+        $aktor = Auth::user($db)['nama'] ?? 'Anonimus';
         if ($err !== '') out(422, ['errors' => ['catatan' => $err]]);
-        [$c, $body] = Db::write(function (array &$db) use ($id, $b) {
+        [$c, $body] = Db::write(function (array &$db) use ($id, $b, $aktor) {
             $i = findIdx($db['pemesanan'], $id);
             if ($i === null) return [404, ['error' => 'Pemesanan tidak ditemukan.']];
             $o = $db['pemesanan'][$i];
@@ -550,8 +558,8 @@ if (preg_match('#^/api/pemesanan/([\w-]+)(/status|/pembayaran)?$#', $p, $r)) {
 
             $o['status'] = $next;
             if ($next === 'Pembayaran Diverifikasi') $o['bayar'] = 'Lunas';
-            $o['history'][] = ['status' => $next, 'waktu' => nowIso(), 'aktor' => 'Anonimus',
-                               'teks' => 'Pemesanan Diperbarui Pegawai', 'catatan' => V::str($b['catatan'] ?? null)];
+            $o['history'][] = ['status' => $next, 'waktu' => nowIso(), 'aktor' => $aktor,
+                   'teks' => 'Pemesanan Diperbarui Pegawai', 'catatan' => V::str($b['catatan'] ?? null)];
             $db['pemesanan'][$i] = $o;
 
             if ($next === 'Selesai') {   // pelanggan tidak lagi "berjalan" -> boleh diedit/dihapus

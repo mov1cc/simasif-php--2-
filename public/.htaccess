@@ -1,4 +1,11 @@
-# Apache (XAMPP/Laragon/hosting): arahkan /api/* ke front controller
-DirectoryIndex Layanan.html
 RewriteEngine On
+
+# Halaman root -> Layanan.html (yang nanti dijaga gate)
+RewriteRule ^$ Layanan.html [R=302,L]
+
+# API -> front controller
 RewriteRule ^api/ api/index.php [L]
+
+# Semua .html wajib login, kecuali Login dan LupaPassword
+RewriteCond %{REQUEST_URI} !/(Login|LupaPassword)\.html$ [NC]
+RewriteRule ^([A-Za-z0-9_-]+\.html)$ gate.php [L,NC]
