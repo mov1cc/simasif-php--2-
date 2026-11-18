@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMASIF - Transaksi Pembayaran</title>
+<link rel="icon" href="data:image/png;base64,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">
+<script>
+(function () {
+    const sidebarHidden = localStorage.getItem('sidebarHidden');
+
+    if (sidebarHidden === 'true') {
+        document.documentElement.classList.add('sb-hidden');
+    }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',system-ui,sans-serif}
+  #sidebar{background:linear-gradient(165deg,#0038D8 0%,#4A86FF 100%);transition:transform .25s}
+  #main{transition:margin .25s}
+  .sb-hidden #sidebar{
+    transform:translateX(-100%)
+}
+
+html.sb-hidden #sidebar{
+    transform:translateX(-100%)
+}
+  /* navbar atas: hanya muncul saat sidebar ditutup */
+  #topbar{display:none;background:linear-gradient(90deg,#0038D8 0%,#4A86FF 100%)}
+  .sb-hidden #topbar{display:flex}
+  .sb-hidden #main{padding-top:5.5rem}
+  /* ikon panel sidebar: kotak putih + panel kiri berwarna (--pn) */
+  .ico-panel{width:1.375rem;height:1.375rem;display:block}
+  .ico-panel .box{fill:#fff}
+  .ico-panel .pn{fill:var(--pn)}
+  @media(min-width:1024px){#main{margin-left:18rem}.sb-hidden #main{margin-left:0}}
+  /* Mengatur ukuran font untuk pilihan dropdown */
+  select option {
+    font-size: 14px; /* Ubah ukuran sesuai keinginan, misal: 14px atau 16px */
+  }
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 w-72 z-40 flex flex-col text-white shadow-xl">
+  <div class="flex items-center justify-between px-5 pt-4">
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-9 h-9 rounded-md object-cover">
+      <span class="text-2xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+    <button type="button" onclick="toggleSb()" title="Sembunyikan menu" aria-label="Sembunyikan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A44E0">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center mt-8">
+    <div class="w-28 h-28 rounded-full bg-white flex items-center justify-center"><i class="fa-solid fa-user text-5xl text-[#2563EB]"></i></div>
+    <div class="mt-3 text-xl font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+  <nav class="mt-10 px-1 space-y-2 text-sm">
+    <a href="#" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Dashboard</a>
+    <a href="Layanan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Layanan</a>
+    <a href="Pelanggan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pelanggan</a>
+    <a href="Pemesanan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pemesanan</a>
+    <a href="Jadwal.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Jadwal</a>
+    <a href="Workflow.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Workflow</a>
+    <a href="Transaksi.html" class="block rounded-md bg-white/40 px-8 py-2.5 font-medium">Transaksi</a>
+  </nav>
+  <a href="Login.html" class="mt-auto mb-10 flex items-center justify-center gap-3 text-lg hover:opacity-80"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Logout</a>
+</aside>
+
+<!-- NAVBAR (muncul saat sidebar ditutup) -->
+<header id="topbar" class="fixed top-0 inset-x-0 h-14 z-30 items-center justify-between px-4 sm:px-5 text-white shadow-md">
+  <div class="flex items-center gap-3">
+    <button type="button" onclick="toggleSb()" title="Tampilkan menu" aria-label="Tampilkan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A3FDC">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAACgCAIAAAAErfB6AAALFUlEQVR42u2dSUwTXxzHX2cKlFIoLZuGJSCCC8gSRItBIokmeBDcDQe96IEQPXk1xoMhHPTiwRBMNBo5KMgWIoQAIZqACRhRUERUEMMiIAUKAu0s/8NPJ/NvURkEneX3ORhcWue97/utM/MeIQiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiCIAiyLuhwCpaZFJ3O7VcBnufhV/gBBVaMohRFgZYcx3Ect5JPURRFURR8RLaS61BUT0W9vLyCgoLMZrPJZPLz8/P29qYoyuVyLS0tzc/POxyOqamp6elpty+kaXrZb0OB/zZgeQzDCH8SFBSUkJCQlJSUnJwcHx8fHh4eEhLi5+dH07Tnx51O58zMzNjY2NDQUE9Pz6tXr16+fNnf3+90OoXvB6XlYNM6rZmsMO96vT49PT07Ozs7OzslJSU4ONjzI0LEFb7BLSQDHMd9/Pixvb29paWltbV1cHBQsGme52Vl0KqVVmyLKSkpRUVFPT09vAiO41wul8vlYhiGZVnwtPxywF+xLMswDPx78d/Ozc01NDScPXs2NDTULVQj64IgrcFgyM/Pb2lpYVlWLCrDMD/TcoWA3m5ij4+Pl5SUpKWloczrGGvBoxqNxoKCgjdv3giz73K5BJnXFo7jGIYRlGZZtqqqKjMzU5yIoTRr6ZNPnz7d29sL0y2e+vUGlBZ+W1FRkZSU5OZUkFUaLvxgs9laW1sFadfJZH+LEAIWFxevX79uNpvRlFePXq8nhPj6+hYXF7tcrn8rrZvM8ENfX19ubq7bWkQkuOWdO3d2dnZ6Osl/DuR08PONGzeMRqOwIpGV5lMFBQULCwuQRv1hbrxOsCwLHqWjo2P79u2o8UqDLk3TJSUlbv5QtoAp2+32w4cPo8a/L3PNZnN9fb04o5E/wiq8cOECpl2/Ujc0NPTZs2c8zzudTl5RCO768uXLqPHynjksLKyrq0tweopDyLyuXr2KvtpdXavV+vz5c+Wq66Yx2DFq/P2+kI+PD/QxFK2um8aFhYWo8ffxl5WVqUNdcWuT47hDhw5pup0J6l66dEmJWdVvcy6O46anp7ds2aLRPhes65ycHPBpSqmIpNZOL168MBqNmkuqoV0VGho6MjICt2B5NQJB5+bNm5pz1DDaR48eKaJX9eca5+XlaUhjGGd+fr6aEqtfB+OhoaHAwEChzb7KeVNKXUQICQwMrK6uNplMP3v4TU11IMuyFovFaDTW19fDw3vqN9/i4mItmK/4Oa+lpaXExESo+1WeW8XGxs7Pz4Pv4rUB5Bk1NTUqj8Qwtlu3bmnHfN2C8Z49e1SrMZhvXFzcwsKCpsxXbMR1dXWr7nvI3bPrdDqe58+fP28wGDiO09rdNJqmOY7LyclJSUnhOG4VGtMyV5fjuJCQkNLSUoPB8IcFg0JhWVav13t5edXW1lIUJTWdpmS+fgkhx48ft1qtGjRf8SQcO3YsJCSEZVmpk0DJfPHqdLozZ86ovApcQU0cGBh49OjRVaRa8hUY3FFCQkJ6ejrR/NsAPM+fOnWKECL1XUVZC0wIycvLo2maZVktqwvJh81mi46OlppqyVdgEPXgwYPEY6MMbXppX1/f/fv3S62XKNmuWZ7nIyIiUlNTCb7i8eMl9AMHDhDRC+kKFhhMNiMjw2g0riJ1VKWXJoTYbDZfX19JEyJrgW02m9QFq2KBeZ6PjIyEp3kULzAEYMif0XzFRaPUmEXJ03x5njeZTJs3b8YA7IbwFrmyBSaEREVFCfuYIMK0wAuJK6+G5StwdHQ0tNrRRYunJSIiAlr0K5wWSs4jIdIbN6oXOCwszGKxqKHRsWHDBhTVk8DAQNizTcEWDFitVpTT04Jpmg4ICFj5p+T4khMUvmazGV6fxRgsAI1of3//lVuwfN9iCw4Opmkat5QSA7Ph5+enBgvu6Ojw9vZmGAbrYPHMUBQ1Pj5OsMGHfI/ccs4pMPr+zI7RfBEEQbQYgzGn/UWRipOAyNuCKYqKiIhQ/+uq0hN+hmGGh4dlaMS6lY+B53mLxdLd3R0cHIx38cRFC0VRY2NjiYmJc3NzMFHyuTxpnSyO47y9vX18fFBXN7y8vOT58LY0gZ1O57dv3+D9c8y2hEVPUdT8/LzL5VK8wIuLi+CFsM0kDl46nc7hcMBRanLLTlZqhTzPQ3SZnZ0l2On+/8wQQuAoQxl6NSkvQVAUIWR4eBgF9hR4dHSUyPIJXwkCw9UPDAygqJ7AtChbYOD9+/cop+e67+vrk+flSRAYfFFvby/Bs7s8Ild/fz+RZbdSgsBw9W/fvp2ZmZFbOf8PA7BOp5ucnHz37p08UxNK6mAmJibAiLG3LkzC69ev7Xb7KnZIkV0MBs/c3t6OibQ4bLW1tRG53mejVjGelpYWgvcNRQEYJkSeK15aWg+hNygoqL+/32KxgNPWeAAeHx+Pi4ubnZ2VZ14i2YJpmv769Sscd6LxvVFgy/mmpqbZ2VnZ3kKV7GbBZCsrK7EdDTNQWVlJZPyWum4Vo+J53mq19vX1BQcHa9ZLw02kkZGRrVu3OhwO2daNki0YvPTU1FRVVRX5sdeCZgukiooKh8OhtkdcoFhKS0tT0FGf67Eju9Pp3LFjhzoLChhSY2Oj6g9A+cU2zrW1taotF8GIDxw4ALm01gSGrcmzsrKIitvysHKhXtKUEcNgGxoaVN7tgZWblZUFpypqynwZhtm1axdR/V01GN6DBw+0Y8RwKsjdu3eJFu6Zwja3mzZtmp2d1cKJGXCWkd1uj4yMVMpZRn+0BoWaeHFxMScnh2VZdd+BYFmWpumLFy82NzfDHl6aaNfBThpPnjxRt6OGoTU2NsKQNdS/A6uNjY2dnp6GfXHUWhdNTk4qyDmvfbZ18uRJVR5OBodR8zyv6cPX4eT1oqIiXnUnr8Nwrly5IgxTo/fOYPDl5eVqsmNQ9/79+5pWV9CYoihfX9+nT5+qQ2MYQlNTk7e3tzbPXVs+4bJarZ2dnUrXGC6+ra0N9obEZ9D+p3FoaGhHR4dyNQbP3NbWBnuiorrLJNVWq1WhvhrUbW5uRtv9jR0bjcaHDx9Cl0AR9bFQx5eVlcFGBqjubzQWaif597kETwMVEaq70ryaEHLixImJiQmYRBnekxBaGaOjo3l5ecJ9FFRQQg8kJibm8ePHbrYiK8OtqamJiorCenf1aRchpLCwcHJyEozmn3ts4QK+fPly7tw5t0tFJIdkcNfR0dG3b98GRw0y/2WnLf5PWZYtLS2NjIwUXyGyBqacmZlZV1cn9pN/Ic1mWVYcHaqrq3fv3o2Gu/amLMxmdnZ2ZWWlMOnwuNOaGzR8rbCAnE5neXn53r17BWkxn1pHj00ISU5Ovnbt2sDAgFtaC6qsQm94toZhGLek/cOHD8XFxYmJiZ7XgKyXxxam2N/f/8iRI/fu3fv8+bNnNuRyuUByUN0N+HPh37h9fGho6M6dO7m5uSaTydOLqLxSlYk1wynm8NuAgIDU1NR9+/ZlZGQkJiaGh4dL/UKe54eHh7u7u9vb21tbW7u6uhwOh1CzcRynnf0nZBR7hK6I+IU2f3//mJiY+Pj4bdu2RUVFbdy40WKxmM1mg8Hg5eVFCHG5XIuLizMzM3a7fXR09NOnT729vX19fYODg3Nzc27JHbhrbfWaZNv/gjM2f2Zqer1er9frdDrwyb8I8xCSea3uKCL37FEnAnzvsmoJa4L8OHUGwCxHkeWBW1WDQiIIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiAIgiCIUvkPhQ27v035Vy8AAAAASUVORK5CYII=" alt="Logo SIMASIF" class="w-8 h-8 rounded-md object-cover">
+      <span class="text-xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+  </div>
+  <div class="text-right leading-tight">
+    <div class="text-sm font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+</header>
+
+<!-- KONTEN -->
+<main id="main" class="min-h-screen p-5 sm:p-8">
+  <h1 class="text-2xl sm:text-3xl font-bold">Transaksi Pembayaran</h1>
+  <p class="text-sm sm:text-base text-gray-800 mt-1">Periksa bukti pembayaran lalu verifikasi atau tolak.</p>
+
+  <section id="stats" class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-6"></section>
+
+  <section class="mt-5 bg-white rounded-xl shadow-md border border-gray-200 p-3 flex flex-col lg:flex-row lg:items-center gap-3">
+    <label class="flex-1 flex items-center gap-2 bg-[#EDEDED] border border-gray-300 rounded-md px-3 py-2">
+      <i class="fa-solid fa-magnifying-glass text-gray-700"></i>
+      <input id="search" type="text" placeholder="Cari nama, kode, atau nomor telepon" oninput="q=this.value; page=1; renderTable()" class="bg-transparent w-full text-xs focus:outline-none">
+    </label>
+    <div class="relative lg:w-52">
+      <select id="statusF" onchange="fStatus=this.value; page=1; renderTable()" class="appearance-none w-full bg-[#D1D1D1] text-black text-[11px] font-semibold pl-3 pr-8 py-2 rounded-sm shadow focus:outline-none cursor-pointer">
+        <option value="semua">Semua Status</option><option>Menunggu Verifikasi</option><option>Lunas</option><option>Ditolak</option><option>Belum Dibayar</option>
+      </select>
+      <i class="fa-solid fa-chevron-down text-black text-[10px] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+    </div>
+    <div class="relative lg:w-52">
+      <select id="metodeF" onchange="fMetode=this.value; page=1; renderTable()" class="appearance-none w-full bg-[#D1D1D1] text-black text-[11px] font-semibold pl-3 pr-8 py-2 rounded-sm shadow focus:outline-none cursor-pointer">
+        <option value="semua">Semua Metode</option><option>Transfer</option><option>Langsung</option>
+      </select>
+      <i class="fa-solid fa-chevron-down text-black text-[10px] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+    </div>
+  </section>
+
+  <section class="mt-6 overflow-x-auto pb-2">
+    <div class="min-w-[1120px]">
+      <div id="thead" class="grid grid-cols-[2.3fr_1.2fr_1.1fr_1fr_1.1fr_1.7fr_1.3fr_1.5fr_1fr] items-center gap-2 bg-[#0A4DFF] text-white font-bold rounded-xl px-4 py-1.5 text-center shadow-md"></div>
+      <div id="rows" class="mt-3 flex flex-col gap-2.5"></div>
+    </div>
+  </section>
+
+  <nav id="pager" class="mt-5 flex items-center justify-center gap-3"></nav>
+</main>
+
+<!-- MODAL TOLAK -->
+<div id="rejectModal" class="hidden fixed inset-0 bg-black/60 z-[55] items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+    <div class="bg-red-600 text-white px-5 py-3 text-lg font-bold">Tolak Pembayaran</div>
+    <div class="p-5">
+      <p id="rejectInfo" class="text-sm"></p>
+      <label for="alasan" class="block text-sm font-semibold mt-4">Alasan penolakan <span class="font-normal text-gray-500">(opsional)</span></label>
+      <textarea id="alasan" rows="3" oninput="liveAlasan()" placeholder="Contoh: Nominal tidak sesuai dengan tagihan" class="mt-1.5 w-full bg-[#EEEEEE] border border-gray-300 rounded-lg p-3 text-sm focus:outline-none resize-y min-h-[5rem] max-h-72"></textarea>
+      <div class="flex justify-between gap-3 mt-1"><p id="eAlasan" class="hidden text-xs text-red-600"></p><span id="cAlasan" class="ml-auto text-[10px] text-gray-500">0/255</span></div>
+      <p class="text-xs text-gray-600 mt-2">Setelah ditolak, pelanggan diminta melakukan pembayaran ulang.</p>
+      <div class="flex justify-end gap-2 mt-4">
+        <button type="button" onclick="closeModal('rejectModal')" class="bg-gray-200 text-xs font-bold px-4 py-2 rounded-md hover:bg-gray-300">Batal</button>
+        <button type="button" onclick="confirmReject()" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-5 py-2 rounded-md">Tolak Pembayaran</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white text-sm font-medium px-4 py-2 rounded-full shadow-lg z-[70]"></div>
+
+<script>
+/* ====== DATA CONTOH (ganti dengan GET /api/transaksi) ====== */
+const dtm = (d, h = 11, m = 0) => new Date(2026, 10, d, h, m);
+// bukti: 'Tersedia' (transfer & sudah upload) | 'Tidak Perlu' (bayar langsung) | 'Belum Ada' (transfer, belum upload)
+// [pelanggan, kode, layanan, metode, jumlah, status, bukti, waktu aksi, alasan tolak]
+const RAW = [
+  ['Ayu Wardatul Widad', 'SF-3XWYZK', 'Self Studio', 'Transfer', 70000, 'Lunas', 'Tersedia', dtm(13)],
+  ['Ibrahim Movic', 'SF-2KWYZK', 'Self Studio', 'Transfer', 30000, 'Ditolak', 'Tersedia', dtm(13), 'Nominal transfer tidak sesuai dengan tagihan'],
+  ['M Rayyan Abie', 'SC-1XYYZX', 'Self Studio', 'Langsung', 120000, 'Menunggu Verifikasi', 'Tidak Perlu', null],
+  ['Nafis Yulianto', 'SF-3XXXXK', 'Self Studio', 'Transfer', 30000, 'Menunggu Verifikasi', 'Tersedia', null],
+  ['Yogi Darmawangsah', 'CK-3WWYZK', 'Cetak Kilat', 'Transfer', 130000, 'Lunas', 'Tersedia', dtm(12, 15, 30)],
+  ['Riska Putri', 'SF-3XWWZZ', 'Self Studio', 'Transfer', 50000, 'Lunas', 'Tersedia', dtm(12, 10, 5)],
+  ['Cika Larasati', 'ED-3XXYYK', 'Editing', 'Langsung', 70000, 'Lunas', 'Tidak Perlu', dtm(11, 16, 45)],
+  ['Rivaldo Aditya Putra', 'FS-2KWZYX', 'Family Studio', 'Transfer', 70000, 'Belum Dibayar', 'Belum Ada', null],
+  ['Rara Rucika', 'FS-2YYYZK', 'Family Studio', 'Transfer', 70000, 'Belum Dibayar', 'Belum Ada', null],
+  ['Smith', 'CK-2WWWK', 'Cetak Kilat', 'Langsung', 80000, 'Lunas', 'Tidak Perlu', dtm(11, 9, 20)],
+  ['Dewi Lestari', 'SF-1AXBZK', 'Self Studio', 'Transfer', 70000, 'Lunas', 'Tersedia', dtm(10, 14, 10)],
+  ['Bagus Santoso', 'FS-4KLMNZ', 'Family Studio', 'Transfer', 120000, 'Menunggu Verifikasi', 'Tersedia', null]
+];
+let trx = RAW.map(([nama, kode, layanan, metode, jumlah, status, bukti, waktu, alasan], i) => ({
+  id: 't' + (i + 1), ci: i, nama, kode, layanan, metode, jumlah, status, bukti, waktu, alasan: alasan || '', pegawai: 'Anonimus',
+  nomor: i === 0 ? '08123456789' : '0812' + (3450000 + i * 7919)
+}));
+let q = '', fStatus = 'semua', fMetode = 'semua', sort = 'default', page = 1, actId = null;
+const PER = 10;
+
+/* ====== HELPER ====== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+const pad = n => String(n).padStart(2, '0');
+const fmtDT = d => `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}, ${pad(d.getHours())}:${pad(d.getMinutes())} WIB`;
+const money = n => 'Rp' + Number(n).toLocaleString('id-ID');
+const AV = ['#7FA8FF', '#FF8A8A', '#00C800'];
+const STATUS = { 'Lunas': '#8EF08E', 'Ditolak': '#FF8A8A', 'Menunggu Verifikasi': '#FFE033', 'Belum Dibayar': '#C4C4C4' };
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg; t.classList.remove('hidden');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add('hidden'), 2600);
+}
+function openModal(id) { $(id).classList.remove('hidden'); $(id).classList.add('flex'); }
+function closeModal(id) { $(id).classList.add('hidden'); $(id).classList.remove('flex'); }
+
+/* ====== STATISTIK ====== */
+function renderStats() {
+  const sc = (icon, title, sub, l, r) => `
+    <div class="bg-white rounded-xl border-2 border-[#FFE600] shadow-md overflow-hidden flex flex-col">
+      <div class="relative p-4 pt-9 flex-1"><i class="${icon} absolute top-3 right-4 text-xl"></i>
+        <div class="text-2xl font-bold leading-tight">${title}</div><div class="text-[13px]">${sub}</div></div>
+      <div class="bg-[#FFE600] px-4 py-2 flex justify-between gap-2 text-[11px] font-medium"><span>${l}</span><span class="text-right">${r}</span></div>
+    </div>`;
+  const n = f => trx.filter(f).length;
+  $('stats').innerHTML =
+    sc('fa-solid fa-user-check', `${n(o => o.status === 'Lunas')} Pemesanan`, 'Total Pemesanan Lunas', 'Pembayaran<br>Menunggu Verifikasi', `${n(o => o.status === 'Menunggu Verifikasi')} Pemesanan`) +
+    sc('fa-solid fa-money-bill-transfer', `${n(o => o.metode === 'Transfer')} Pemesanan`, 'Total Pembayaran Metode Transfer', 'Pemesanan<br>Metode Langsung', `${n(o => o.metode === 'Langsung')} Pemesanan`) +
+    sc('fa-solid fa-ban', `${n(o => o.status === 'Ditolak')} Pemesanan`, 'Total Pemesanan Ditolak', 'Total Pemesanan Tidak<br>Upload Bukti', `${n(o => o.bukti === 'Belum Ada')} Pemesanan`);
+}
+
+/* ====== TABEL ====== */
+const COLS = 'grid grid-cols-[2.3fr_1.2fr_1.1fr_1fr_1.1fr_1.7fr_1.3fr_1.5fr_1fr] items-center gap-2';
+function renderHead() {
+  const ico = sort === 'za' ? 'fa-arrow-down-z-a' : 'fa-arrow-down-a-z';
+  const tip = sort === 'az' ? 'Urutkan Z-A' : 'Urutkan A-Z';
+  $('thead').innerHTML = `
+    <div class="flex items-center"><button type="button" onclick="cycleSort()" title="${tip}" class="w-8 h-8 flex items-center justify-center rounded-md hover:bg-white/20 ${sort === 'default' ? '' : 'bg-white/20'}"><i class="fa-solid ${ico}"></i></button><span class="flex-1">Pelanggan</span></div>
+    <div>Kode</div><div>Layanan</div><div>Metode</div><div>Jumlah</div><div>Status</div><div>Bukti</div><div>Aksi</div><div>Pegawai</div>`;
+}
+function cycleSort() { sort = sort === 'az' ? 'za' : 'az'; renderTable(); }
+function filtered() {
+  const term = q.trim().toLowerCase(), digits = term.replace(/\D/g, '');
+  const rows = trx.filter(o =>
+    (fStatus === 'semua' || o.status === fStatus) && (fMetode === 'semua' || o.metode === fMetode) &&
+    (!term || o.nama.toLowerCase().includes(term) || o.kode.toLowerCase().includes(term) || (digits && o.nomor.includes(digits))));
+  if (sort !== 'default') rows.sort((a, b) => a.nama.localeCompare(b.nama, 'id') * (sort === 'az' ? 1 : -1));
+  return rows;
+}
+const pill = (txt, bg) => `<span class="inline-block text-[11px] font-semibold px-3 py-1 rounded-full whitespace-nowrap" style="background:${bg}">${esc(txt)}</span>`;
+function buktiCell(o) {
+  if (o.bukti === 'Tersedia') return `<button type="button" onclick="showProof('${o.id}')" class="bg-[#FFE600] hover:bg-yellow-400 text-xs font-bold px-3 py-1 rounded-full shadow inline-flex items-center gap-1.5"><i class="fa-regular fa-eye"></i> Tersedia</button>`;
+  if (o.bukti === 'Tidak Perlu') return '<span class="inline-block bg-black text-white text-xs font-bold px-4 py-1 rounded-full">Tidak Perlu</span>';
+  return '<span class="inline-block bg-gray-300 text-gray-700 text-xs font-bold px-3 py-1 rounded-full">Belum Ada</span>';
+}
+function aksiCell(o) {
+  if (o.status === 'Menunggu Verifikasi') {
+    return `<div class="flex items-center justify-center gap-4">
+      <button type="button" onclick="openReject('${o.id}')" title="Tolak pembayaran" class="w-8 h-8 rounded-full bg-red-600 hover:bg-red-700 text-white shadow flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+      <button type="button" onclick="verify('${o.id}')" title="Verifikasi pembayaran" class="w-8 h-8 rounded-full bg-[#00C800] hover:bg-green-600 text-white shadow flex items-center justify-center"><i class="fa-solid fa-check"></i></button></div>`;
+  }
+  if (o.status === 'Belum Dibayar') return '<div class="text-xs text-gray-500">Menunggu bukti dari pelanggan</div>';
+  return `<div title="${esc(o.alasan)}"><div class="font-bold text-sm">${o.status === 'Lunas' ? 'Diverifikasi' : 'Ditolak'}</div><div class="text-[10px] text-gray-500 font-medium">${o.waktu ? fmtDT(o.waktu) : ''}</div></div>`;
+}
+function row(o) {
+  return `<div class="${COLS} bg-white rounded-lg border border-gray-200 shadow-md px-4 py-3 text-center">
+    <div class="flex items-center gap-4 min-w-0">
+      <span class="w-11 h-11 rounded-full flex items-center justify-center font-semibold text-lg flex-shrink-0" style="background:${AV[o.ci % 3]}">${esc(o.nama.charAt(0).toUpperCase())}</span>
+      <div class="min-w-0 flex-1"><div class="font-bold text-sm truncate" title="${esc(o.nama)}">${esc(o.nama)}</div><div class="text-gray-500 font-semibold text-sm">${esc(o.nomor)}</div></div></div>
+    <div class="font-bold text-sm">${esc(o.kode)}</div>
+    <div class="font-semibold text-sm">${esc(o.layanan)}</div>
+    <div class="font-semibold text-sm">${esc(o.metode)}</div>
+    <div class="font-semibold text-sm">${money(o.jumlah)}</div>
+    <div>${pill(o.status, STATUS[o.status] || '#D9D9D9')}</div>
+    <div>${buktiCell(o)}</div>
+    <div>${aksiCell(o)}</div>
+    <div class="font-semibold text-sm">${esc(o.pegawai)}</div></div>`;
+}
+function renderTable() {
+  renderHead();
+  const all = filtered(), pages = Math.max(1, Math.ceil(all.length / PER));
+  page = Math.min(Math.max(page, 1), pages);
+  $('rows').innerHTML = all.length ? all.slice((page - 1) * PER, page * PER).map(row).join('')
+    : '<p class="text-sm text-gray-500 text-center py-10">Tidak ada transaksi yang cocok.</p>';
+  renderPager(pages);
+}
+function renderPager(pages) {
+  const nav = 'w-9 h-9 rounded-full bg-white text-black border border-gray-200 flex items-center justify-center shadow-md disabled:opacity-40 disabled:cursor-not-allowed';
+  let nums = '';
+  for (let i = 1; i <= pages; i++)
+    nums += `<button type="button" onclick="goPage(${i})" class="w-7 h-7 rounded-full text-sm font-bold ${i === page ? 'bg-[#FFE600]' : ''} text-black">${i}</button>`;
+  $('pager').innerHTML = `
+    <button type="button" class="${nav}" ${page <= 1 ? 'disabled' : ''} onclick="goPage(${page - 1})" title="Sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+    <div class="bg-white border border-gray-200 rounded-full px-1.5 py-1 flex items-center gap-1 shadow-md">${nums}</div>
+    <button type="button" class="${nav}" ${page >= pages ? 'disabled' : ''} onclick="goPage(${page + 1})" title="Berikutnya"><i class="fa-solid fa-chevron-right"></i></button>`;
+}
+function goPage(p) { page = p; renderTable(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+function refresh() { renderStats(); renderTable(); }
+
+/* ====== BUKTI PEMBAYARAN ====== */
+function showProof(id) {
+  const o = trx.find(x => x.id === id); if (!o) return;
+  const kv = (k, v) => `<div class="flex gap-3 bg-[#F5F5F5] rounded-md px-3 py-1.5 text-sm"><div class="w-28 font-semibold flex-shrink-0">${k}</div><div class="min-w-0 flex-1">${v}</div></div>`;
+  const pending = o.status === 'Menunggu Verifikasi';
+  // gambar bukti dari backend, mis. <img src="/api/transaksi/:id/bukti">; di sini hanya pratinjau kosong
+  $('proofBody').innerHTML = `
+    <div class="rounded-xl bg-[#7F7F7F] h-56 flex flex-col items-center justify-center text-white/80 gap-2"><i class="fa-regular fa-image text-5xl"></i><span class="text-xs">Pratinjau bukti pembayaran (bukti-${esc(o.kode)}.jpg)</span></div>
+    <div class="flex flex-col gap-1.5 mt-4">
+      ${kv('Pelanggan', esc(o.nama))}${kv('Kode', esc(o.kode))}${kv('Layanan', esc(o.layanan))}${kv('Jumlah', money(o.jumlah))}${kv('Status', pill(o.status, STATUS[o.status] || '#D9D9D9'))}
+      ${o.alasan ? kv('Alasan ditolak', esc(o.alasan)) : ''}</div>
+    ${pending ? `<div class="flex justify-end gap-2 mt-5">
+      <button type="button" onclick="closeModal('proofModal'); openReject('${o.id}')" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-5 py-2 rounded-md flex items-center gap-2"><i class="fa-solid fa-xmark"></i> Tolak</button>
+      <button type="button" onclick="closeModal('proofModal'); verify('${o.id}')" class="bg-[#00C800] hover:bg-green-600 text-white text-xs font-bold px-5 py-2 rounded-md flex items-center gap-2"><i class="fa-solid fa-check"></i> Verifikasi</button></div>` : ''}`;
+  openModal('proofModal');
+}
+
+/* ====== VERIFIKASI & TOLAK ====== */
+function verify(id) {
+  const o = trx.find(x => x.id === id); if (!o || o.status !== 'Menunggu Verifikasi') return;
+  if (o.bukti === 'Belum Ada') return toast('Bukti pembayaran belum diunggah.');
+  if (!confirm(`Verifikasi pembayaran ${money(o.jumlah)} dari "${o.nama}" (${o.kode})?`)) return;
+  // sambungkan ke PATCH /api/transaksi/:id { status: 'Lunas' }; pemesanan lalu bisa lanjut di halaman workflow
+  Object.assign(o, { status: 'Lunas', waktu: new Date(), pegawai: 'Anonimus', alasan: '' });
+  refresh(); toast(`Pembayaran ${o.kode} diverifikasi. Pemesanan bisa dilanjutkan.`);
+}
+function openReject(id) {
+  const o = trx.find(x => x.id === id); if (!o || o.status !== 'Menunggu Verifikasi') return;
+  actId = id; $('alasan').value = ''; showAlasan(''); $('cAlasan').textContent = '0/255';
+  $('rejectInfo').innerHTML = `Tolak pembayaran <b>${money(o.jumlah)}</b> dari <b>${esc(o.nama)}</b> (${esc(o.kode)})?`;
+  openModal('rejectModal'); setTimeout(() => $('alasan').focus(), 0);
+}
+/* alasan: aturan sama dengan catatan (maks. 255, ASCII, tanpa HTML/script) */
+const MAX_ALASAN = 255;
+function checkAlasan(v) {
+  const t = v.trim();
+  if (!t) return '';
+  if (t.length > MAX_ALASAN) return `Alasan maksimal ${MAX_ALASAN} karakter.`;
+  if (/[<>]/.test(t)) return 'Alasan tidak boleh mengandung HTML atau script.';
+  if (/[\r\n]/.test(t)) return 'Alasan tidak boleh berisi baris baru.';
+  if (/[^\x00-\x7F]/.test(t)) return 'Alasan hanya boleh berisi karakter ASCII (tanpa emoji).';
+  if (!/^[A-Za-z0-9 .,:;!?()\-_\/'"]+$/.test(t)) return 'Alasan hanya boleh berisi huruf, angka, spasi, dan tanda . , : ; ! ? ( ) - _ / \' "';
+  return '';
+}
+function showAlasan(err) {
+  const ta = $('alasan'), e = $('eAlasan');
+  e.textContent = err || ''; e.classList.toggle('hidden', !err);
+  ta.style.borderColor = err ? '#F87171' : ''; ta.style.background = err ? '#FEF2F2' : '';
+}
+function liveAlasan() {
+  const v = $('alasan').value.trim(), c = $('cAlasan');
+  c.textContent = `${v.length}/${MAX_ALASAN}`; c.classList.toggle('text-red-600', v.length > MAX_ALASAN); c.classList.toggle('text-gray-500', v.length <= MAX_ALASAN);
+  showAlasan(checkAlasan(v));
+}
+function confirmReject() {
+  const o = trx.find(x => x.id === actId); if (!o) return;
+  const err = checkAlasan($('alasan').value); showAlasan(err);
+  if (err) { $('alasan').focus(); return; }
+  // sambungkan ke PATCH /api/transaksi/:id { status: 'Ditolak', alasan } + kirim pemberitahuan agar pelanggan membayar ulang
+  Object.assign(o, { status: 'Ditolak', waktu: new Date(), pegawai: 'Anonimus', alasan: $('alasan').value.trim() });
+  closeModal('rejectModal'); refresh(); toast(`Pembayaran ${o.kode} ditolak. Pelanggan diminta membayar ulang.`);
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('rejectModal'); closeModal('proofModal'); } });
+
+/* ====== SIDEBAR ====== */
+
+const toggleSb = () => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    html.classList.toggle('sb-hidden');
+    body.classList.toggle('sb-hidden');
+
+    const isHidden = html.classList.contains('sb-hidden');
+
+    localStorage.setItem('sidebarHidden', isHidden);
+};
+
+
+// Saat halaman dibuka, ambil kondisi terakhir
+document.addEventListener("DOMContentLoaded", () => {
+
+    const isHidden = localStorage.getItem('sidebarHidden');
+
+    if (isHidden === 'true') {
+        document.documentElement.classList.add('sb-hidden');
+        document.body.classList.add('sb-hidden');
+    }
+
+    if (window.innerWidth < 1024 && isHidden === null) {
+        document.documentElement.classList.add('sb-hidden');
+        document.body.classList.add('sb-hidden');
+
+        localStorage.setItem('sidebarHidden', 'true');
+    }
+
+});
+
+refresh();
+</script>
+<script src="/js/user.js"></script>
+</body>
+</html>

@@ -572,7 +572,18 @@
             "aktif": true,
             "pw_changed": 0,
             "dibuat": "2026-11-18T02:57:57+00:00",
-            "terakhir_masuk": "2026-11-18T20:16:09+07:00"
+            "terakhir_masuk": "2026-11-18T23:14:54+07:00"
+        },
+        {
+            "id": "ue98d40e03d",
+            "email": "pegawai2@studio.com",
+            "nama": "Movic",
+            "role": "pegawai",
+            "password_hash": "$2y$12$sYsg7NRkacAlKWy.0G44HucfQd5Sub3g2bKAxncwEwqwaW1uE7bSy",
+            "aktif": true,
+            "pw_changed": 0,
+            "dibuat": "2026-11-18T15:50:23+00:00",
+            "terakhir_masuk": "2026-11-18T22:51:16+07:00"
         }
     ],
     "auth_limit": []
