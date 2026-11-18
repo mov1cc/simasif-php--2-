@@ -1,34 +1,28 @@
 <?php
 declare(strict_types=1);
-/** Penjaga halaman: hanya menyajikan *.html bila sudah login, selain itu dialihkan ke Login.html. */
-require_once dirname(__DIR__) . '/src/Db.php';
-require_once dirname(__DIR__) . '/src/Auth.php';
+/** Penyaji halaman: auth dicek dulu, baru file dicari dan dikirim. */
+require_once dirname(__DIR__) . '/src/Guard.php';
 
-if (!function_exists('findIdx')) {
-    function findIdx(array $rows, string $id): ?int
-    {
-        foreach ($rows as $i => $r) if ($r['id'] === $id) return $i;
-        return null;
-    }
+const HALAMAN_PUBLIK = ['login.html', 'lupapassword.html'];
+
+$name = basename((string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+$valid = preg_match('/^[A-Za-z0-9_-]+\.html$/', $name) === 1;
+
+if ($valid && in_array(strtolower($name), HALAMAN_PUBLIK, true)) {
+    Guard::noStore();
+    $file = __DIR__ . '/' . $name;                       // halaman publik
+} else {
+    Guard::requireLogin();                               // 1) cek auth, belum login => redirect + exit
+    $file = dirname(__DIR__) . '/pages/' . $name;        // 2) baru cari file
 }
 
-$path = (string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$name = basename($path);
-$file = __DIR__ . '/' . $name;
-
-header('Cache-Control: no-store');   // cegah halaman muncul dari cache lewat tombol Back setelah logout
-
-if (!preg_match('/^[A-Za-z0-9_-]+\.html$/', $name) || !is_file($file)) {
+if (!$valid || !is_file($file)) {
     http_response_code(404);
     echo 'Halaman tidak ditemukan.';
     exit;
 }
 
-if (Auth::user(Db::read()) === null) {
-    header('Location: Login.html');
-    exit;
-}
-
 header('Content-Type: text/html; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
 readfile($file);

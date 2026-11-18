@@ -393,7 +393,7 @@
         {
             "id": "c41d1a4dff2",
             "pemesanan": 1,
-            "berjalan": 1,
+            "berjalan": 0,
             "terdaftar": "2026-11-12T01:15:52+00:00",
             "nama": "Ayu Wardatul Widad",
             "nomor": "08123456789"
@@ -475,7 +475,7 @@
         {
             "id": "ofb708b2d1e",
             "kode": "SS-S399WF",
-            "status": "Sesi Foto",
+            "status": "Selesai",
             "bayar": "Lunas",
             "dibuat": "2026-11-15T17:36:33+07:00",
             "pelanggan_id": "c41d1a4dff2",
@@ -537,6 +537,27 @@
                     "aktor": "Anonimus",
                     "teks": "Pemesanan Diperbarui Pegawai",
                     "catatan": ""
+                },
+                {
+                    "status": "Proses Editing",
+                    "waktu": "2026-11-18T14:48:26+07:00",
+                    "aktor": "Risky",
+                    "teks": "Pemesanan Diperbarui Pegawai",
+                    "catatan": ""
+                },
+                {
+                    "status": "Hasil Siap",
+                    "waktu": "2026-11-18T14:48:29+07:00",
+                    "aktor": "Risky",
+                    "teks": "Pemesanan Diperbarui Pegawai",
+                    "catatan": ""
+                },
+                {
+                    "status": "Selesai",
+                    "waktu": "2026-11-18T14:48:31+07:00",
+                    "aktor": "Risky",
+                    "teks": "Pemesanan Diperbarui Pegawai",
+                    "catatan": ""
                 }
             ]
         }
@@ -551,7 +572,7 @@
             "aktif": true,
             "pw_changed": 0,
             "dibuat": "2026-11-18T02:57:57+00:00",
-            "terakhir_masuk": "2026-11-18T14:20:16+07:00"
+            "terakhir_masuk": "2026-11-18T20:16:09+07:00"
         }
     ],
     "auth_limit": []

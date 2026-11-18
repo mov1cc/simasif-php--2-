@@ -71,6 +71,7 @@ final class AuthApi
     {
         self::needJson();
         Auth::signOut();
+        header('Clear-Site-Data: "cache"');
         out(200, ['ok' => true]);
     }
 
