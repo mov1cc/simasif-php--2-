@@ -12,6 +12,7 @@ require_once dirname(__DIR__, 2) . '/src/ValidatePemesanan.php';
 require_once dirname(__DIR__, 2) . '/src/Jadwal.php';
 require_once dirname(__DIR__, 2) . '/src/Workflow.php';
 require_once dirname(__DIR__, 2) . '/src/AuthApi.php';
+require_once dirname(__DIR__, 2) . '/src/TransaksiApi.php';
 
 const MAX_GALLERY = 8;
 const MAX_BYTES = 5 * 1048576;
@@ -119,6 +120,7 @@ function pemDetail(array $o): array
 {
     $o['durasi'] = fmtDurasi((int) $o['durasi_menit']);
     $o['status_berikutnya'] = ValidatePemesanan::next($o['status']);
+    unset($o['bukti_file']);
     return $o;
 }
 function pemStats(array $rows): array
@@ -550,6 +552,8 @@ if (preg_match('#^/api/pemesanan/([\w-]+)(/status|/pembayaran)?$#', $p, $r)) {
             if ($i === null) return [404, ['error' => 'Pemesanan tidak ditemukan.']];
             $o = $db['pemesanan'][$i];
             $next = ValidatePemesanan::next($o['status']);
+            if ($next === 'Pembayaran Diverifikasi' && $o['bayar'] !== 'Lunas')
+    return [409, ['error' => 'Verifikasi pembayaran dilakukan lewat halaman Transaksi.']];
             if ($next === null) return [409, ['error' => 'Pemesanan sudah selesai.']];
             if (isset($b['dari']) && $b['dari'] !== $o['status'])
                 return [409, ['error' => 'Status sudah berubah, muat ulang halaman.']];
@@ -557,7 +561,7 @@ if (preg_match('#^/api/pemesanan/([\w-]+)(/status|/pembayaran)?$#', $p, $r)) {
                 return [422, ['errors' => ['status' => "Status berikutnya harus \"$next\"."]]];
 
             $o['status'] = $next;
-            if ($next === 'Pembayaran Diverifikasi') $o['bayar'] = 'Lunas';
+            
             $o['history'][] = ['status' => $next, 'waktu' => nowIso(), 'aktor' => $aktor,
                    'teks' => 'Pemesanan Diperbarui Pegawai', 'catatan' => V::str($b['catatan'] ?? null)];
             $db['pemesanan'][$i] = $o;
@@ -567,22 +571,6 @@ if (preg_match('#^/api/pemesanan/([\w-]+)(/status|/pembayaran)?$#', $p, $r)) {
                 if ($pi !== null) $db['pelanggan'][$pi]['berjalan'] = max(0, ($db['pelanggan'][$pi]['berjalan'] ?? 0) - 1);
             }
             return [200, ['ok' => true, 'data' => pemDetail($o)]];
-        });
-        out($c, $body);
-    }
-
-    /* ubah status pembayaran (Menunggu Verifikasi / Ditolak / dst.) selama belum diverifikasi */
-    if ($sub === '/pembayaran' && $m === 'PATCH') {
-        $b = readJson();
-        if (!is_array($b) || !in_array($b['bayar'] ?? null, ValidatePemesanan::BAYAR, true))
-            out(422, ['errors' => ['bayar' => 'Status pembayaran tidak valid.']]);
-        [$c, $body] = Db::write(function (array &$db) use ($id, $b) {
-            $i = findIdx($db['pemesanan'], $id);
-            if ($i === null) return [404, ['error' => 'Pemesanan tidak ditemukan.']];
-            if (!in_array($db['pemesanan'][$i]['status'], ['Pemesanan Dibuat', 'Menunggu Pembayaran'], true))
-                return [409, ['error' => 'Pembayaran sudah diverifikasi dan tidak bisa diubah.']];
-            $db['pemesanan'][$i]['bayar'] = $b['bayar'];
-            return [200, ['ok' => true, 'data' => pemDetail($db['pemesanan'][$i])]];
         });
         out($c, $body);
     }
@@ -603,6 +591,7 @@ if ($p === '/api/workflow' && $m === 'GET') {
     out(200, Workflow::board($db, qs('q')));   // ?q= cari nama/kode (opsional)
 }
 
+TransaksiApi::handle($m, $p);
 AuthApi::handle($m, $p);
 
 out(404, ['error' => 'Endpoint tidak ditemukan.']);

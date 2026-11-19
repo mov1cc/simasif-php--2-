@@ -144,33 +144,37 @@ html.sb-hidden #sidebar{
   </div>
 </div>
 
+<!-- MODAL BUKTI PEMBAYARAN -->
+<div id="proofModal" class="hidden fixed inset-0 bg-black/60 z-[55] items-center justify-center p-4" onclick="if(event.target===this)closeModal('proofModal')">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-full overflow-y-auto">
+    <div class="bg-[#0A4DFF] text-white px-5 py-3 text-lg font-bold flex items-center justify-between">
+      <span>Bukti Pembayaran</span>
+      <button type="button" onclick="closeModal('proofModal')" aria-label="Tutup" class="w-8 h-8 rounded-full hover:bg-white/20"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="proofBody" class="p-5"></div>
+  </div>
+</div>
+
 <div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white text-sm font-medium px-4 py-2 rounded-full shadow-lg z-[70]"></div>
 
 <script>
-/* ====== DATA CONTOH (ganti dengan GET /api/transaksi) ====== */
-const dtm = (d, h = 11, m = 0) => new Date(2026, 10, d, h, m);
-// bukti: 'Tersedia' (transfer & sudah upload) | 'Tidak Perlu' (bayar langsung) | 'Belum Ada' (transfer, belum upload)
-// [pelanggan, kode, layanan, metode, jumlah, status, bukti, waktu aksi, alasan tolak]
-const RAW = [
-  ['Ayu Wardatul Widad', 'SF-3XWYZK', 'Self Studio', 'Transfer', 70000, 'Lunas', 'Tersedia', dtm(13)],
-  ['Ibrahim Movic', 'SF-2KWYZK', 'Self Studio', 'Transfer', 30000, 'Ditolak', 'Tersedia', dtm(13), 'Nominal transfer tidak sesuai dengan tagihan'],
-  ['M Rayyan Abie', 'SC-1XYYZX', 'Self Studio', 'Langsung', 120000, 'Menunggu Verifikasi', 'Tidak Perlu', null],
-  ['Nafis Yulianto', 'SF-3XXXXK', 'Self Studio', 'Transfer', 30000, 'Menunggu Verifikasi', 'Tersedia', null],
-  ['Yogi Darmawangsah', 'CK-3WWYZK', 'Cetak Kilat', 'Transfer', 130000, 'Lunas', 'Tersedia', dtm(12, 15, 30)],
-  ['Riska Putri', 'SF-3XWWZZ', 'Self Studio', 'Transfer', 50000, 'Lunas', 'Tersedia', dtm(12, 10, 5)],
-  ['Cika Larasati', 'ED-3XXYYK', 'Editing', 'Langsung', 70000, 'Lunas', 'Tidak Perlu', dtm(11, 16, 45)],
-  ['Rivaldo Aditya Putra', 'FS-2KWZYX', 'Family Studio', 'Transfer', 70000, 'Belum Dibayar', 'Belum Ada', null],
-  ['Rara Rucika', 'FS-2YYYZK', 'Family Studio', 'Transfer', 70000, 'Belum Dibayar', 'Belum Ada', null],
-  ['Smith', 'CK-2WWWK', 'Cetak Kilat', 'Langsung', 80000, 'Lunas', 'Tidak Perlu', dtm(11, 9, 20)],
-  ['Dewi Lestari', 'SF-1AXBZK', 'Self Studio', 'Transfer', 70000, 'Lunas', 'Tersedia', dtm(10, 14, 10)],
-  ['Bagus Santoso', 'FS-4KLMNZ', 'Family Studio', 'Transfer', 120000, 'Menunggu Verifikasi', 'Tersedia', null]
-];
-let trx = RAW.map(([nama, kode, layanan, metode, jumlah, status, bukti, waktu, alasan], i) => ({
-  id: 't' + (i + 1), ci: i, nama, kode, layanan, metode, jumlah, status, bukti, waktu, alasan: alasan || '', pegawai: 'Anonimus',
-  nomor: i === 0 ? '08123456789' : '0812' + (3450000 + i * 7919)
-}));
+let trx = [];
 let q = '', fStatus = 'semua', fMetode = 'semua', sort = 'default', page = 1, actId = null;
 const PER = 10;
+
+async function api(url, opt = {}) {
+  const res = await fetch(url, { headers: { 'Content-Type': 'application/json' }, ...opt });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) { const e = new Error(data.error || Object.values(data.errors || {}).join(' ') || 'HTTP ' + res.status); e.status = res.status; throw e; }
+  return data;
+}
+const hue = s => [...s].reduce((a, c) => a + c.charCodeAt(0), 0);
+const toTrx = o => ({ ...o, ci: hue(o.id), waktu: o.waktu ? new Date(o.waktu) : null });
+async function loadTrx() {
+  try { trx = (await api('/api/transaksi')).data.map(toTrx); }
+  catch (e) { toast('Gagal memuat transaksi: ' + e.message); }
+  refresh();
+}
 
 /* ====== HELPER ====== */
 const $ = id => document.getElementById(id);
@@ -278,7 +282,7 @@ function showProof(id) {
   const pending = o.status === 'Menunggu Verifikasi';
   // gambar bukti dari backend, mis. <img src="/api/transaksi/:id/bukti">; di sini hanya pratinjau kosong
   $('proofBody').innerHTML = `
-    <div class="rounded-xl bg-[#7F7F7F] h-56 flex flex-col items-center justify-center text-white/80 gap-2"><i class="fa-regular fa-image text-5xl"></i><span class="text-xs">Pratinjau bukti pembayaran (bukti-${esc(o.kode)}.jpg)</span></div>
+    <img src="/api/transaksi/${encodeURIComponent(o.id)}/bukti" alt="Bukti pembayaran ${esc(o.kode)}" class="rounded-xl w-full max-h-[28rem] object-contain bg-[#7F7F7F]">
     <div class="flex flex-col gap-1.5 mt-4">
       ${kv('Pelanggan', esc(o.nama))}${kv('Kode', esc(o.kode))}${kv('Layanan', esc(o.layanan))}${kv('Jumlah', money(o.jumlah))}${kv('Status', pill(o.status, STATUS[o.status] || '#D9D9D9'))}
       ${o.alasan ? kv('Alasan ditolak', esc(o.alasan)) : ''}</div>
@@ -289,13 +293,14 @@ function showProof(id) {
 }
 
 /* ====== VERIFIKASI & TOLAK ====== */
-function verify(id) {
+async function verify(id) {
   const o = trx.find(x => x.id === id); if (!o || o.status !== 'Menunggu Verifikasi') return;
   if (o.bukti === 'Belum Ada') return toast('Bukti pembayaran belum diunggah.');
   if (!confirm(`Verifikasi pembayaran ${money(o.jumlah)} dari "${o.nama}" (${o.kode})?`)) return;
-  // sambungkan ke PATCH /api/transaksi/:id { status: 'Lunas' }; pemesanan lalu bisa lanjut di halaman workflow
-  Object.assign(o, { status: 'Lunas', waktu: new Date(), pegawai: 'Anonimus', alasan: '' });
-  refresh(); toast(`Pembayaran ${o.kode} diverifikasi. Pemesanan bisa dilanjutkan.`);
+  try {
+    await api(`/api/transaksi/${encodeURIComponent(id)}/verifikasi`, { method: 'PATCH' });
+    await loadTrx(); toast(`Pembayaran ${o.kode} diverifikasi. Pemesanan bisa dilanjutkan.`);
+  } catch (e) { toast(e.message); if (e.status === 409) loadTrx(); }
 }
 function openReject(id) {
   const o = trx.find(x => x.id === id); if (!o || o.status !== 'Menunggu Verifikasi') return;
@@ -325,13 +330,14 @@ function liveAlasan() {
   c.textContent = `${v.length}/${MAX_ALASAN}`; c.classList.toggle('text-red-600', v.length > MAX_ALASAN); c.classList.toggle('text-gray-500', v.length <= MAX_ALASAN);
   showAlasan(checkAlasan(v));
 }
-function confirmReject() {
+async function confirmReject() {
   const o = trx.find(x => x.id === actId); if (!o) return;
   const err = checkAlasan($('alasan').value); showAlasan(err);
   if (err) { $('alasan').focus(); return; }
-  // sambungkan ke PATCH /api/transaksi/:id { status: 'Ditolak', alasan } + kirim pemberitahuan agar pelanggan membayar ulang
-  Object.assign(o, { status: 'Ditolak', waktu: new Date(), pegawai: 'Anonimus', alasan: $('alasan').value.trim() });
-  closeModal('rejectModal'); refresh(); toast(`Pembayaran ${o.kode} ditolak. Pelanggan diminta membayar ulang.`);
+  try {
+    await api(`/api/transaksi/${encodeURIComponent(o.id)}/tolak`, { method: 'PATCH', body: JSON.stringify({ alasan: $('alasan').value.trim() || null }) });
+    closeModal('rejectModal'); await loadTrx(); toast(`Pembayaran ${o.kode} ditolak. Pelanggan diminta membayar ulang.`);
+  } catch (e) { toast(e.message); if (e.status === 409) { closeModal('rejectModal'); loadTrx(); } }
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal('rejectModal'); closeModal('proofModal'); } });
 
@@ -369,7 +375,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-refresh();
+loadTrx();
 </script>
 <script src="/js/user.js"></script>
 </body>
