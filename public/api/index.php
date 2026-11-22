@@ -13,6 +13,7 @@ require_once dirname(__DIR__, 2) . '/src/Jadwal.php';
 require_once dirname(__DIR__, 2) . '/src/Workflow.php';
 require_once dirname(__DIR__, 2) . '/src/AuthApi.php';
 require_once dirname(__DIR__, 2) . '/src/TransaksiApi.php';
+require_once dirname(__DIR__, 2) . '/src/Dashboard.php';
 
 const MAX_GALLERY = 8;
 const MAX_BYTES = 5 * 1048576;
@@ -589,6 +590,15 @@ if ($p === '/api/jadwal' && $m === 'GET') {
 if ($p === '/api/workflow' && $m === 'GET') {
     $db = Db::read();
     out(200, Workflow::board($db, qs('q')));   // ?q= cari nama/kode (opsional)
+}
+
+/* --- dashboard --- */
+if ($p === '/api/dashboard' && $m === 'GET') {
+    $db = Db::read();
+    $u = Auth::user($db);
+    if ($u === null) out(401, ['error' => 'Belum masuk. Silakan login.']);
+    header('Cache-Control: no-store');
+    out(200, ['data' => Dashboard::data($db, $u)]);
 }
 
 TransaksiApi::handle($m, $p);

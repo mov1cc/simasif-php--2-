@@ -208,7 +208,7 @@ fetch('/api/auth/login', {
 }).then(function (res) {
   return res.json().catch(function () { return {}; }).then(function (d) { return { res: res, d: d }; });
 }).then(function (r) {
-  if (r.res.ok) { location.href = 'Layanan.html'; return; }
+  if (r.res.ok) { location.href = 'Dashboard.html'; return; }
   if (r.res.status === 422 && r.d.errors) {
     if (r.d.errors.email) setError(email, errEmail, r.d.errors.email);
     if (r.d.errors.password) setError(password, errPassword, r.d.errors.password);

@@ -34,7 +34,7 @@ final class TransaksiApi
     }
 
     /* ---------- bentuk data ---------- */
-    private static function metodeOf(array $o): string
+    public static function metodeOf(array $o): string
     {
         if (in_array($o['metode'] ?? null, self::METODE, true)) return $o['metode'];
         // data lama: sudah lunas tanpa bukti = dibayar langsung; selain itu default Transfer
