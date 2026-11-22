@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMASIF - File Fotografi</title>
+<link rel="icon" href="data:image/png;base64,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">
+<script>
+(function () {
+    const sidebarHidden = localStorage.getItem('sidebarHidden');
+
+    if (sidebarHidden === 'true') {
+        document.documentElement.classList.add('sb-hidden');
+    }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  body{font-family:'Inter',system-ui,sans-serif}
+  #sidebar{background:linear-gradient(165deg,#0038D8 0%,#4A86FF 100%);transition:transform .25s}
+  #main{transition:margin .25s}
+  .sb-hidden #sidebar{
+    transform:translateX(-100%)
+}
+
+html.sb-hidden #sidebar{
+    transform:translateX(-100%)
+}
+  /* navbar atas: hanya muncul saat sidebar ditutup */
+  #topbar{display:none;background:linear-gradient(90deg,#0038D8 0%,#4A86FF 100%)}
+  .sb-hidden #topbar{display:flex}
+  .sb-hidden #main{padding-top:5.5rem}
+  /* ikon panel sidebar: kotak putih + panel kiri berwarna (--pn) */
+  .ico-panel{width:1.375rem;height:1.375rem;display:block}
+  .ico-panel .box{fill:#fff}
+  .ico-panel .pn{fill:var(--pn)}
+  @media(min-width:1024px){#main{margin-left:18rem}.sb-hidden #main{margin-left:0}}
+</style>
+</head>
+<body class="bg-white text-gray-900">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" class="fixed inset-y-0 left-0 w-72 z-40 flex flex-col text-white shadow-xl">
+  <div class="flex items-center justify-between px-5 pt-4">
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-9 h-9 rounded-md object-cover">
+      <span class="text-2xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+    <button type="button" onclick="toggleSb()" title="Sembunyikan menu" aria-label="Sembunyikan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A44E0">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+  </div>
+  <div class="flex flex-col items-center mt-8">
+    <div class="w-28 h-28 rounded-full bg-white flex items-center justify-center"><i class="fa-solid fa-user text-5xl text-[#2563EB]"></i></div>
+    <div class="mt-3 text-xl font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+  <nav class="mt-10 px-1 space-y-2 text-sm">
+    <a href="Dashboard.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Dashboard</a>
+    <a href="Layanan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Layanan</a>
+    <a href="Pelanggan.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Pelanggan</a>
+    <a href="Pemesanan.html" class="block rounded-md bg-white/40 px-8 py-2.5 font-medium">Pemesanan</a>
+    <a href="Jadwal.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Jadwal</a>
+    <a href="Workflow.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Workflow</a>
+    <a href="Transaksi.html" class="block rounded-md bg-white/10 px-8 py-2.5 hover:bg-white/20">Transaksi</a>
+  </nav>
+  <a href="Login.html" class="mt-auto mb-10 flex items-center justify-center gap-3 text-lg hover:opacity-80"><i class="fa-solid fa-right-from-bracket fa-flip-horizontal"></i> Logout</a>
+</aside>
+
+<!-- NAVBAR (muncul saat sidebar ditutup) -->
+<header id="topbar" class="fixed top-0 inset-x-0 h-14 z-30 items-center justify-between px-4 sm:px-5 text-white shadow-md">
+  <div class="flex items-center gap-3">
+    <button type="button" onclick="toggleSb()" title="Tampilkan menu" aria-label="Tampilkan menu" class="w-8 h-8 flex items-center justify-center hover:opacity-80" style="--pn:#0A3FDC">
+      <svg class="ico-panel" viewBox="0 0 24 24" aria-hidden="true"><rect class="box" x="2" y="2" width="20" height="20" rx="5"/><path class="pn" d="M7 5h2.5a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>
+    </button>
+    <div class="flex items-center gap-2">
+      <img src="data:image/png;base64,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" alt="Logo SIMASIF" class="w-8 h-8 rounded-md object-cover">
+      <span class="text-xl font-extrabold tracking-wide">SIMASIF</span>
+    </div>
+  </div>
+  <div class="text-right leading-tight">
+    <div class="text-sm font-bold">Anonimus</div>
+    <div class="text-[10px] opacity-80">Pegawai</div>
+  </div>
+</header>
+
+<!-- KONTEN -->
+<main id="main" class="min-h-screen p-5 sm:p-8">
+  <a id="back" href="DetailPemesanan.html" class="inline-flex items-center gap-2 text-xs font-semibold text-gray-700 hover:text-black mb-4"><i class="fa-solid fa-arrow-left"></i> Kembali ke Detail Pemesanan</a>
+
+  <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+    <div class="flex flex-col gap-6 min-w-0">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold">File Fotografi</h1>
+        <div id="meta" class="text-xs sm:text-sm mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-1"></div>
+      </div>
+
+      <!-- FILE HASIL -->
+      <section class="bg-white rounded-xl border border-gray-200 shadow-md p-5 sm:p-6">
+        <h2 class="text-xl font-bold">File Hasil Fotografi</h2>
+        <p class="text-xs text-gray-700 mt-1">Hasil sesi foto pelanggan yang sudah siap.</p>
+        <div id="gHasil" data-list="hasil" class="mt-5 grid grid-cols-2 sm:grid-cols-3 gap-4"></div>
+        <p id="eHasil" class="hidden text-sm text-gray-500 text-center py-8">Belum ada file hasil. Unggah lewat panel Upload Hasil Fotografi.</p>
+      </section>
+
+      <!-- FILE REFERENSI -->
+      <section class="bg-white rounded-xl border border-gray-200 shadow-md p-5 sm:p-6">
+        <h2 class="text-xl font-bold">File Referensi Pelanggan</h2>
+        <p class="text-xs text-gray-700 mt-1">File gambar pelanggan sebagai referensi editing.</p>
+        <div id="gRef" data-list="ref" class="mt-5 grid grid-cols-2 sm:grid-cols-3 gap-4"></div>
+        <p id="eRef" class="hidden text-sm text-gray-500 text-center py-8">Pelanggan tidak mengunggah file referensi.</p>
+      </section>
+    </div>
+
+    <!-- UPLOAD -->
+    <section>
+      <div class="bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden">
+        <div class="bg-[#FFE600] px-5 py-3 flex items-center gap-3 text-2xl font-bold"><i class="fa-regular fa-images text-3xl"></i> Upload Hasil Fotografi</div>
+        <div class="p-5">
+          <div id="drop" class="border-2 border-dashed border-gray-500 rounded-lg min-h-[14rem] flex flex-col items-center justify-center text-center px-4 py-6 transition">
+            <button type="button" onclick="document.getElementById('file').click()" class="bg-white border border-gray-200 shadow-md rounded-md px-5 py-2 text-xs font-bold flex items-center gap-2 hover:bg-gray-50"><i class="fa-solid fa-cloud-arrow-up text-lg"></i> Upload</button>
+            <div class="mt-5 text-xs font-bold">Choose File or Drag &amp; Drop it Here</div>
+            <div class="mt-2 text-[11px] font-semibold text-gray-500">JPG/PNG/WebP, 5 MB per gambar.</div>
+            <input id="file" type="file" accept="image/jpeg,image/png,image/webp" multiple class="hidden" onchange="handleFiles(this.files)">
+          </div>
+        </div>
+      </div>
+      <div id="uploads" class="mt-4 flex flex-col gap-3"></div>
+    </section>
+  </div>
+</main>
+
+<!-- PRATINJAU BESAR -->
+<div id="lightbox" class="hidden fixed inset-0 bg-black/80 z-50 items-center justify-center p-4" onclick="if(event.target===this)closeLb()">
+  <div class="w-full max-w-3xl">
+    <div class="flex items-center justify-between text-white mb-2"><span id="lbCount" class="text-sm font-semibold"></span>
+      <button type="button" onclick="closeLb()" title="Tutup" class="w-9 h-9 rounded-full bg-white/15 hover:bg-white/30 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="relative">
+      <div id="lbImg" class="rounded-xl overflow-hidden bg-[#7F7F7F] aspect-video flex items-center justify-center"></div>
+      <button type="button" onclick="lbMove(-1)" title="Sebelumnya" class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
+      <button type="button" onclick="lbMove(1)" title="Berikutnya" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <p id="lbCap" class="text-white text-sm mt-3 text-center"></p>
+  </div>
+</div>
+
+<div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white text-sm font-medium px-4 py-2 rounded-full shadow-lg z-[60]"></div>
+
+<script>
+/* ====== PEMESANAN (ganti dengan GET /api/pemesanan/:id) ====== */
+// id sama dengan halaman detail pemesanan; tanpa ?id= tampil contoh dari desain
+const ORD = {
+  o1: ['SF-3XWYZK', 'Ayu Wardatul Widad', 'Self Studio', 'Pemesanan Dibuat'], o2: ['SF-2KWYZK', 'Ibrahim Movic', 'Self Studio', 'Pembayaran Diverifikasi'],
+  o3: ['CK-3WWYZK', 'Yogi Darmawangsah', 'Cetak Kilat', 'Menunggu Pembayaran'], o4: ['SC-1XYYZX', 'M Rayyan Abie', 'Scan', 'Terjadwal'],
+  o5: ['FS-2KWZYX', 'Rivaldo Aditya Putra', 'Family Studio', 'Sesi Foto'], o6: ['SF-3XWWZZ', 'Riska Putri', 'Self Studio', 'Proses Editing'],
+  o7: ['ED-3XXYYK', 'Cika Larasati', 'Editing', 'Hasil Siap'], o8: ['SF-3XXXXK', 'Nafis Yulianto', 'Self Studio', 'Selesai'],
+  o9: ['FS-2YYYZK', 'Rara Rucika', 'Family Studio', 'Pemesanan Dibuat'], o10: ['CK-2WWWK', 'Smith', 'Cetak Kilat', 'Pemesanan Dibuat'],
+  o11: ['SF-1AXBZK', 'Dewi Lestari', 'Self Studio', 'Selesai'], o12: ['FS-4KLMNZ', 'Bagus Santoso', 'Family Studio', 'Selesai'],
+  o13: ['CK-2PQRST', 'Putri Ayu Ningrum', 'Cetak Kilat', 'Selesai'], o14: ['SC-3ABCDE', 'Fajar Nugroho', 'Scan', 'Selesai'],
+  o15: ['ED-5FGHIJ', 'Salsa Maharani', 'Editing', 'Selesai'], o16: ['SF-6KLMNO', 'Dimas Prakoso', 'Self Studio', 'Selesai'],
+  o17: ['FS-7PQRSU', 'Nabila Zahra', 'Family Studio', 'Hasil Siap'], o18: ['PF-8TUVWX', 'Agus Hermawan', 'Pas Foto', 'Menunggu Pembayaran'],
+  o19: ['CK-9YZABC', 'Intan Permata', 'Cetak Kilat', 'Menunggu Pembayaran'], o20: ['SF-1DEFGH', 'Hendra Wijaya', 'Self Studio', 'Menunggu Pembayaran']
+};
+const idParam = new URLSearchParams(location.search).get('id');
+const [KODE, NAMA, LAYANAN, STATUS_NOW] = ORD[idParam] || ['SF-Y8XVVK', 'Sri', 'Cetak Kilat', 'Selesai'];
+const STATUS = { 'Pemesanan Dibuat': '#D9D9D9', 'Menunggu Pembayaran': '#FFE033', 'Pembayaran Diverifikasi': '#6A9BFF', 'Terjadwal': '#F27CF2', 'Sesi Foto': '#FFB27A', 'Proses Editing': '#7BF0FF', 'Hasil Siap': '#B388FF', 'Selesai': '#86F286' };
+
+/* ====== DATA CONTOH FILE (ganti dengan GET /api/pemesanan/:id/file) ====== */
+const LOREM = 'Lorem ipsum dolor sit amet, amet sit dolor ipsum lorem Lorem ipsum dolor sit amet, amet sit dolor ipsum lorem Lorem ipsum dolor sit amet, amet sit dolor ipsum lorem Lorem ipsum dolor sit amet, amet sit dolor ipsum lorem Lorem ipsum dolor sit amet, amet sit dolor ipsum lorem Lorem ipsum dolor sit.';
+let hasil = [{ id: 'h1', src: null, caption: '' }, { id: 'h2', src: null, caption: '' }, { id: 'h3', src: null, caption: '' }];
+let ref = [{ id: 'r1', src: null, ket: LOREM }];   // keterangan dari pelanggan, hanya dibaca
+let uploads = [], seq = 10, dragId = null, dragList = null;
+const OK_TYPES = ['image/jpeg', 'image/png', 'image/webp'], MAX_MB = 5;
+
+/* ====== HELPER ====== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+const sizeText = b => (b / 1048576 >= 0.1 ? (b / 1048576).toFixed(1).replace(/\.0$/, '') + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB');
+function toast(msg) {
+  const t = $('toast');
+  t.textContent = msg; t.classList.remove('hidden');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add('hidden'), 2400);
+}
+if (idParam && ORD[idParam]) $('back').href = 'detail-pemesanan.html?id=' + encodeURIComponent(idParam);
+$('meta').innerHTML = `<span><b>${esc(KODE)}</b> · ${esc(NAMA)} · ${esc(LAYANAN)} ·</span><span class="text-[11px] font-semibold px-4 py-0.5 rounded-full" style="background:${STATUS[STATUS_NOW] || '#D9D9D9'}">${esc(STATUS_NOW)}</span>`;
+
+/* ====== KARTU GAMBAR ====== */
+const frame = (g, i, list) => `<div class="relative aspect-video bg-[#7F7F7F]">
+    ${g.src ? `<img src="${esc(g.src)}" alt="" class="w-full h-full object-cover">` : '<div class="w-full h-full flex items-center justify-center text-white/60"><i class="fa-regular fa-image text-3xl"></i></div>'}
+    <span class="handle absolute top-2 left-2 w-6 h-6 bg-white rounded-md flex items-center justify-center cursor-grab text-xs" title="Tahan &amp; geser untuk mengurutkan"><i class="fa-solid fa-grip-lines"></i></span>
+    <span class="absolute bottom-2 left-2 w-6 h-6 bg-white rounded-md text-[10px] font-bold flex items-center justify-center">${i + 1}</span>
+    <button type="button" onclick="openLb('${list}', ${i})" title="Lihat ukuran besar" class="absolute bottom-2 right-2 w-6 h-6 bg-white rounded-md flex items-center justify-center text-xs hover:bg-gray-100"><i class="fa-solid fa-expand"></i></button></div>`;
+function renderHasil() {
+  $('eHasil').classList.toggle('hidden', hasil.length > 0);
+  $('gHasil').innerHTML = hasil.map((g, i) => `<article data-id="${g.id}" class="g-card bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden flex flex-col">
+    ${frame(g, i, 'hasil')}
+    <div class="p-3 flex flex-col gap-2">
+      <label class="text-[10px] font-medium">Tambah Keterangan</label>
+      <textarea rows="1" maxlength="120" title="Tarik sudut kanan bawah untuk memperbesar atau memperkecil" onkeydown="if(event.key==='Enter')event.preventDefault()" oninput="setCaption('${g.id}', this.value)" class="w-full bg-[#EDEDED] border border-gray-300 rounded-md px-2 py-1.5 text-xs leading-snug focus:outline-none resize-y min-h-[2rem] max-h-60 overflow-auto">${esc(g.caption)}</textarea>
+      <div class="flex items-center gap-1.5">
+        <button type="button" onclick="delHasil('${g.id}')" title="Hapus" class="w-8 h-8 bg-black text-white rounded-md flex items-center justify-center text-xs hover:bg-gray-800 flex-shrink-0"><i class="fa-solid fa-trash"></i></button>
+        <button type="button" onclick="saveHasil('${g.id}')" class="flex-1 bg-[#FFE600] hover:bg-yellow-400 text-black text-[10px] font-bold py-2 rounded-md shadow">Simpan</button></div>
+    </div></article>`).join('');
+}
+function renderRef() {
+  $('eRef').classList.toggle('hidden', ref.length > 0);
+  $('gRef').innerHTML = ref.map((g, i) => `<article data-id="${g.id}" class="g-card bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden flex flex-col">
+    ${frame(g, i, 'ref')}
+    <div class="p-3 flex flex-col gap-2">
+      <div class="text-[10px] font-medium">Keterangan</div>
+      <div title="Tarik sudut kanan bawah untuk memperbesar atau memperkecil" class="bg-[#EDEDED] border border-gray-300 rounded-md px-2 py-1.5 text-[10px] leading-snug text-justify h-24 min-h-[2.5rem] max-h-80 resize-y overflow-auto">${g.ket ? esc(g.ket) : '<span class="text-gray-500">Tidak ada keterangan.</span>'}</div>
+      <button type="button" onclick="download('${g.id}')" class="bg-[#FFE600] hover:bg-yellow-400 text-black text-[10px] font-bold py-2 rounded-md shadow">Unduh</button>
+    </div></article>`).join('');
+}
+const findH = id => hasil.find(g => g.id === id);
+const setCaption = (id, v) => { findH(id).caption = v; };
+function saveHasil(id) { toast('Keterangan file tersimpan.'); }   // sambungkan ke PUT /api/pemesanan/:id/file/:fileId
+function removeHasil(id) {
+  const g = findH(id); if (!g) return;
+  if (g.src && g.src.startsWith('blob:')) URL.revokeObjectURL(g.src);
+  hasil = hasil.filter(x => x.id !== id);
+}
+function delHasil(id) {
+  if (!confirm('Hapus file hasil ini?')) return;   // sambungkan ke DELETE
+  removeHasil(id); uploads = uploads.filter(u => u.itemId !== id);
+  renderHasil(); renderUploads();
+}
+function download(id) {
+  const g = ref.find(x => x.id === id);
+  if (!g || !g.src) return toast('File belum tersedia untuk diunduh.');   // backend: arahkan ke URL file pelanggan
+  const a = document.createElement('a'); a.href = g.src; a.download = 'referensi-' + KODE + '-' + id + '.jpg'; document.body.appendChild(a); a.click(); a.remove();
+}
+
+/* urutan: tahan ikon grip lalu geser (dalam kelompok yang sama) */
+['gHasil', 'gRef'].forEach(cid => {
+  const el = $(cid), name = el.dataset.list, arr = () => name === 'hasil' ? hasil : ref, draw = () => name === 'hasil' ? renderHasil() : renderRef();
+  el.addEventListener('mousedown', e => { const h = e.target.closest('.handle'); if (h) h.closest('.g-card').draggable = true; });
+  el.addEventListener('dragstart', e => {
+    const c = e.target.closest('.g-card');
+    if (!c || !c.draggable) { e.preventDefault(); return; }
+    dragId = c.dataset.id; dragList = name; e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', dragId);
+    setTimeout(() => c.classList.add('opacity-40'), 0);
+  });
+  el.addEventListener('dragover', e => { if (dragId && dragList === name) e.preventDefault(); });
+  el.addEventListener('drop', e => {
+    e.preventDefault();
+    const c = e.target.closest('.g-card');
+    if (!c || !dragId || dragList !== name || c.dataset.id === dragId) return;
+    const a = arr(), from = a.findIndex(g => g.id === dragId), to = a.findIndex(g => g.id === c.dataset.id);
+    a.splice(to, 0, a.splice(from, 1)[0]);
+  });
+  el.addEventListener('dragend', () => { dragId = dragList = null; draw(); });
+});
+
+/* ====== PRATINJAU BESAR ====== */
+let lbList = 'hasil', lbIdx = 0;
+const lbArr = () => lbList === 'hasil' ? hasil : ref;
+function openLb(list, i) { lbList = list; lbIdx = i; drawLb(); $('lightbox').classList.remove('hidden'); $('lightbox').classList.add('flex'); }
+function closeLb() { $('lightbox').classList.add('hidden'); $('lightbox').classList.remove('flex'); }
+function lbMove(d) { const n = lbArr().length; if (!n) return; lbIdx = (lbIdx + d + n) % n; drawLb(); }
+function drawLb() {
+  const a = lbArr(), g = a[lbIdx]; if (!g) return closeLb();
+  $('lbCount').textContent = `${lbList === 'hasil' ? 'File Hasil' : 'File Referensi'} · ${lbIdx + 1} / ${a.length}`;
+  $('lbImg').innerHTML = g.src ? `<img src="${esc(g.src)}" alt="" class="w-full h-full object-contain">` : '<div class="text-white/70 flex flex-col items-center gap-2"><i class="fa-regular fa-image text-6xl"></i><span class="text-xs">Pratinjau belum tersedia</span></div>';
+  $('lbCap').textContent = (lbList === 'hasil' ? g.caption : g.ket) || '';
+}
+document.addEventListener('keydown', e => {
+  if ($('lightbox').classList.contains('hidden')) return;
+  if (e.key === 'Escape') closeLb(); if (e.key === 'ArrowLeft') lbMove(-1); if (e.key === 'ArrowRight') lbMove(1);
+});
+
+/* ====== UPLOAD ====== */
+const drop = $('drop');
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('bg-yellow-50', 'border-black'); }));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('bg-yellow-50', 'border-black'); }));
+drop.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
+function handleFiles(list) {
+  [...list].forEach(f => {
+    if (!OK_TYPES.includes(f.type)) return toast(`"${f.name}" ditolak: hanya JPG/PNG/WebP.`);
+    if (f.size > MAX_MB * 1048576) return toast(`"${f.name}" melebihi ${MAX_MB} MB.`);
+    const u = { id: 'u' + (++seq), name: f.name, size: f.size, pct: 0, done: false, file: f };
+    uploads.push(u); runUpload(u);
+  });
+  $('file').value = ''; renderUploads();
+}
+// Progres di sini simulasi. Ganti dengan XMLHttpRequest/fetch ke POST /api/pemesanan/:id/file
+function runUpload(u) {
+  u.timer = setInterval(() => {
+    u.pct = Math.min(100, u.pct + Math.random() * 18 + 4);
+    if (u.pct >= 100) {
+      clearInterval(u.timer); u.done = true;
+      const g = { id: 'h' + (++seq), src: URL.createObjectURL(u.file), caption: '' };
+      u.itemId = g.id; hasil.push(g); renderHasil();
+    }
+    renderUploads();
+  }, 250);
+}
+function cancelUpload(id) { const u = uploads.find(x => x.id === id); if (!u) return; clearInterval(u.timer); uploads = uploads.filter(x => x !== u); renderUploads(); }
+function removeUpload(id) {
+  const u = uploads.find(x => x.id === id); if (!u) return;
+  uploads = uploads.filter(x => x !== u);
+  if (u.itemId) removeHasil(u.itemId);
+  renderHasil(); renderUploads();
+}
+function renderUploads() {
+  $('uploads').innerHTML = uploads.map(u => `
+    <div class="bg-white rounded-lg border border-gray-200 shadow-md px-4 py-3 flex items-center gap-3">
+      <span class="w-11 h-11 bg-black text-white rounded-md flex items-center justify-center flex-shrink-0"><i class="fa-regular fa-file text-xl"></i></span>
+      <div class="min-w-0 ${u.done ? 'flex-1' : 'w-32 sm:w-40'}"><div class="font-semibold truncate">${esc(u.name)}</div><div class="text-sm text-gray-600">${sizeText(u.size)}</div></div>
+      ${u.done
+        ? `<span class="text-green-600 font-semibold flex items-center gap-1.5"><i class="fa-regular fa-circle-check"></i> Completed</span>
+           <button type="button" onclick="removeUpload('${u.id}')" title="Hapus" class="text-red-600 text-xl ml-2 hover:opacity-70"><i class="fa-regular fa-trash-can"></i></button>`
+        : `<div class="flex-1 h-1.5 bg-gray-300 rounded-full overflow-hidden"><div class="h-full bg-blue-700" style="width:${Math.round(u.pct)}%"></div></div>
+           <span class="font-medium w-10 text-right">${Math.round(u.pct)}%</span>
+           <button type="button" onclick="cancelUpload('${u.id}')" title="Batalkan" class="text-xl ml-1 hover:opacity-70"><i class="fa-solid fa-xmark"></i></button>`}
+    </div>`).join('');
+}
+
+/* ====== SIDEBAR ====== */
+
+const toggleSb = () => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    html.classList.toggle('sb-hidden');
+    body.classList.toggle('sb-hidden');
+
+    const isHidden = html.classList.contains('sb-hidden');
+
+    localStorage.setItem('sidebarHidden', isHidden);
+};
+
+
+// Saat halaman dibuka, ambil kondisi terakhir
+document.addEventListener("DOMContentLoaded", () => {
+
+    const isHidden = localStorage.getItem('sidebarHidden');
+
+    if (isHidden === 'true') {
+        document.documentElement.classList.add('sb-hidden');
+        document.body.classList.add('sb-hidden');
+    }
+
+    if (window.innerWidth < 1024 && isHidden === null) {
+        document.documentElement.classList.add('sb-hidden');
+        document.body.classList.add('sb-hidden');
+
+        localStorage.setItem('sidebarHidden', 'true');
+    }
+
+});
+
+renderHasil(); renderRef(); renderUploads();
+</script>
+<script src="/js/user.js"></script>
+</body>
+</html>
