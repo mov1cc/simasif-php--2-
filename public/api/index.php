@@ -14,6 +14,7 @@ require_once dirname(__DIR__, 2) . '/src/Workflow.php';
 require_once dirname(__DIR__, 2) . '/src/AuthApi.php';
 require_once dirname(__DIR__, 2) . '/src/TransaksiApi.php';
 require_once dirname(__DIR__, 2) . '/src/Dashboard.php';
+require_once dirname(__DIR__, 2) . '/src/FileFotoApi.php';
 
 const MAX_GALLERY = 8;
 const MAX_BYTES = 5 * 1048576;
@@ -601,6 +602,7 @@ if ($p === '/api/dashboard' && $m === 'GET') {
     out(200, ['data' => Dashboard::data($db, $u)]);
 }
 
+FileFotoApi::handle($m, $p);
 TransaksiApi::handle($m, $p);
 AuthApi::handle($m, $p);
 

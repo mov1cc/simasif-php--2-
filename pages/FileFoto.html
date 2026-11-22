@@ -149,29 +149,32 @@ html.sb-hidden #sidebar{
 <div id="toast" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-black text-white text-sm font-medium px-4 py-2 rounded-full shadow-lg z-[60]"></div>
 
 <script>
-/* ====== PEMESANAN (ganti dengan GET /api/pemesanan/:id) ====== */
-// id sama dengan halaman detail pemesanan; tanpa ?id= tampil contoh dari desain
-const ORD = {
-  o1: ['SF-3XWYZK', 'Ayu Wardatul Widad', 'Self Studio', 'Pemesanan Dibuat'], o2: ['SF-2KWYZK', 'Ibrahim Movic', 'Self Studio', 'Pembayaran Diverifikasi'],
-  o3: ['CK-3WWYZK', 'Yogi Darmawangsah', 'Cetak Kilat', 'Menunggu Pembayaran'], o4: ['SC-1XYYZX', 'M Rayyan Abie', 'Scan', 'Terjadwal'],
-  o5: ['FS-2KWZYX', 'Rivaldo Aditya Putra', 'Family Studio', 'Sesi Foto'], o6: ['SF-3XWWZZ', 'Riska Putri', 'Self Studio', 'Proses Editing'],
-  o7: ['ED-3XXYYK', 'Cika Larasati', 'Editing', 'Hasil Siap'], o8: ['SF-3XXXXK', 'Nafis Yulianto', 'Self Studio', 'Selesai'],
-  o9: ['FS-2YYYZK', 'Rara Rucika', 'Family Studio', 'Pemesanan Dibuat'], o10: ['CK-2WWWK', 'Smith', 'Cetak Kilat', 'Pemesanan Dibuat'],
-  o11: ['SF-1AXBZK', 'Dewi Lestari', 'Self Studio', 'Selesai'], o12: ['FS-4KLMNZ', 'Bagus Santoso', 'Family Studio', 'Selesai'],
-  o13: ['CK-2PQRST', 'Putri Ayu Ningrum', 'Cetak Kilat', 'Selesai'], o14: ['SC-3ABCDE', 'Fajar Nugroho', 'Scan', 'Selesai'],
-  o15: ['ED-5FGHIJ', 'Salsa Maharani', 'Editing', 'Selesai'], o16: ['SF-6KLMNO', 'Dimas Prakoso', 'Self Studio', 'Selesai'],
-  o17: ['FS-7PQRSU', 'Nabila Zahra', 'Family Studio', 'Hasil Siap'], o18: ['PF-8TUVWX', 'Agus Hermawan', 'Pas Foto', 'Menunggu Pembayaran'],
-  o19: ['CK-9YZABC', 'Intan Permata', 'Cetak Kilat', 'Menunggu Pembayaran'], o20: ['SF-1DEFGH', 'Hendra Wijaya', 'Self Studio', 'Menunggu Pembayaran']
-};
 const idParam = new URLSearchParams(location.search).get('id');
-const [KODE, NAMA, LAYANAN, STATUS_NOW] = ORD[idParam] || ['SF-Y8XVVK', 'Sri', 'Cetak Kilat', 'Selesai'];
-const STATUS = { 'Pemesanan Dibuat': '#D9D9D9', 'Menunggu Pembayaran': '#FFE033', 'Pembayaran Diverifikasi': '#6A9BFF', 'Terjadwal': '#F27CF2', 'Sesi Foto': '#FFB27A', 'Proses Editing': '#7BF0FF', 'Hasil Siap': '#B388FF', 'Selesai': '#86F286' };
+const API = '/api/pemesanan/' + encodeURIComponent(idParam || '') + '/file';
+const STATUS = { /* tetap, salin dari kode lama */ };
+let KODE = '', NAMA = '', LAYANAN = '', STATUS_NOW = '';
+let hasil = [], ref = [], uploads = [], seq = 10, dragId = null, dragList = null;
+const J = { 'Content-Type': 'application/json' };
 
-/* ====== DATA CONTOH FILE (ganti dengan GET /api/pemesanan/:id/file) ====== */
-const LOREM = 'Lorem ipsum dolor sit amet, amet sit dolor ipsum lorem Lorem ipsum dolor sit amet, amet sit dolor ipsum lorem Lorem ipsum dolor sit amet, amet sit dolor ipsum lorem Lorem ipsum dolor sit amet, amet sit dolor ipsum lorem Lorem ipsum dolor sit amet, amet sit dolor ipsum lorem Lorem ipsum dolor sit.';
-let hasil = [{ id: 'h1', src: null, caption: '' }, { id: 'h2', src: null, caption: '' }, { id: 'h3', src: null, caption: '' }];
-let ref = [{ id: 'r1', src: null, ket: LOREM }];   // keterangan dari pelanggan, hanya dibaca
-let uploads = [], seq = 10, dragId = null, dragList = null;
+async function http(url, opt = {}) {
+  const res = await fetch(url, opt);
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || Object.values(data.errors || {}).join(' | ') || 'HTTP ' + res.status);
+  return data;
+}
+function renderMeta() {
+  $('meta').innerHTML = `<span><b>${esc(KODE)}</b> · ${esc(NAMA)} · ${esc(LAYANAN)} ·</span><span class="text-[11px] font-semibold px-4 py-0.5 rounded-full" style="background:${STATUS[STATUS_NOW] || '#D9D9D9'}">${esc(STATUS_NOW)}</span>`;
+}
+async function loadFiles() {
+  if (!idParam) { toast('Buka dari tombol File Fotografi pada detail pemesanan.'); return; }
+  try {
+    const d = (await http(API)).data;
+    ({ kode: KODE, nama: NAMA, layanan: LAYANAN, status: STATUS_NOW } = d.pemesanan);
+    hasil = d.hasil.map(g => ({ id: g.id, src: g.url, caption: g.caption || '' }));
+    ref = d.referensi.map(g => ({ id: g.id, src: g.url, ket: g.ket || '' }));
+  } catch (e) { toast('Gagal memuat file: ' + e.message); }
+  renderMeta(); renderHasil(); renderRef(); renderUploads();
+}
 const OK_TYPES = ['image/jpeg', 'image/png', 'image/webp'], MAX_MB = 5;
 
 /* ====== HELPER ====== */
@@ -183,8 +186,8 @@ function toast(msg) {
   t.textContent = msg; t.classList.remove('hidden');
   clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add('hidden'), 2400);
 }
-if (idParam && ORD[idParam]) $('back').href = 'detail-pemesanan.html?id=' + encodeURIComponent(idParam);
-$('meta').innerHTML = `<span><b>${esc(KODE)}</b> · ${esc(NAMA)} · ${esc(LAYANAN)} ·</span><span class="text-[11px] font-semibold px-4 py-0.5 rounded-full" style="background:${STATUS[STATUS_NOW] || '#D9D9D9'}">${esc(STATUS_NOW)}</span>`;
+if (idParam && ORD[idParam]) $('back').href = 'DetailPemesanan.html?id=' + encodeURIComponent(idParam);
+
 
 /* ====== KARTU GAMBAR ====== */
 const frame = (g, i, list) => `<div class="relative aspect-video bg-[#7F7F7F]">
@@ -216,23 +219,29 @@ function renderRef() {
 }
 const findH = id => hasil.find(g => g.id === id);
 const setCaption = (id, v) => { findH(id).caption = v; };
-function saveHasil(id) { toast('Keterangan file tersimpan.'); }   // sambungkan ke PUT /api/pemesanan/:id/file/:fileId
+async function saveHasil(id) {
+  try { await http(`${API}/${id}`, { method: 'PUT', headers: J, body: JSON.stringify({ caption: findH(id).caption }) }); toast('Keterangan file tersimpan.'); }
+  catch (e) { toast('Gagal menyimpan: ' + e.message); }
+}
 function removeHasil(id) {
   const g = findH(id); if (!g) return;
   if (g.src && g.src.startsWith('blob:')) URL.revokeObjectURL(g.src);
   hasil = hasil.filter(x => x.id !== id);
 }
-function delHasil(id) {
-  if (!confirm('Hapus file hasil ini?')) return;   // sambungkan ke DELETE
-  removeHasil(id); uploads = uploads.filter(u => u.itemId !== id);
+async function delHasil(id) {
+  if (!confirm('Hapus file hasil ini?')) return;
+  try { await http(`${API}/${id}`, { method: 'DELETE' }); } catch (e) { return toast('Gagal menghapus: ' + e.message); }
+  hasil = hasil.filter(x => x.id !== id); uploads = uploads.filter(u => u.itemId !== id);
   renderHasil(); renderUploads();
 }
 function download(id) {
-  const g = ref.find(x => x.id === id);
-  if (!g || !g.src) return toast('File belum tersedia untuk diunduh.');   // backend: arahkan ke URL file pelanggan
-  const a = document.createElement('a'); a.href = g.src; a.download = 'referensi-' + KODE + '-' + id + '.jpg'; document.body.appendChild(a); a.click(); a.remove();
+  const g = ref.find(x => x.id === id); if (!g) return;
+  const a = document.createElement('a'); a.href = g.src + '?unduh=1'; document.body.appendChild(a); a.click(); a.remove();
 }
-
+async function saveOrder(name) {
+  try { await http(`${API}/order`, { method: 'PUT', headers: J, body: JSON.stringify({ jenis: name === 'hasil' ? 'hasil' : 'ref', ids: (name === 'hasil' ? hasil : ref).map(g => g.id) }) }); }
+  catch (e) { toast('Gagal menyimpan urutan: ' + e.message); }
+}
 /* urutan: tahan ikon grip lalu geser (dalam kelompok yang sama) */
 ['gHasil', 'gRef'].forEach(cid => {
   const el = $(cid), name = el.dataset.list, arr = () => name === 'hasil' ? hasil : ref, draw = () => name === 'hasil' ? renderHasil() : renderRef();
@@ -251,7 +260,7 @@ function download(id) {
     const a = arr(), from = a.findIndex(g => g.id === dragId), to = a.findIndex(g => g.id === c.dataset.id);
     a.splice(to, 0, a.splice(from, 1)[0]);
   });
-  el.addEventListener('dragend', () => { dragId = dragList = null; draw(); });
+  el.addEventListener('dragend', () => { const moved = dragId; dragId = dragList = null; draw(); if (moved) saveOrder(name); });
 });
 
 /* ====== PRATINJAU BESAR ====== */
@@ -285,24 +294,29 @@ function handleFiles(list) {
   });
   $('file').value = ''; renderUploads();
 }
-// Progres di sini simulasi. Ganti dengan XMLHttpRequest/fetch ke POST /api/pemesanan/:id/file
 function runUpload(u) {
-  u.timer = setInterval(() => {
-    u.pct = Math.min(100, u.pct + Math.random() * 18 + 4);
-    if (u.pct >= 100) {
-      clearInterval(u.timer); u.done = true;
-      const g = { id: 'h' + (++seq), src: URL.createObjectURL(u.file), caption: '' };
-      u.itemId = g.id; hasil.push(g); renderHasil();
-    }
-    renderUploads();
-  }, 250);
+  const x = u.xhr = new XMLHttpRequest();
+  x.open('POST', API + '?jenis=hasil');
+  x.setRequestHeader('Content-Type', u.file.type);
+  x.upload.onprogress = e => { if (e.lengthComputable) { u.pct = e.loaded / e.total * 100; renderUploads(); } };
+  x.onload = () => {
+    let d = {}; try { d = JSON.parse(x.responseText); } catch (_) { }
+    if (x.status !== 201) { uploads = uploads.filter(v => v !== u); renderUploads(); return toast(`"${u.name}" gagal: ${d.error || 'HTTP ' + x.status}`); }
+    u.pct = 100; u.done = true;
+    const g = { id: d.data.id, src: d.data.url, caption: '' };
+    u.itemId = g.id; hasil.push(g); renderHasil(); renderUploads();
+  };
+  x.onerror = () => { uploads = uploads.filter(v => v !== u); renderUploads(); toast(`"${u.name}" gagal: jaringan terputus.`); };
+  x.send(u.file);
 }
-function cancelUpload(id) { const u = uploads.find(x => x.id === id); if (!u) return; clearInterval(u.timer); uploads = uploads.filter(x => x !== u); renderUploads(); }
-function removeUpload(id) {
+function cancelUpload(id) {
   const u = uploads.find(x => x.id === id); if (!u) return;
-  uploads = uploads.filter(x => x !== u);
-  if (u.itemId) removeHasil(u.itemId);
-  renderHasil(); renderUploads();
+  if (u.xhr) u.xhr.abort(); uploads = uploads.filter(x => x !== u); renderUploads();
+}
+async function removeUpload(id) {
+  const u = uploads.find(x => x.id === id); if (!u) return;
+  if (u.itemId) { try { await http(`${API}/${u.itemId}`, { method: 'DELETE' }); } catch (e) { return toast('Gagal menghapus: ' + e.message); } hasil = hasil.filter(g => g.id !== u.itemId); }
+  uploads = uploads.filter(x => x !== u); renderHasil(); renderUploads();
 }
 function renderUploads() {
   $('uploads').innerHTML = uploads.map(u => `
@@ -352,7 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-renderHasil(); renderRef(); renderUploads();
+loadFiles();
 </script>
 <script src="/js/user.js"></script>
 </body>
