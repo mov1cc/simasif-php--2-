@@ -117,7 +117,7 @@ final class FileFotoApi
         header('Content-Type: ' . $info['mime']);
         header('Content-Length: ' . filesize($path));
         header('X-Content-Type-Options: nosniff');
-        header('Cache-Control: private, max-age=300');
+        header('Cache-Control: private, no-store');
         if (qs('unduh') === '1') {
             $i = findIdx($db['pemesanan'], $pid);
             $kode = preg_replace('/[^A-Za-z0-9_-]/', '', $i === null ? 'foto' : $db['pemesanan'][$i]['kode']);
@@ -148,7 +148,6 @@ final class FileFotoApi
         $aktor = self::aktor();
 
         [$c, $body] = Db::write(function (array &$db) use ($pid, $jenis, $ket, $type, $buf, $aktor) {
-            $db['file_foto'] ??= [];
             $i = findIdx($db['pemesanan'], $pid);
             if ($i === null) return [404, ['error' => 'Pemesanan tidak ditemukan.']];
             if ($jenis === 'hasil' && !self::boleh($db['pemesanan'][$i]))
@@ -174,7 +173,6 @@ final class FileFotoApi
             out(422, ['errors' => ['caption' => 'Keterangan maksimal 120 karakter dan tidak boleh mengandung < atau >.']]);
 
         [$c, $body] = Db::write(function (array &$db) use ($pid, $fid, $cap) {
-            $db['file_foto'] ??= [];
             $pi = findIdx($db['pemesanan'], $pid);
             $gi = findIdx($db['file_foto'], $fid);
             if ($pi === null || $gi === null || $db['file_foto'][$gi]['pemesanan_id'] !== $pid) return [404, ['error' => 'File tidak ditemukan.']];
@@ -189,8 +187,8 @@ final class FileFotoApi
 
     private static function hapus(string $pid, string $fid): never
     {
-        [$c, $body] = Db::write(function (array &$db) use ($pid, $fid) {
-            $db['file_foto'] ??= [];
+        $file = null;
+        [$c, $body] = Db::write(function (array &$db) use ($pid, $fid, &$file) {
             $pi = findIdx($db['pemesanan'], $pid);
             $gi = findIdx($db['file_foto'], $fid);
             if ($pi === null || $gi === null || $db['file_foto'][$gi]['pemesanan_id'] !== $pid) return [404, ['error' => 'File tidak ditemukan.']];
@@ -198,11 +196,12 @@ final class FileFotoApi
             if ($g['jenis'] !== 'hasil') return [403, ['error' => 'File referensi dari pelanggan tidak bisa dihapus.']];
             if (!self::boleh($db['pemesanan'][$pi])) return [409, ['error' => 'File hasil tidak bisa dihapus pada tahap pemesanan ini.']];
 
-            self::hapusFile($g['file']);
+            $file = $g['file'];
             array_splice($db['file_foto'], $gi, 1);
             self::norm($db, $pid, 'hasil');
             return [200, ['ok' => true]];
         });
+        if ($c < 400) self::hapusFile($file);
         out($c, $body);
     }
 
@@ -215,7 +214,6 @@ final class FileFotoApi
         if (!V::isList($b['ids'] ?? null)) out(422, ['errors' => ['ids' => 'ids harus array.']]);
 
         [$c, $body] = Db::write(function (array &$db) use ($pid, $jenis, $b) {
-            $db['file_foto'] ??= [];
             $pi = findIdx($db['pemesanan'], $pid);
             if ($pi === null) return [404, ['error' => 'Pemesanan tidak ditemukan.']];
             if ($jenis === 'hasil' && !self::boleh($db['pemesanan'][$pi]))

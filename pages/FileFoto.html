@@ -115,7 +115,7 @@ html.sb-hidden #sidebar{
     </div>
 
     <!-- UPLOAD -->
-    <section>
+    <section id="uploadPanel" class="hidden">
       <div class="bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden">
         <div class="bg-[#FFE600] px-5 py-3 flex items-center gap-3 text-2xl font-bold"><i class="fa-regular fa-images text-3xl"></i> Upload Hasil Fotografi</div>
         <div class="p-5">
@@ -151,9 +151,10 @@ html.sb-hidden #sidebar{
 <script>
 const idParam = new URLSearchParams(location.search).get('id');
 const API = '/api/pemesanan/' + encodeURIComponent(idParam || '') + '/file';
-const STATUS = { /* tetap, salin dari kode lama */ };
+const STATUS = { 'Pemesanan Dibuat':'#D9D9D9','Menunggu Pembayaran':'#FFE033','Pembayaran Diverifikasi':'#6A9BFF','Terjadwal':'#F27CF2','Sesi Foto':'#FFB27A','Proses Editing':'#7BF0FF','Hasil Siap':'#B388FF','Selesai':'#86F286' };
 let KODE = '', NAMA = '', LAYANAN = '', STATUS_NOW = '';
 let hasil = [], ref = [], uploads = [], seq = 10, dragId = null, dragList = null;
+let BISA_UBAH = false, MAKS_HASIL = 30;
 const J = { 'Content-Type': 'application/json' };
 
 async function http(url, opt = {}) {
@@ -170,6 +171,9 @@ async function loadFiles() {
   try {
     const d = (await http(API)).data;
     ({ kode: KODE, nama: NAMA, layanan: LAYANAN, status: STATUS_NOW } = d.pemesanan);
+    BISA_UBAH = d.bisa_ubah === true;
+    MAKS_HASIL = Number(d.maks?.hasil) || 30;
+    $('uploadPanel').classList.toggle('hidden', !BISA_UBAH);
     hasil = d.hasil.map(g => ({ id: g.id, src: g.url, caption: g.caption || '' }));
     ref = d.referensi.map(g => ({ id: g.id, src: g.url, ket: g.ket || '' }));
   } catch (e) { toast('Gagal memuat file: ' + e.message); }
@@ -186,26 +190,27 @@ function toast(msg) {
   t.textContent = msg; t.classList.remove('hidden');
   clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add('hidden'), 2400);
 }
-if (idParam && ORD[idParam]) $('back').href = 'DetailPemesanan.html?id=' + encodeURIComponent(idParam);
+if (idParam) $('back').href = 'DetailPemesanan.html?id=' + encodeURIComponent(idParam);
 
 
 /* ====== KARTU GAMBAR ====== */
 const frame = (g, i, list) => `<div class="relative aspect-video bg-[#7F7F7F]">
     ${g.src ? `<img src="${esc(g.src)}" alt="" class="w-full h-full object-cover">` : '<div class="w-full h-full flex items-center justify-center text-white/60"><i class="fa-regular fa-image text-3xl"></i></div>'}
-    <span class="handle absolute top-2 left-2 w-6 h-6 bg-white rounded-md flex items-center justify-center cursor-grab text-xs" title="Tahan &amp; geser untuk mengurutkan"><i class="fa-solid fa-grip-lines"></i></span>
+    ${list !== 'hasil' || BISA_UBAH ? '<span class="handle absolute top-2 left-2 w-6 h-6 bg-white rounded-md flex items-center justify-center cursor-grab text-xs" title="Tahan &amp; geser untuk mengurutkan"><i class="fa-solid fa-grip-lines"></i></span>' : ''}
     <span class="absolute bottom-2 left-2 w-6 h-6 bg-white rounded-md text-[10px] font-bold flex items-center justify-center">${i + 1}</span>
     <button type="button" onclick="openLb('${list}', ${i})" title="Lihat ukuran besar" class="absolute bottom-2 right-2 w-6 h-6 bg-white rounded-md flex items-center justify-center text-xs hover:bg-gray-100"><i class="fa-solid fa-expand"></i></button></div>`;
 function renderHasil() {
   $('eHasil').classList.toggle('hidden', hasil.length > 0);
+  $('eHasil').textContent = BISA_UBAH ? 'Belum ada file hasil. Unggah lewat panel Upload Hasil Fotografi.' : 'Belum ada file hasil.';
   $('gHasil').innerHTML = hasil.map((g, i) => `<article data-id="${g.id}" class="g-card bg-white rounded-xl border border-gray-200 shadow-md overflow-hidden flex flex-col">
     ${frame(g, i, 'hasil')}
-    <div class="p-3 flex flex-col gap-2">
+    ${BISA_UBAH ? `<div class="p-3 flex flex-col gap-2">
       <label class="text-[10px] font-medium">Tambah Keterangan</label>
       <textarea rows="1" maxlength="120" title="Tarik sudut kanan bawah untuk memperbesar atau memperkecil" onkeydown="if(event.key==='Enter')event.preventDefault()" oninput="setCaption('${g.id}', this.value)" class="w-full bg-[#EDEDED] border border-gray-300 rounded-md px-2 py-1.5 text-xs leading-snug focus:outline-none resize-y min-h-[2rem] max-h-60 overflow-auto">${esc(g.caption)}</textarea>
       <div class="flex items-center gap-1.5">
         <button type="button" onclick="delHasil('${g.id}')" title="Hapus" class="w-8 h-8 bg-black text-white rounded-md flex items-center justify-center text-xs hover:bg-gray-800 flex-shrink-0"><i class="fa-solid fa-trash"></i></button>
         <button type="button" onclick="saveHasil('${g.id}')" class="flex-1 bg-[#FFE600] hover:bg-yellow-400 text-black text-[10px] font-bold py-2 rounded-md shadow">Simpan</button></div>
-    </div></article>`).join('');
+    </div>` : ''}</article>`).join('');
 }
 function renderRef() {
   $('eRef').classList.toggle('hidden', ref.length > 0);
@@ -220,6 +225,7 @@ function renderRef() {
 const findH = id => hasil.find(g => g.id === id);
 const setCaption = (id, v) => { findH(id).caption = v; };
 async function saveHasil(id) {
+  if (!BISA_UBAH) return;
   try { await http(`${API}/${id}`, { method: 'PUT', headers: J, body: JSON.stringify({ caption: findH(id).caption }) }); toast('Keterangan file tersimpan.'); }
   catch (e) { toast('Gagal menyimpan: ' + e.message); }
 }
@@ -229,6 +235,7 @@ function removeHasil(id) {
   hasil = hasil.filter(x => x.id !== id);
 }
 async function delHasil(id) {
+  if (!BISA_UBAH) return;
   if (!confirm('Hapus file hasil ini?')) return;
   try { await http(`${API}/${id}`, { method: 'DELETE' }); } catch (e) { return toast('Gagal menghapus: ' + e.message); }
   hasil = hasil.filter(x => x.id !== id); uploads = uploads.filter(u => u.itemId !== id);
@@ -239,6 +246,7 @@ function download(id) {
   const a = document.createElement('a'); a.href = g.src + '?unduh=1'; document.body.appendChild(a); a.click(); a.remove();
 }
 async function saveOrder(name) {
+  if (name === 'hasil' && !BISA_UBAH) return;
   try { await http(`${API}/order`, { method: 'PUT', headers: J, body: JSON.stringify({ jenis: name === 'hasil' ? 'hasil' : 'ref', ids: (name === 'hasil' ? hasil : ref).map(g => g.id) }) }); }
   catch (e) { toast('Gagal menyimpan urutan: ' + e.message); }
 }
@@ -286,9 +294,18 @@ const drop = $('drop');
 ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('bg-yellow-50', 'border-black'); }));
 drop.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
 function handleFiles(list) {
+  if (!BISA_UBAH) return toast('Unggah file hasil tidak tersedia pada tahap pemesanan ini.');
+  let slots = Math.max(0, MAKS_HASIL - hasil.length - uploads.filter(u => !u.done).length);
+  let limitNotified = false;
   [...list].forEach(f => {
     if (!OK_TYPES.includes(f.type)) return toast(`"${f.name}" ditolak: hanya JPG/PNG/WebP.`);
     if (f.size > MAX_MB * 1048576) return toast(`"${f.name}" melebihi ${MAX_MB} MB.`);
+    if (slots === 0) {
+      if (!limitNotified) toast(`Maksimal ${MAKS_HASIL} gambar hasil.`);
+      limitNotified = true;
+      return;
+    }
+    slots--;
     const u = { id: 'u' + (++seq), name: f.name, size: f.size, pct: 0, done: false, file: f };
     uploads.push(u); runUpload(u);
   });
