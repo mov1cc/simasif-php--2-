@@ -1,9 +1,6 @@
 /* Dimuat di <head>: sembunyikan nama/peran sampai user.js mengisi nilai asli. */
 (function () {
   var root = document.documentElement;
-  try {
-    if (sessionStorage.getItem('simasifUser')) root.classList.add('u-ready');
-  } catch (_) {}
 
   var s = document.createElement('style');
   s.textContent =
