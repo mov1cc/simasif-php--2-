@@ -1,0 +1,55 @@
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  @media (min-width: 768px) { .nav-link[aria-current="location"] { border-bottom-color: #fff; } }
+  @media (max-width: 767px) { .nav-link[aria-current="location"] { font-weight: 600; } }
+  .garis-gradasi {
+    background-image: linear-gradient(180deg, #4b82ff 0%, #ffe100 50%, #4b82ff 100%);
+    background-size: 100% 200%;
+    background-repeat: repeat-y;
+    animation: alir-gradasi 5s linear infinite;
+  }
+  @keyframes alir-gradasi { to { background-position: 0 200%; } }
+  @media (prefers-reduced-motion: reduce) { .garis-gradasi { animation: none; } }
+  html {
+  background-color: #fff;
+  overscroll-behavior-y: none;
+}
+body {
+  overscroll-behavior-y: none;
+}
+
+/* Footer tetap di dasar layar, berada di belakang konten */
+footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+/* Konten menutupi footer; grid dipindah dari body::before ke sini */
+main {
+  position: relative;
+  z-index: 1;
+  background-color: #fff;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, .12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, .12) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-attachment: fixed; /* ← tambahan: grid diam, konten saja yang bergerak */
+}
+[data-draggable] {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 5;
+  transition: scale .15s ease, box-shadow .15s ease;
+}
+[data-draggable].sedang-ditarik {
+  z-index: 10;
+  scale: 1.06;
+  box-shadow: 0 8px 14px rgba(0,0,0,.35) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-draggable] { transition: none; }
+  [data-draggable].sedang-ditarik { scale: 1; }
+}
