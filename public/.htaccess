@@ -1,7 +1,7 @@
 Options -MultiViews -Indexes
 RewriteEngine On
 
-RewriteRule ^$ Dashboard.html [R=302,L]
+RewriteRule ^$ HalamanPelanggan.html [R=302,L]
 RewriteRule ^api/ api/index.php [L]
 RewriteRule ^gate\.php$ - [L]
 
