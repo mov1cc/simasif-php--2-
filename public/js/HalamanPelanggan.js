@@ -198,3 +198,120 @@
   window.matchMedia('(min-width: 768px)').addEventListener('change', resetAll);
   window.addEventListener('resize', resetAll);
 })();
+
+(function () {
+  var daftar = document.getElementById('daftar-layanan');
+  if (!daftar) return;
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function rp(n) { return 'Rp' + Number(n).toLocaleString('id-ID'); }
+  function satuan(d) { return d ? d.nilai + ' ' + String(d.satuan).toLowerCase() : '-'; }
+  function hargaTeks(l) {
+    return (l.mulai_dari ? 'Mulai ' : '') + rp(l.harga) + (l.keterangan_harga === 'foto' ? '/foto' : '');
+  }
+  function ket(k) { return k === 'foto' ? '/foto' : k === 'pcs' ? '/pcs' : ''; }
+
+  function kartu(l) {
+    var img = l.cover
+      ? '<img src="' + esc(l.cover) + '" alt="Foto layanan ' + esc(l.nama) + '" width="640" height="305" loading="lazy" class="block w-full aspect-[2.1/1] object-cover">'
+      : '<div class="w-full aspect-[2.1/1] bg-[#7f7f7f]" aria-hidden="true"></div>';
+    var output = l.output.map(function (o) {
+      return '<li class="bg-[#f5f5f5] px-1 py-0.5 mb-0.5 text-xs">' + esc(o) + '</li>';
+    }).join('');
+    return '<li class="flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_3px_5px_rgba(0,0,0,.3)]">' + img +
+      '<div class="flex flex-1 flex-col px-3 pt-4 pb-3">' +
+        '<div class="flex items-baseline justify-between gap-3">' +
+          '<h3 class="m-0 text-2xl md:text-[28px] font-semibold leading-tight">' + esc(l.nama) + '</h3>' +
+          '<p class="m-0 text-base md:text-lg font-semibold whitespace-nowrap">' + hargaTeks(l) + '</p></div>' +
+        '<ul class="list-none m-0 mt-4 p-0 flex items-center justify-between text-xs">' +
+          '<li class="flex items-center gap-1"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#i-jam"/></svg>' + esc(satuan(l.durasi)) + '</li>' +
+          '<li class="flex items-center gap-1"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#i-timer"/></svg>Hasil ' + esc(satuan(l.estimasi_hasil)) + '</li>' +
+          '<li class="flex items-center gap-1"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#i-orang"/></svg>Maks. ' + (l.maks_orang || '-') + ' orang</li></ul>' +
+        '<ul class="list-none m-0 mt-2 mb-4 p-0">' + output + '</ul>' +
+        '<div class="mt-auto grid grid-cols-2 gap-5">' +
+          '<button type="button" data-detail="' + esc(l.id) + '" aria-label="Detail ' + esc(l.nama) + '" class="flex h-8 items-center justify-center rounded-lg bg-black text-sm font-semibold text-white hover:bg-[#333] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a]">Detail</button>' +
+          '<a href="#cek-pemesanan" aria-label="Pesan ' + esc(l.nama) + '" class="flex h-8 items-center justify-center rounded-lg bg-[#ffe100] text-sm font-semibold text-black no-underline hover:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a]">Pesan</a>' +
+        '</div></div></li>';
+  }
+
+  function pesan(teks) {
+    daftar.innerHTML = '<li class="col-span-full text-center text-base text-[#555]">' + esc(teks) + '</li>';
+  }
+
+  fetch('/api/publik/layanan', { headers: { 'Accept': 'application/json' } })
+    .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+    .then(function (d) {
+      if (!d.data.length) return pesan('Belum ada layanan yang tersedia saat ini.');
+      daftar.innerHTML = d.data.map(kartu).join('');
+    })
+    .catch(function () { pesan('Layanan tidak dapat dimuat. Coba muat ulang halaman.'); });
+
+  /* ---------- Modal detail ---------- */
+  var modal = document.createElement('div');
+  modal.className = 'hidden fixed inset-0 z-[60] bg-black/60 items-center justify-center p-4';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.innerHTML = '<div class="bg-white rounded-2xl shadow-xl w-full max-w-lg max-h-full overflow-y-auto">' +
+    '<div class="sticky top-0 bg-[#0045e0] text-white px-5 py-3 flex items-center justify-between">' +
+    '<h3 id="dl-judul" class="m-0 text-lg font-semibold"></h3>' +
+    '<button type="button" id="dl-tutup" aria-label="Tutup" class="w-8 h-8 rounded-full hover:bg-white/20 text-xl leading-none">&times;</button></div>' +
+    '<div id="dl-isi" class="p-5 text-sm"></div></div>';
+  document.body.appendChild(modal);
+
+  function tutup() { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+  modal.addEventListener('click', function (e) { if (e.target === modal) tutup(); });
+  document.getElementById('dl-tutup').addEventListener('click', tutup);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') tutup(); });
+
+  function baris(a, b) {
+    return '<div class="flex justify-between gap-3 bg-[#f5f5f5] rounded px-2 py-1 mb-1"><span>' + esc(a) + '</span><span class="font-semibold whitespace-nowrap">' + b + '</span></div>';
+  }
+  function isiDetail(l) {
+    var h = '';
+    if (l.galeri.length) {
+      h += '<div class="flex gap-2 overflow-x-auto pb-2 mb-3">' + l.galeri.map(function (g) {
+        return '<img src="' + esc(g.url) + '" alt="' + esc(g.caption || l.nama) + '" loading="lazy" class="h-28 w-auto rounded-lg object-cover flex-shrink-0">';
+      }).join('') + '</div>';
+    }
+    if (l.deskripsi) h += '<p class="m-0 mb-3 leading-snug">' + esc(l.deskripsi) + '</p>';
+
+    h += '<h4 class="m-0 mb-1 font-semibold">Harga</h4>';
+    if (l.jenis_harga === 'tunggal') h += baris(l.nama, rp(l.harga_tunggal) + (l.keterangan_harga === 'foto' ? '/foto' : ''));
+    else l.harga_pilihan.forEach(function (g) {
+      h += '<div class="text-xs font-semibold mt-2 mb-1">' + esc(g.nama) + '</div>';
+      g.pilihan.forEach(function (p) { h += baris(p.nama, rp(p.harga)); });
+    });
+
+    h += '<h4 class="m-0 mt-3 mb-1 font-semibold">Hasil yang Didapat</h4>';
+    l.output_detail.forEach(function (o) {
+      h += baris(o.nama, o.tipe === 'pilihan' ? esc(o.sub_pilihan.join(', ')) : '');
+    });
+
+    if (l.addons.length) {
+      h += '<h4 class="m-0 mt-3 mb-1 font-semibold">Add On</h4>';
+      l.addons.forEach(function (a) {
+        if (a.jenis_harga === 'tunggal') h += baris(a.nama, rp(a.harga_tunggal) + ket(a.keterangan_harga));
+        else {
+          h += '<div class="text-xs font-semibold mt-2 mb-1">' + esc(a.nama) + '</div>';
+          a.pilihan_harga.forEach(function (p) { h += baris(p.nama, rp(p.harga) + ket(p.keterangan)); });
+        }
+      });
+    }
+    return h;
+  }
+
+  daftar.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-detail]');
+    if (!b) return;
+    fetch('/api/publik/layanan/' + encodeURIComponent(b.getAttribute('data-detail')))
+      .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+      .then(function (d) {
+        document.getElementById('dl-judul').textContent = d.data.nama;
+        document.getElementById('dl-isi').innerHTML = isiDetail(d.data);
+        modal.classList.remove('hidden'); modal.classList.add('flex');
+      })
+      .catch(function () { alert('Detail layanan tidak dapat dimuat.'); });
+  });
+})();

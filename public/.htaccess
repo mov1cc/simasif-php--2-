@@ -6,8 +6,8 @@ RewriteRule ^api/ api/index.php [L]
 RewriteRule ^gate\.php$ - [L]
 
 # Aset statis + halaman publik
-RewriteRule ^(js|uploads)/ - [L]
-RewriteRule ^(Login|LupaPassword)\.html$ - [L,NC]
+RewriteRule ^(js|css|uploads)/ - [L]
+RewriteRule ^(Login|LupaPassword|HalamanPelanggan)\.html$ - [L,NC]
 
 # Semua .html lain (huruf besar/kecil apa pun) -> gate
 RewriteRule \.html?$ gate.php [L,NC]

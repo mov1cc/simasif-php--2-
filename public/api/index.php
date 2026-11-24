@@ -15,6 +15,7 @@ require_once dirname(__DIR__, 2) . '/src/AuthApi.php';
 require_once dirname(__DIR__, 2) . '/src/TransaksiApi.php';
 require_once dirname(__DIR__, 2) . '/src/Dashboard.php';
 require_once dirname(__DIR__, 2) . '/src/FileFotoApi.php';
+require_once dirname(__DIR__, 2) . '/src/PublikApi.php';
 
 const MAX_GALLERY = 8;
 const MAX_BYTES = 5 * 1048576;
@@ -299,9 +300,8 @@ $p = rtrim((string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 $p = preg_replace('#^.*?/api(?=/)#', '/api', $p);   // toleran bila aplikasi ada di subfolder
 $r = [];
 
-/* --- wajib login untuk semua endpoint, kecuali auth --- */
-$terbuka = ['/api/auth/login', '/api/auth/logout', '/api/auth/me'];   // tambahkan endpoint publik di sini bila perlu
-if (!in_array($p, $terbuka, true) && Auth::user(Db::read()) === null) {
+$terbuka = ['/api/auth/login', '/api/auth/logout', '/api/auth/me'];
+if (!str_starts_with($p, '/api/publik/') && !in_array($p, $terbuka, true) && Auth::user(Db::read()) === null) {
     header('Cache-Control: no-store');
     out(401, ['error' => 'Belum masuk. Silakan login.']);
 }
@@ -602,6 +602,7 @@ if ($p === '/api/dashboard' && $m === 'GET') {
     out(200, ['data' => Dashboard::data($db, $u)]);
 }
 
+PublikApi::handle($m, $p);
 FileFotoApi::handle($m, $p);
 TransaksiApi::handle($m, $p);
 AuthApi::handle($m, $p);
