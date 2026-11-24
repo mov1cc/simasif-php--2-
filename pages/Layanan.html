@@ -212,7 +212,7 @@ function card(s, list) {
         <span><i class="fa-regular fa-clock"></i> ${unit(s.durasi)}</span>
         <span><i class="fa-solid fa-hourglass-half"></i> Hasil ${unit(s.estimasi)}</span>
         <span><i class="fa-solid fa-people-group"></i> Maks. ${s.maks || '-'} orang</span></div>
-      <ul class="text-[10px] leading-4 flex flex-col gap-1 flex-1 content-start">${s.output.map(o => `<li class="bg-gray-100 rounded px-2 py-1">${esc(o)}</li>`).join('')}</ul>
+      <ul class="text-[10px] leading-4 flex flex-col gap-1 flex-1 content-start">${s.output.slice(0, 3).map(o => `<li class="bg-gray-100 rounded px-2 py-1">${esc(o)}</li>`).join('')}</ul>
       <button type="button" role="switch" aria-checked="${s.publik}" onclick="togglePublik('${s.id}')" title="Tampilkan / sembunyikan di halaman publik" class="w-full bg-[#0A4DFF] hover:bg-[#0841d6] text-white text-[11px] font-bold px-3 py-2 rounded-md shadow flex items-center justify-between gap-3 text-left">
         <span>Tampilkan Pada Layanan Publik</span>
         <span class="relative w-12 h-6 bg-white rounded-full flex-shrink-0"><span class="absolute top-1 w-4 h-4 bg-black rounded-full transition-all ${s.publik ? 'left-7' : 'left-1'}"></span></span>

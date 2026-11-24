@@ -217,9 +217,9 @@
     var img = l.cover
       ? '<img src="' + esc(l.cover) + '" alt="Foto layanan ' + esc(l.nama) + '" width="640" height="305" loading="lazy" class="block w-full aspect-[2.1/1] object-cover">'
       : '<div class="w-full aspect-[2.1/1] bg-[#7f7f7f]" aria-hidden="true"></div>';
-    var output = l.output.map(function (o) {
-      return '<li class="bg-[#f5f5f5] px-1 py-0.5 mb-0.5 text-xs">' + esc(o) + '</li>';
-    }).join('');
+    var output = l.output.slice(0, 3).map(function (o) {
+  return '<li class="bg-[#f5f5f5] px-1 py-0.5 mb-0.5 text-xs">' + esc(o) + '</li>';
+}).join('');
     return '<li class="flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_3px_5px_rgba(0,0,0,.3)]">' + img +
       '<div class="flex flex-1 flex-col px-3 pt-4 pb-3">' +
         '<div class="flex items-baseline justify-between gap-3">' +

@@ -255,6 +255,70 @@
             ],
             "kebutuhan_jadwal": false,
             "tampil_publik": true
+        },
+        {
+            "id": "s3a7860a420",
+            "aktif": false,
+            "sesi": 0,
+            "dibuat": "2026-11-24T17:02:36+00:00",
+            "nama": "abc",
+            "jenis_harga": "pilihan",
+            "harga_tunggal": null,
+            "harga_pilihan": [
+                {
+                    "nama": "Hard File (Cetak)",
+                    "pilihan": [
+                        {
+                            "nama": "3 × 4",
+                            "harga": 2000
+                        },
+                        {
+                            "nama": "3R",
+                            "harga": 2000
+                        }
+                    ]
+                }
+            ],
+            "keterangan_harga": "layanan",
+            "durasi": {
+                "nilai": 10,
+                "satuan": "Menit"
+            },
+            "estimasi_hasil": null,
+            "maks_orang": null,
+            "deskripsi": null,
+            "output": [
+                {
+                    "nama": "10 Soft File Hasil Foto + Editing",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                },
+                {
+                    "nama": "1 Warna Background Bebas Pilih Warna",
+                    "tipe": "pilihan",
+                    "sub_pilihan": [
+                        "Merah",
+                        "Biru"
+                    ]
+                },
+                {
+                    "nama": "a",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                },
+                {
+                    "nama": "b",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                },
+                {
+                    "nama": "c",
+                    "tipe": "non",
+                    "sub_pilihan": []
+                }
+            ],
+            "kebutuhan_jadwal": true,
+            "tampil_publik": false
         }
     ],
     "addon": [
@@ -585,7 +649,7 @@
             "aktif": true,
             "pw_changed": 0,
             "dibuat": "2026-11-18T02:57:57+00:00",
-            "terakhir_masuk": "2026-11-24T23:45:43+07:00"
+            "terakhir_masuk": "2026-11-25T00:05:38+07:00"
         },
         {
             "id": "ue98d40e03d",
