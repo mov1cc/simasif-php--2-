@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Layanan - Flamboyan Photo Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+  tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'] } } } };
+</script>
+<style type="text/tailwindcss">
+  @layer components {
+    .nl { @apply block px-1 py-3 md:py-1.5 text-base md:text-lg text-white no-underline md:border-b-2 md:border-transparent md:hover:border-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white; }
+    .fl { @apply text-white no-underline hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white; }
+    .kotak { @apply rounded-lg bg-[#f5f5f5] px-3 py-2; }
+    .baris { @apply flex items-center justify-between gap-3 rounded-lg bg-[#eee] px-3 py-2 text-[13px] font-semibold; }
+  }
+</style>
+<style>
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+@media (min-width: 768px) { .nav-link[aria-current="location"] { border-bottom-color: #fff; } }
+@media (max-width: 767px) { .nav-link[aria-current="location"] { font-weight: 600; } }
+html { background-color: #fff; overscroll-behavior-y: none; }
+body { overscroll-behavior-y: none; }
+/* Footer tetap di dasar layar, di belakang konten */
+footer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 0; }
+main { position: relative; z-index: 1; background-color: #fff;
+  background-image: linear-gradient(to right, rgba(0,0,0,.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,.12) 1px, transparent 1px);
+  background-size: 22px 22px; background-attachment: fixed; }
+</style>
+</head>
+<body class="min-h-screen flex flex-col text-black font-sans">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-jam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-timer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="7"/><path d="M12 14v-3M9.5 3h5M12 3v4"/></symbol>
+  <symbol id="i-orang" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.6 2.9-6.2 6.5-6.2s6.5 2.6 6.5 6.2z"/><circle cx="17.2" cy="9" r="2.6"/><path d="M16.3 14.1c3 .2 5.2 2.4 5.2 5.9h-4.6c0-2.2-.4-4.2-.6-5.9z"/></symbol>
+</svg>
+
+<header class="fixed top-0 inset-x-0 z-50 shadow-[0_2px_6px_rgba(0,0,0,.25)] bg-gradient-to-r from-[#0045e0] to-[#4b82ff] min-h-16 md:h-[72px] px-4 md:px-10 py-2.5 md:py-0 flex flex-wrap md:flex-nowrap items-center justify-between gap-x-6">
+  <a href="index.html#home" aria-label="Flamboyan photo studio, ke Home" class="flex flex-col items-center text-white leading-none no-underline rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+    <svg viewBox="0 0 40 26" fill="none" stroke="#fff" stroke-width="0.8" class="w-10 h-[26px]" aria-hidden="true">
+      <path d="M20 2 C16 8 16 16 20 22 C24 16 24 8 20 2Z"/><path d="M20 22 C12 21 7 15 6 9 C12 9 17 14 20 22Z"/><path d="M20 22 C28 21 33 15 34 9 C28 9 23 14 20 22Z"/><path d="M20 22 C10 24 4 20 2 15 C8 14 15 17 20 22Z"/><path d="M20 22 C30 24 36 20 38 15 C32 14 25 17 20 22Z"/>
+    </svg>
+    <b class="text-[11px] font-semibold mt-[3px]">Flamboyan</b>
+    <small class="text-[5px] tracking-[.08em] mt-0.5">photo - studio</small>
+  </a>
+  <button type="button" id="nav-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="menu" class="group md:hidden w-11 h-11 flex flex-col items-center justify-center gap-[5px] rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-white">
+    <span class="block w-6 h-0.5 bg-white rounded transition-transform motion-reduce:transition-none group-aria-expanded:translate-y-[7px] group-aria-expanded:rotate-45"></span>
+    <span class="block w-6 h-0.5 bg-white rounded transition-opacity motion-reduce:transition-none group-aria-expanded:opacity-0"></span>
+    <span class="block w-6 h-0.5 bg-white rounded transition-transform motion-reduce:transition-none group-aria-expanded:-translate-y-[7px] group-aria-expanded:-rotate-45"></span>
+  </button>
+  <nav id="menu" aria-label="Navigasi utama" class="hidden md:block w-full md:w-auto">
+    <ul class="flex flex-col md:flex-row md:gap-7 list-none m-0 pt-2 pb-1 md:p-0 border-t border-white/30 md:border-0">
+      <li><a href="index.html#home" class="nav-link nl">Home</a></li>
+      <li><a href="index.html#layanan" class="nav-link nl" aria-current="location">Layanan</a></li>
+      <li><a href="index.html#panduan" class="nav-link nl">Panduan</a></li>
+      <li><a href="index.html#cek-pemesanan" class="nav-link nl">Cek Pemesanan</a></li>
+      <li><a href="Login.html" class="nav-link nl">Login Internal</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="flex-1 pt-16 md:pt-[72px]">
+  <section class="max-w-3xl mx-auto px-4 md:px-6 py-8 md:py-12" aria-labelledby="dl-nama">
+    <p id="dl-status" role="status" aria-live="polite" class="m-0 py-20 text-center text-base text-[#555]">Memuat detail layanan…</p>
+
+    <article id="dl-konten" hidden class="overflow-hidden rounded-2xl bg-white shadow-[0_3px_5px_rgba(0,0,0,.3)]">
+      <div class="relative bg-[#7f7f7f]">
+        <div id="dl-galeri" tabindex="0" aria-label="Galeri foto layanan" class="flex overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden aspect-[1.7/1] md:aspect-[2.1/1]"></div>
+        <div id="dl-dots" class="absolute bottom-3 inset-x-0 flex justify-center gap-2"></div>
+      </div>
+
+      <div class="px-4 md:px-8 pt-6 md:pt-8 pb-6">
+        <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <h1 id="dl-nama" class="m-0 text-3xl md:text-5xl font-bold leading-tight"></h1>
+          <p id="dl-harga" class="m-0 text-xl md:text-3xl font-semibold"></p>
+        </div>
+
+        <ul class="list-none m-0 mt-5 p-0 space-y-2 text-base md:text-lg font-semibold">
+          <li class="kotak flex items-center gap-3"><svg class="w-6 h-6 shrink-0" aria-hidden="true"><use href="#i-jam"/></svg><span id="dl-durasi"></span></li>
+          <li class="kotak flex items-center gap-3"><svg class="w-6 h-6 shrink-0" aria-hidden="true"><use href="#i-timer"/></svg><span id="dl-estimasi"></span></li>
+          <li class="kotak flex items-center gap-3"><svg class="w-6 h-6 shrink-0" aria-hidden="true"><use href="#i-orang"/></svg><span id="dl-maks"></span></li>
+        </ul>
+
+        <p id="dl-deskripsi" class="kotak mt-2 mb-0 text-[13px] leading-snug md:text-justify" hidden></p>
+
+        <h2 class="m-0 mt-6 mb-2 text-sm font-semibold">Output Layanan (Include):</h2>
+        <ul id="dl-output" class="list-none m-0 p-0 space-y-2"></ul>
+
+        <div id="dl-harga-wrap" hidden>
+          <h2 class="m-0 mt-6 mb-2 text-sm font-semibold">Harga Layanan</h2>
+          <div id="dl-hargalist" class="space-y-2"></div>
+        </div>
+
+        <div id="dl-addon-wrap" hidden>
+          <h2 class="m-0 mt-6 mb-2 text-sm font-semibold">Add-on</h2>
+          <div id="dl-addon" class="space-y-2"></div>
+        </div>
+      </div>
+    </article>
+
+    <div id="dl-aksi" hidden class="mt-6 space-y-2">
+      <a id="dl-pesan" href="#" class="flex h-11 items-center justify-center rounded-lg bg-[#ffe100] text-lg font-semibold text-black no-underline shadow-[0_2px_4px_rgba(0,0,0,.35)] hover:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a]">Pesan</a>
+      <a id="dl-kembali" href="index.html#layanan" class="flex h-11 items-center justify-center rounded-lg bg-black text-lg font-semibold text-white no-underline shadow-[0_2px_4px_rgba(0,0,0,.35)] hover:bg-[#222] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a]">Kembali</a>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-gradient-to-r from-[#0050ff] to-[#4b82ff] text-white">
+  <div class="max-w-[1400px] mx-auto px-6 md:px-16 pt-10 md:pt-12 pb-8 md:pb-10">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[auto_1fr_1fr_1.2fr] items-start gap-x-12 gap-y-10 lg:gap-x-16">
+      <a href="index.html#home" aria-label="Flamboyan photo studio, ke Home" class="fl flex flex-col items-center justify-self-center sm:col-span-2 lg:col-span-1 lg:justify-self-start leading-none">
+        <svg viewBox="0 0 40 26" fill="none" stroke="#fff" stroke-width="1.1" stroke-linejoin="round" class="w-[120px] md:w-[170px] h-auto" aria-hidden="true">
+          <path d="M20 2 C16 8 16 16 20 22 C24 16 24 8 20 2Z"/><path d="M20 22 C12 21 7 15 6 9 C12 9 17 14 20 22Z"/><path d="M20 22 C28 21 33 15 34 9 C28 9 23 14 20 22Z"/><path d="M20 22 C10 24 4 20 2 15 C8 14 15 17 20 22Z"/><path d="M20 22 C30 24 36 20 38 15 C32 14 25 17 20 22Z"/>
+        </svg>
+        <b class="mt-3 text-[26px] md:text-[34px] font-bold">Flamboyan</b>
+        <small class="mt-1.5 text-sm md:text-base font-semibold tracking-wide">photo - studio</small>
+      </a>
+      <nav aria-labelledby="ft-nav">
+        <h2 id="ft-nav" class="m-0 text-2xl md:text-[32px] font-bold leading-tight">Navigation</h2>
+        <ul class="list-none m-0 mt-4 p-0 space-y-2 text-base md:text-lg font-light leading-snug">
+          <li><a href="index.html#home" class="fl">Home</a></li>
+          <li><a href="index.html#layanan" class="fl">Layanan</a></li>
+          <li><a href="index.html#panduan" class="fl">Panduan</a></li>
+          <li><a href="index.html#cek-pemesanan" class="fl">Cek Pemesanan</a></li>
+          <li><a href="Login.html" class="fl">Login Internal</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2 class="m-0 text-2xl md:text-[32px] font-bold leading-tight">Contact</h2>
+        <ul class="list-none m-0 mt-4 p-0 space-y-3 text-base md:text-lg font-light leading-snug">
+          <li><a href="mailto:email123@gmail.com" class="fl underline underline-offset-2 break-all">email123@gmail.com</a></li>
+          <li><a href="tel:+628123456789" class="fl">08123456789</a></li>
+        </ul>
+      </div>
+      <div class="sm:col-span-2 lg:col-span-1">
+        <h2 class="m-0 text-2xl md:text-[32px] font-bold leading-tight">Address</h2>
+        <address class="mt-4 max-w-[18rem] text-base md:text-lg font-light not-italic leading-snug">Jl. Raya Sukolilo No.65, Kec. Jabung, Kab. Malang, Jawa Timur</address>
+      </div>
+    </div>
+    <ul class="list-none m-0 mt-10 lg:mt-12 p-0 pt-6 border-t border-white/25 flex flex-wrap items-center justify-center lg:justify-end gap-x-8 gap-y-3 text-base md:text-lg font-light">
+      <li><a href="https://www.instagram.com/flamboyan.studio" target="_blank" rel="noopener noreferrer" class="fl">Instagram: flamboyan.studio</a></li>
+      <li><a href="https://www.tiktok.com/@flamboyan.studio" target="_blank" rel="noopener noreferrer" class="fl">TikTok: flamboyan.studio</a></li>
+    </ul>
+  </div>
+</footer>
+<script>
+(function () {
+  /* ---------- Menu hamburger ---------- */
+  var navToggle = document.getElementById('nav-toggle');
+  var menu = document.getElementById('menu');
+  function setMenu(buka) {
+    menu.classList.toggle('hidden', !buka);
+    navToggle.setAttribute('aria-expanded', buka ? 'true' : 'false');
+    navToggle.setAttribute('aria-label', buka ? 'Tutup menu' : 'Buka menu');
+  }
+  navToggle.addEventListener('click', function () { setMenu(menu.classList.contains('hidden')); });
+  menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !menu.classList.contains('hidden') && navToggle.offsetParent !== null) {
+      setMenu(false); navToggle.focus();
+    }
+  });
+  window.matchMedia('(min-width: 768px)').addEventListener('change', function (e) { if (e.matches) setMenu(false); });
+
+  /* ---------- Footer "reveal": beri ruang setinggi footer ---------- */
+  var footer = document.querySelector('footer');
+  var main = document.querySelector('main');
+  function sesuaikan() { main.style.marginBottom = footer.offsetHeight + 'px'; }
+  sesuaikan();
+  window.addEventListener('resize', sesuaikan);
+  if ('ResizeObserver' in window) new ResizeObserver(sesuaikan).observe(footer);
+})();
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var status = $('dl-status');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function rp(n) { return 'Rp' + Number(n || 0).toLocaleString('id-ID'); }
+  function ket(k) { return k === 'foto' ? '/foto' : k === 'pcs' ? '/pcs' : ''; }
+  function satuan(d) { return d ? d.nilai + ' ' + String(d.satuan).toLowerCase() : '-'; }
+  function baris(a, b) {
+    return '<li class="baris"><span>' + esc(a) + '</span><span class="whitespace-nowrap">' + (b || '') + '</span></li>';
+  }
+
+
+  /* ===== MODE CONTOH =====
+     true  : jika ?id= kosong / API tidak tersedia, tampilkan data contoh di bawah.
+     false : tampilkan pesan error (untuk produksi). */
+  var DEMO_FALLBACK = true;
+  function svgFoto(w) { return 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520"><rect width="900" height="520" fill="' + w + '"/></svg>'); }
+  var DEMO = {
+    id: 'demo', nama: 'Self Studio', jenis_harga: 'tunggal', harga_tunggal: 70000, keterangan_harga: '',
+    durasi: { nilai: 30, satuan: 'Menit' }, estimasi_hasil: { nilai: 1, satuan: 'Hari' }, maks_orang: 7,
+    deskripsi: 'Sesi foto mandiri di studio dengan pencahayaan profesional. Cocok untuk pas foto, foto profil, maupun foto bersama teman.',
+    galeri: [{ url: svgFoto('#4b82ff'), caption: 'Contoh foto 1' }, { url: svgFoto('#ffe100'), caption: 'Contoh foto 2' }, { url: svgFoto('#f58cff'), caption: 'Contoh foto 3' }],
+    output_detail: [{ nama: '10 Soft File Hasil Foto + Editing', tipe: 'tetap' }, { nama: '1 HardFile (Cetak) Ukuran 4R', tipe: 'tetap' }, { nama: '1 Warna Backround Foto (Bebas Pilih Warna)', tipe: 'tetap' }],
+    addons: [
+      { nama: 'Cetak (Hardfile)', jenis_harga: 'pilihan', pilihan_harga: [
+        { nama: '4 × 6', harga: 2500, keterangan: 'pcs' }, { nama: '3 × 4 / 3 × 3 / 2 × 3', harga: 2000, keterangan: 'pcs' },
+        { nama: '2R', harga: 4000, keterangan: 'pcs' }, { nama: '3R', harga: 6000, keterangan: 'pcs' }, { nama: '4R', harga: 8000, keterangan: 'pcs' },
+        { nama: '5R', harga: 10000, keterangan: 'pcs' }, { nama: '10R / Rs', harga: 20000, keterangan: 'pcs' },
+        { nama: '12R / Rs', harga: 50000, keterangan: 'pcs' }, { nama: '16Rs', harga: 130000, keterangan: 'pcs' }] },
+      { nama: 'Editing', jenis_harga: 'tunggal', harga_tunggal: 5000, keterangan_harga: 'foto' },
+      { nama: 'Background Foto', jenis_harga: 'pilihan', pilihan_harga: [
+        { nama: 'Merah', harga: 10000 }, { nama: 'Biru', harga: 10000 }, { nama: 'Krem', harga: 10000 }, { nama: 'Abu - abu', harga: 10000 }] }
+    ]
+  };
+  var DEMO_PILIHAN = {
+    id: 'demo-pilihan', nama: 'Cetak Kilat', jenis_harga: 'pilihan', keterangan_harga: 'pcs',
+    durasi: null, estimasi_hasil: { nilai: 30, satuan: 'Menit' }, maks_orang: null,
+    deskripsi: 'Cetak foto cepat, hasil jadi dalam hitungan menit. Bebas pilih ukuran sesuai kebutuhan Anda.',
+    galeri: [{ url: svgFoto('#ffe100'), caption: 'Contoh cetak 1' }, { url: svgFoto('#4b82ff'), caption: 'Contoh cetak 2' }],
+    output_detail: [{ nama: 'Soft File Foto Hasil Editing', tipe: 'tetap' }, { nama: 'HardFile (Cetak) Bebas Pilih Ukuran', tipe: 'tetap' }],
+    harga_pilihan: [{ nama: 'Cetak (Hardfile)', pilihan: [
+      { nama: '4 × 6', harga: 2500 }, { nama: '3 × 4 / 3 × 3 / 2 × 3', harga: 2000 }, { nama: '2R', harga: 4000 },
+      { nama: '3R', harga: 6000 }, { nama: '4R', harga: 8000 }, { nama: '5R', harga: 10000 },
+      { nama: '10R / Rs', harga: 20000 }, { nama: '12R / Rs', harga: 50000 }, { nama: '16Rs', harga: 130000 }] }],
+    addons: [
+      { nama: 'Editing', jenis_harga: 'tunggal', harga_tunggal: 15000, keterangan_harga: 'foto' },
+      { nama: 'Scan Foto', jenis_harga: 'tunggal', harga_tunggal: 2000, keterangan_harga: 'foto' },
+      { nama: 'Background Foto', jenis_harga: 'pilihan', pilihan_harga: [
+        { nama: 'Merah', harga: 5000 }, { nama: 'Biru', harga: 5000 }, { nama: 'Putih', harga: 5000 },
+        { nama: 'Hitam Putih', harga: 5000 }, { nama: 'Custom', harga: 5000 }] }
+    ]
+  };
+  function pakaiDemo(alasan) {
+    var dm = new URLSearchParams(location.search).get('demo') === 'pilihan' ? DEMO_PILIHAN : DEMO;
+    id = dm.id;
+    render(dm);
+    var n = document.createElement('p');
+    n.className = 'mb-3 rounded-lg bg-[#fff6b3] px-3 py-2 text-xs text-black';
+    n.textContent = 'Mode contoh: ' + alasan + ' Menampilkan data demo (tambahkan ?demo=pilihan untuk contoh layanan berharga pilihan).';
+    $('dl-konten').before(n);
+  }
+
+  var id = new URLSearchParams(location.search).get('id');
+  if (!id && !DEMO_FALLBACK) { status.textContent = 'Layanan tidak ditemukan.'; return; }
+
+  /* ---------- Galeri (scroll-snap + titik penanda) ---------- */
+  function renderGaleri(l) {
+    var foto = (l.galeri || []).map(function (g) { return { url: g.url, alt: g.caption || l.nama }; });
+    if (!foto.length && l.cover) foto = [{ url: l.cover, alt: 'Foto layanan ' + l.nama }];
+    var box = $('dl-galeri'), dots = $('dl-dots');
+    if (!foto.length) { box.setAttribute('aria-hidden', 'true'); box.removeAttribute('tabindex'); return; }
+
+    box.innerHTML = foto.map(function (f) {
+      return '<img src="' + esc(f.url) + '" alt="' + esc(f.alt) + '" loading="lazy" class="w-full h-full shrink-0 snap-center object-cover">';
+    }).join('');
+    if (foto.length < 2) return;
+
+    dots.innerHTML = foto.map(function (_, i) {
+      return '<button type="button" data-i="' + i + '" aria-label="Foto ' + (i + 1) + '" class="h-2.5 w-2.5 rounded-full bg-white/60 aria-[current=true]:bg-white shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"></button>';
+    }).join('');
+    var tombol = dots.querySelectorAll('button');
+    function tandai() {
+      var i = Math.round(box.scrollLeft / box.clientWidth);
+      tombol.forEach(function (b, k) { b.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    }
+    box.addEventListener('scroll', tandai, { passive: true });
+    dots.addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (b) box.scrollTo({ left: box.clientWidth * Number(b.getAttribute('data-i')), behavior: 'smooth' });
+    });
+    box.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') box.scrollBy({ left: box.clientWidth, behavior: 'smooth' });
+      if (e.key === 'ArrowLeft') box.scrollBy({ left: -box.clientWidth, behavior: 'smooth' });
+    });
+    tandai();
+  }
+
+  /* ---------- Harga utama ---------- */
+  function hargaUtama(l) {
+    if (l.jenis_harga === 'tunggal') return rp(l.harga_tunggal) + ket(l.keterangan_harga);
+    var semua = [];
+    (l.harga_pilihan || []).forEach(function (g) { (g.pilihan || []).forEach(function (p) { semua.push(Number(p.harga)); }); });
+    return semua.length ? 'Mulai ' + rp(Math.min.apply(null, semua)) : '-';
+  }
+
+  /* ---------- Add-on (akordeon) ---------- */
+  var chevron = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 transition-transform group-aria-expanded:rotate-180 motion-reduce:transition-none" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  var kelasHead = 'flex w-full items-center justify-between gap-3 rounded-lg bg-[#3b74ff] px-3 py-2 text-left text-[13px] font-semibold text-white';
+
+  function renderAddons(list, tid, wid, pre) {
+    if (!list || !list.length) return;
+    $(tid).innerHTML = list.map(function (a, i) {
+      if (a.jenis_harga === 'tunggal') {
+        return '<div class="' + kelasHead + '"><span>' + esc(a.nama) + '</span><span class="whitespace-nowrap">' + rp(a.harga_tunggal) + ket(a.keterangan_harga) + '</span></div>';
+      }
+      var isi = (a.pilihan_harga || []).map(function (p) { return baris(p.nama, rp(p.harga) + ket(p.keterangan)); }).join('');
+      return '<div><button type="button" class="group ' + kelasHead + ' focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a]" aria-expanded="true" aria-controls="' + pre + i + '"><span>' + esc(a.nama) + '</span>' + chevron + '</button>' +
+        '<ul id="' + pre + i + '" class="list-none m-0 mt-2 p-0 space-y-2">' + isi + '</ul></div>';
+    }).join('');
+    $(wid).hidden = false;
+  }
+  ['dl-addon', 'dl-hargalist'].forEach(function (cid) { $(cid).addEventListener('click', function (e) {
+    var b = e.target.closest('button[aria-controls]');
+    if (!b) return;
+    var buka = b.getAttribute('aria-expanded') !== 'true';
+    b.setAttribute('aria-expanded', buka ? 'true' : 'false');
+    document.getElementById(b.getAttribute('aria-controls')).hidden = !buka;
+  }); });
+
+  /* ---------- Harga Layanan (khusus jenis_harga = 'pilihan') ---------- */
+  function renderHarga(l) {
+    if (l.jenis_harga === 'tunggal') return;
+    var grup = (l.harga_pilihan || []).map(function (g) {
+      return { nama: g.nama, jenis_harga: 'pilihan', pilihan_harga: (g.pilihan || []).map(function (p) {
+        return { nama: p.nama, harga: p.harga, keterangan: p.keterangan || l.keterangan_harga };
+      }) };
+    });
+    renderAddons(grup, 'dl-hargalist', 'dl-harga-wrap', 'hp-');
+  }
+
+  /* ---------- Render halaman ---------- */
+  function render(l) {
+    document.title = l.nama + ' - Flamboyan Photo Studio';
+    $('dl-nama').textContent = l.nama;
+    $('dl-harga').textContent = hargaUtama(l);
+    $('dl-durasi').textContent = 'Durasi : ' + satuan(l.durasi);
+    $('dl-estimasi').textContent = 'Estimasi Hasil : ' + satuan(l.estimasi_hasil);
+    $('dl-maks').textContent = 'Maks. ' + (l.maks_orang || '-') + ' orang';
+    if (l.deskripsi) { $('dl-deskripsi').textContent = l.deskripsi; $('dl-deskripsi').hidden = false; }
+
+    $('dl-output').innerHTML = (l.output_detail || []).map(function (o) {
+      return baris(o.nama, o.tipe === 'pilihan' && o.sub_pilihan ? esc(o.sub_pilihan.join(', ')) : '');
+    }).join('');
+
+    renderGaleri(l);
+    renderHarga(l);
+    renderAddons(l.addons, 'dl-addon', 'dl-addon-wrap', 'ad-');
+
+    $('dl-pesan').href = 'Pemesanan.html?layanan=' + encodeURIComponent(id); /* sesuaikan dengan halaman pemesanan Anda */
+    $('dl-pesan').setAttribute('aria-label', 'Pesan ' + l.nama);
+
+    status.hidden = true;
+    $('dl-konten').hidden = false;
+    $('dl-aksi').hidden = false;
+  }
+
+  if (!id) { pakaiDemo('alamat tidak memiliki ?id=.'); return; }
+
+  fetch('/api/publik/layanan/' + encodeURIComponent(id), { headers: { 'Accept': 'application/json' } })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (d) {
+      try { render(d.data); }
+      catch (err) { console.error(err); status.textContent = 'Data layanan tidak lengkap.'; }
+    })
+    .catch(function (err) {
+      if (DEMO_FALLBACK) return pakaiDemo('API tidak dapat dijangkau (' + err.message + ').');
+      status.textContent = String(err.message) === '404' ? 'Layanan tidak ditemukan.' : 'Detail layanan tidak dapat dimuat. Coba muat ulang halaman.';
+      $('dl-aksi').hidden = false;
+    });
+})();
+
+</script>
+</body>
+</html>
