@@ -57,26 +57,29 @@ final class PublikApi
     }
 
     private static function show(string $id): never
-    {
-        $db = Db::read();
-        $i = findIdx($db['layanan'], $id);
-        if ($i === null || !self::tampil($db['layanan'][$i])) out(404, ['error' => 'Layanan tidak ditemukan.']);
-        $l = $db['layanan'][$i];
+{
+    $db = Db::read();
+    $i = findIdx($db['layanan'], $id);
+    if ($i === null || !self::tampil($db['layanan'][$i])) out(404, ['error' => 'Layanan tidak ditemukan.']);
+    $l = $db['layanan'][$i];
 
-        $addons = array_values(array_filter($db['addon'], fn($a) => $a['layanan_id'] === $id && !empty($a['aktif'])));
-        usort($addons, fn($a, $b) => $a['urutan'] <=> $b['urutan']);
+    $addons = array_values(array_filter($db['addon'], fn($a) => $a['layanan_id'] === $id && !empty($a['aktif'])));
+    usort($addons, fn($a, $b) => $a['urutan'] <=> $b['urutan']);
 
-        out(200, ['data' => self::card($db, $l) + [
-            'deskripsi' => $l['deskripsi'] ?? null,
-            'harga_tunggal' => $l['harga_tunggal'],
-            'harga_pilihan' => $l['harga_pilihan'],
-            'output_detail' => $l['output'],
-            'addons' => array_map(fn($a) => [
-                'nama' => $a['nama'], 'jenis_harga' => $a['jenis_harga'], 'harga_tunggal' => $a['harga_tunggal'],
-                'keterangan_harga' => $a['keterangan_harga'], 'pilihan_harga' => $a['pilihan_harga'],
-                'deskripsi' => $a['deskripsi'], 'durasi' => $a['durasi'],
-            ], $addons),
-            'galeri' => array_map(fn($k) => ['url' => $db['gallery'][$k]['url'], 'caption' => $db['gallery'][$k]['caption']], gIdx($db, $id)),
-        ]]);
-    }
+    header('Cache-Control: public, max-age=30');
+    out(200, ['data' => self::card($db, $l) + [
+        'deskripsi' => $l['deskripsi'] ?? null,
+        'kebutuhan_jadwal' => (bool) ($l['kebutuhan_jadwal'] ?? false),
+        'harga_tunggal' => $l['harga_tunggal'],
+        'harga_pilihan' => $l['harga_pilihan'],
+        'output_detail' => $l['output'],
+        'addons' => array_map(fn($a) => [
+            'id' => $a['id'],
+            'nama' => $a['nama'], 'jenis_harga' => $a['jenis_harga'], 'harga_tunggal' => $a['harga_tunggal'],
+            'keterangan_harga' => $a['keterangan_harga'], 'pilihan_harga' => $a['pilihan_harga'],
+            'deskripsi' => $a['deskripsi'], 'durasi' => $a['durasi'],
+        ], $addons),
+        'galeri' => array_map(fn($k) => ['url' => $db['gallery'][$k]['url'], 'caption' => $db['gallery'][$k]['caption']], gIdx($db, $id)),
+    ]]);
+}
 }

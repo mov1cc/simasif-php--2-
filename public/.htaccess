@@ -7,7 +7,7 @@ RewriteRule ^gate\.php$ - [L]
 
 # Aset statis + halaman publik
 RewriteRule ^(js|css|uploads)/ - [L]
-RewriteRule ^(Login|LupaPassword|HalamanPelanggan)\.html$ - [L,NC]
+RewriteRule ^(Login|LupaPassword|HalamanPelanggan|DetailLayanan)\.html$ - [L,NC]
 
 # Semua .html lain (huruf besar/kecil apa pun) -> gate
 RewriteRule \.html?$ gate.php [L,NC]

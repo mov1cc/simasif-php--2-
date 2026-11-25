@@ -3,7 +3,7 @@ declare(strict_types=1);
 /** Penyaji halaman: auth dicek dulu, baru file dicari dan dikirim. */
 require_once dirname(__DIR__) . '/src/Guard.php';
 
-const HALAMAN_PUBLIK = ['login.html', 'lupapassword.html', 'halamanpelanggan.html'];
+const HALAMAN_PUBLIK = ['login.html', 'lupapassword.html', 'halamanpelanggan.html', 'detaillayanan.html'];
 
 $name = basename((string) parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 $valid = preg_match('/^[A-Za-z0-9_-]+\.html$/', $name) === 1;

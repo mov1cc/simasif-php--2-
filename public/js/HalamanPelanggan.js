@@ -231,7 +231,7 @@
           '<li class="flex items-center gap-1"><svg class="w-3.5 h-3.5" aria-hidden="true"><use href="#i-orang"/></svg>Maks. ' + (l.maks_orang || '-') + ' orang</li></ul>' +
         '<ul class="list-none m-0 mt-2 mb-4 p-0">' + output + '</ul>' +
         '<div class="mt-auto grid grid-cols-2 gap-5">' +
-          '<button type="button" data-detail="' + esc(l.id) + '" aria-label="Detail ' + esc(l.nama) + '" class="flex h-8 items-center justify-center rounded-lg bg-black text-sm font-semibold text-white hover:bg-[#333] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a]">Detail</button>' +
+          '<a href="DetailLayanan.html?id=' + encodeURIComponent(l.id) + '" aria-label="Detail ' + esc(l.nama) + '" class="flex h-8 items-center justify-center rounded-lg bg-black text-sm font-semibold text-white no-underline hover:bg-[#333] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a]">Detail</a>' +
           '<a href="#cek-pemesanan" aria-label="Pesan ' + esc(l.nama) + '" class="flex h-8 items-center justify-center rounded-lg bg-[#ffe100] text-sm font-semibold text-black no-underline hover:brightness-95 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1a1a1a]">Pesan</a>' +
         '</div></div></li>';
   }
