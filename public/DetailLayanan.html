@@ -75,14 +75,14 @@ main { position: relative; z-index: 1; background-color: #fff;
 
       <div class="px-4 md:px-8 pt-6 md:pt-8 pb-6">
         <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-          <h1 id="dl-nama" class="m-0 text-3xl md:text-5xl font-bold leading-tight"></h1>
-          <p id="dl-harga" class="m-0 text-xl md:text-3xl font-semibold"></p>
+          <h1 id="dl-nama" class="m-0 text-2xl md:text-3xl font-bold leading-tight"></h1>
+          <p id="dl-harga" class="m-0 text-2xl md:text-3xl font-semibold"></p>
         </div>
 
-        <ul class="list-none m-0 mt-5 p-0 space-y-2 text-base md:text-lg font-semibold">
-          <li class="kotak flex items-center gap-3"><svg class="w-6 h-6 shrink-0" aria-hidden="true"><use href="#i-jam"/></svg><span id="dl-durasi"></span></li>
-          <li class="kotak flex items-center gap-3"><svg class="w-6 h-6 shrink-0" aria-hidden="true"><use href="#i-timer"/></svg><span id="dl-estimasi"></span></li>
-          <li class="kotak flex items-center gap-3"><svg class="w-6 h-6 shrink-0" aria-hidden="true"><use href="#i-orang"/></svg><span id="dl-maks"></span></li>
+        <ul class="list-none m-0 mt-5 p-0 space-y-2 text-sm md:text-base font-semibold">
+          <li class="kotak flex items-center gap-3"><svg class="w-5 h-5 shrink-0" aria-hidden="true"><use href="#i-jam"/></svg><span id="dl-durasi"></span></li>
+          <li class="kotak flex items-center gap-3"><svg class="w-5 h-5 shrink-0" aria-hidden="true"><use href="#i-timer"/></svg><span id="dl-estimasi"></span></li>
+          <li class="kotak flex items-center gap-3"><svg class="w-5 h-5 shrink-0" aria-hidden="true"><use href="#i-orang"/></svg><span id="dl-maks"></span></li>
         </ul>
 
         <p id="dl-deskripsi" class="kotak mt-2 mb-0 text-[13px] leading-snug md:text-justify" hidden></p>
@@ -183,7 +183,10 @@ main { position: relative; z-index: 1; background-color: #fff;
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
   function rp(n) { return 'Rp' + Number(n || 0).toLocaleString('id-ID'); }
-  function ket(k) { return k === 'foto' ? '/foto' : k === 'pcs' ? '/pcs' : ''; }
+  function ket(k) {
+  k = String(k == null ? '' : k).toLowerCase().trim().replace(/^\/|^per\s+/, '');
+  return k === 'foto' ? '/foto' : k === 'pcs' ? '/pcs' : '';
+  }
   function satuan(d) { return d ? d.nilai + ' ' + String(d.satuan).toLowerCase() : '-'; }
   function baris(a, b) {
     return '<li class="baris"><span>' + esc(a) + '</span><span class="whitespace-nowrap">' + (b || '') + '</span></li>';
@@ -277,11 +280,18 @@ main { position: relative; z-index: 1; background-color: #fff;
 
   /* ---------- Harga utama ---------- */
   function hargaUtama(l) {
-    if (l.jenis_harga === 'tunggal') return rp(l.harga_tunggal) + ket(l.keterangan_harga);
-    var semua = [];
-    (l.harga_pilihan || []).forEach(function (g) { (g.pilihan || []).forEach(function (p) { semua.push(Number(p.harga)); }); });
-    return semua.length ? 'Mulai ' + rp(Math.min.apply(null, semua)) : '-';
-  }
+  if (l.jenis_harga === 'tunggal') return rp(l.harga_tunggal) + ket(l.keterangan_harga);
+  var min = null;
+  (l.harga_pilihan || []).forEach(function (g) {
+    (g.pilihan || []).forEach(function (p) {
+      var h = Number(p.harga);
+      if (min === null || h < min.h) {
+        min = { h: h, k: p.keterangan || g.keterangan_harga || l.keterangan_harga };
+      }
+    });
+  });
+  return min ? 'Mulai ' + rp(min.h) + ket(min.k) : '-';
+}
 
   /* ---------- Add-on (akordeon) ---------- */
   var chevron = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 shrink-0 transition-transform group-aria-expanded:rotate-180 motion-reduce:transition-none" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
@@ -309,13 +319,13 @@ main { position: relative; z-index: 1; background-color: #fff;
 
   /* ---------- Harga Layanan (khusus jenis_harga = 'pilihan') ---------- */
   function renderHarga(l) {
-    if (l.jenis_harga === 'tunggal') return;
-    var grup = (l.harga_pilihan || []).map(function (g) {
-      return { nama: g.nama, jenis_harga: 'pilihan', pilihan_harga: (g.pilihan || []).map(function (p) {
-        return { nama: p.nama, harga: p.harga, keterangan: p.keterangan || l.keterangan_harga };
-      }) };
-    });
-    renderAddons(grup, 'dl-hargalist', 'dl-harga-wrap', 'hp-');
+  if (l.jenis_harga === 'tunggal') return;
+  var grup = (l.harga_pilihan || []).map(function (g) {
+    return { nama: g.nama, jenis_harga: 'pilihan', pilihan_harga: (g.pilihan || []).map(function (p) {
+      return { nama: p.nama, harga: p.harga, keterangan: p.keterangan || g.keterangan_harga || l.keterangan_harga };
+    }) };
+  });
+  renderAddons(grup, 'dl-hargalist', 'dl-harga-wrap', 'hp-');
   }
 
   /* ---------- Render halaman ---------- */
